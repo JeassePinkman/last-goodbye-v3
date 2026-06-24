@@ -1,0 +1,1975 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>最后一面：1.24亿宠物与300万次告别</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Microsoft YaHei',sans-serif;background:#F5F0E8;color:#3D2E24;line-height:1.8}
+
+/* Paw cursor - simplified, no !important, using rgba fill */
+body { cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g><ellipse cx="8" cy="6" rx="2.5" ry="3.5" fill="rgba(201,168,76,0.85)"/><ellipse cx="16" cy="6" rx="2.5" ry="3.5" fill="rgba(201,168,76,0.85)"/><ellipse cx="6" cy="13" rx="2.2" ry="3.2" fill="rgba(201,168,76,0.85)"/><ellipse cx="18" cy="13" rx="2.2" ry="3.2" fill="rgba(201,168,76,0.85)"/><ellipse cx="12" cy="16" rx="5" ry="4.5" fill="rgba(201,168,76,0.85)"/></g></svg>') 12 12, auto; }
+a, button, .choice-card, .number-card, .chart-wrapper, .timeline-node, .data-journey-dot, input, textarea, select, [draggable], [onclick], [role="button"] {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g><ellipse cx="8" cy="6" rx="2.5" ry="3.5" fill="rgba(201,168,76,0.95)"/><ellipse cx="16" cy="6" rx="2.5" ry="3.5" fill="rgba(201,168,76,0.95)"/><ellipse cx="6" cy="13" rx="2.2" ry="3.2" fill="rgba(201,168,76,0.95)"/><ellipse cx="18" cy="13" rx="2.2" ry="3.2" fill="rgba(201,168,76,0.95)"/><ellipse cx="12" cy="16" rx="5" ry="4.5" fill="rgba(201,168,76,0.95)"/></g></svg>') 12 12, pointer;
+}
+
+/* Hero */
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;flex-direction:column;background:linear-gradient(180deg,#1E1915 0%,#2A2420 100%);color:#FAF7F1;text-align:center;padding:60px 20px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(circle at 50% 70%,rgba(201,168,76,.06) 0%,transparent 60%),radial-gradient(circle at 30% 20%,rgba(158,74,74,.04) 0%,transparent 40%),radial-gradient(circle at 80% 40%,rgba(74,122,110,.03) 0%,transparent 30%);pointer-events:none;animation:heroPulse 8s ease-in-out infinite}
+@keyframes heroPulse{0%,100%{opacity:.8}50%{opacity:1}}
+
+/* Star constellation background */
+.hero-stars{position:absolute;inset:0;pointer-events:none;z-index:0}
+.hero-stars span{position:absolute;width:2px;height:2px;border-radius:50%;background:rgba(201,168,76,.4);animation:twinkle 3s ease-in-out infinite}
+.hero-stars span:nth-child(1){left:20%;top:15%;animation-delay:0s}
+.hero-stars span:nth-child(2){left:35%;top:25%;animation-delay:.5s}
+.hero-stars span:nth-child(3){left:50%;top:10%;animation-delay:1s}
+.hero-stars span:nth-child(4){left:65%;top:20%;animation-delay:1.5s}
+.hero-stars span:nth-child(5){left:80%;top:15%;animation-delay:2s}
+.hero-stars span:nth-child(6){left:15%;top:35%;animation-delay:.3s}
+.hero-stars span:nth-child(7){left:45%;top:30%;animation-delay:.8s}
+.hero-stars span:nth-child(8){left:75%;top:35%;animation-delay:1.3s}
+.hero-stars span:nth-child(9){left:25%;top:45%;animation-delay:1.8s}
+.hero-stars span:nth-child(10){left:55%;top:40%;animation-delay:2.3s}
+.hero-stars span:nth-child(11){left:85%;top:45%;animation-delay:.2s}
+.hero-stars span:nth-child(12){left:10%;top:55%;animation-delay:.7s}
+.hero-stars span:nth-child(13){left:40%;top:50%;animation-delay:1.2s}
+.hero-stars span:nth-child(14){left:70%;top:55%;animation-delay:1.7s}
+.hero-stars span:nth-child(15){left:90%;top:60%;animation-delay:2.2s}
+.hero-stars span:nth-child(16){left:30%;top:65%;animation-delay:.4s}
+.hero-stars span:nth-child(17){left:60%;top:70%;animation-delay:.9s}
+.hero-stars span:nth-child(18){left:5%;top:75%;animation-delay:1.4s}
+.hero-stars span:nth-child(19){left:50%;top:80%;animation-delay:1.9s}
+.hero-stars span:nth-child(20){left:80%;top:75%;animation-delay:2.4s}
+@keyframes twinkle{0%,100%{opacity:.3;transform:scale(1)}50%{opacity:1;transform:scale(1.5)}}
+
+/* Ground horizon line */
+.hero-ground{position:absolute;bottom:0;left:0;right:0;height:80px;pointer-events:none;z-index:0;background:linear-gradient(0deg,rgba(201,168,76,.04) 0%,transparent 100%)}
+
+/* Candle silhouettes in background */
+.hero-candles-bg{position:absolute;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.hero-candles-bg .c-bg{position:absolute;bottom:60px;width:8px;height:40px;background:linear-gradient(180deg,rgba(201,168,76,.08),transparent);border-radius:1px;opacity:0.3}
+.hero-candles-bg .c-bg:nth-child(1){left:10%;height:30px;opacity:0.2}
+.hero-candles-bg .c-bg:nth-child(2){left:20%;height:50px;opacity:0.25}
+.hero-candles-bg .c-bg:nth-child(3){left:30%;height:25px;opacity:0.15}
+.hero-candles-bg .c-bg:nth-child(4){left:70%;height:35px;opacity:0.2}
+.hero-candles-bg .c-bg:nth-child(5){left:80%;height:45px;opacity:0.25}
+.hero-candles-bg .c-bg:nth-child(6){left:90%;height:20px;opacity:0.15}
+.hero-candles-bg .c-bg::after{content:'';position:absolute;top:-6px;left:50%;transform:translateX(-50%);width:6px;height:8px;background:radial-gradient(circle,rgba(201,168,76,.2),transparent);border-radius:50%}
+
+/* Floating petals */
+.hero-petals{position:absolute;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.hero-petals span{position:absolute;width:6px;height:6px;border-radius:50% 0 50% 50%;background:rgba(201,168,76,.1);animation:petalDrift 20s linear infinite}
+.hero-petals span:nth-child(1){left:15%;top:80%;animation-delay:0s;animation-duration:25s}
+.hero-petals span:nth-child(2){left:40%;top:70%;animation-delay:5s;animation-duration:22s;background:rgba(158,74,74,.08)}
+.hero-petals span:nth-child(3){left:65%;top:85%;animation-delay:10s;animation-duration:28s}
+.hero-petals span:nth-child(4){left:85%;top:75%;animation-delay:15s;animation-duration:20s;background:rgba(74,122,110,.08)}
+.hero-petals span:nth-child(5){left:25%;top:90%;animation-delay:8s;animation-duration:24s}
+@keyframes petalDrift{0%{transform:translateY(0) rotate(0deg);opacity:0}10%{opacity:.5}90%{opacity:.2}100%{transform:translateY(-200px) rotate(360deg);opacity:0}}
+.hero-label{font-size:11px;letter-spacing:6px;color:#C9A84C;margin-bottom:20px}
+.hero-title{font-size:clamp(36px,8vw,72px);font-weight:700;letter-spacing:8px;margin-bottom:16px}
+.hero-subtitle{font-size:clamp(16px,3vw,24px);color:#C9A84C;letter-spacing:3px;margin-bottom:30px}
+.hero-quote{font-size:15px;color:#B8A898;max-width:520px;line-height:2.2;font-style:italic}
+.hero-candle{width:20px;height:120px;margin:40px auto 0;position:relative;z-index:1}
+.hero-candle-body{width:20px;height:100px;background:linear-gradient(180deg,#5A4A3A,#3A2A1A);border-radius:2px;opacity:.5;position:relative;transition:all 1s ease}
+.hero-candle.lit .hero-candle-body{background:linear-gradient(180deg,#C9A84C,#7A6B5D);opacity:.7;box-shadow:0 0 20px rgba(201,168,76,.3)}
+.hero-candle-flame{width:16px;height:24px;background:radial-gradient(circle at 50% 30%,#C9A84C,rgba(201,168,76,.3));border-radius:50% 50% 50% 50%/60% 60% 40% 40%;margin:0 auto 4px;opacity:0;transition:opacity 1s ease;filter:drop-shadow(0 0 8px rgba(201,168,76,.5))}
+.hero-candle.lit .hero-candle-flame{opacity:1;animation:flame 3s ease-in-out infinite}
+.hero-candle-base{width:40px;height:4px;background:rgba(201,168,76,.15);border-radius:2px;position:absolute;left:50%;bottom:0;transform:translateX(-50%);transition:all 1s ease}
+.hero-candle.lit .hero-candle-base{background:rgba(201,168,76,.4);box-shadow:0 0 10px rgba(201,168,76,.2)}
+@keyframes flame{0%,100%{transform:scale(1) translateY(0)}50%{transform:scale(1.1) translateY(-2px)}}
+
+/* Section */
+.section{padding:80px 20px}
+.section-dark{background:#2A2420;color:#C4B8A8}
+.section-light{background:#F5F0E8}
+.section-warm{background:#EDE6D8}
+.container{max-width:1000px;margin:0 auto}
+
+/* Chapter divider */
+.chapter-divider{padding:100px 20px;text-align:center;background:linear-gradient(180deg,#1E1915 0%,#2A2420 100%);position:relative;overflow:hidden}
+.chapter-divider::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(circle at 20% 50%,rgba(201,168,76,.03) 0%,transparent 50%),radial-gradient(circle at 80% 50%,rgba(158,74,74,.03) 0%,transparent 50%);pointer-events:none}
+.chapter-divider .chapter-num{font-size:11px;letter-spacing:6px;color:#C9A84C;margin-bottom:16px;position:relative;z-index:1}
+.chapter-divider h2{font-size:clamp(24px,5vw,40px);color:#FAF7F1;letter-spacing:2px;margin-bottom:16px;position:relative;z-index:1}
+.chapter-divider .chapter-quote{font-size:14px;color:#7A6B5D;font-style:italic;max-width:480px;margin:0 auto;line-height:2;position:relative;z-index:1}
+
+/* Content */
+.content-text h3{font-size:20px;font-weight:600;color:#3D2E24;margin-bottom:16px}
+.content-text p{font-size:14px;color:#7A6B5D;margin-bottom:14px;line-height:2}
+.content-text strong{color:#9E4A4A}
+.content-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+@media(max-width:768px){.content-grid{grid-template-columns:1fr}}
+
+.section-bridge{padding:40px 20px;text-align:center;position:relative;overflow:hidden}
+.section-bridge::before{content:'';position:absolute;left:50%;top:0;transform:translateX(-50%);width:1px;height:100%;background:linear-gradient(180deg,transparent,#C9A84C,transparent);opacity:0.3}
+.section-bridge p{font-size:15px;color:#7A6B5D;font-style:italic;line-height:2.2;max-width:560px;margin:0 auto;position:relative;z-index:1}
+.section-bridge .bridge-arrow{font-size:20px;color:#C9A84C;opacity:0.4;margin-bottom:12px;animation:bridgePulse 2s ease-in-out infinite}
+@keyframes bridgePulse{0%,100%{opacity:0.3;transform:translateY(0)}50%{opacity:0.6;transform:translateY(4px)}}
+
+/* Data source */
+.data-source{font-size:11px;color:#A89888;margin-top:16px;padding-top:12px;border-top:1px solid rgba(61,46,36,.06)}
+
+/* Flowing particles background */
+.particles-container{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:hidden}
+.particle{position:absolute;width:3px;height:3px;border-radius:50%;background:rgba(201,168,76,.25);animation:floatParticle linear infinite}
+.particle:nth-child(1){left:10%;animation-duration:15s;animation-delay:0s;width:2px;height:2px}
+.particle:nth-child(2){left:20%;animation-duration:18s;animation-delay:2s;width:4px;height:4px}
+.particle:nth-child(3){left:35%;animation-duration:12s;animation-delay:1s;width:2px;height:2px}
+.particle:nth-child(4){left:50%;animation-duration:20s;animation-delay:3s;width:3px;height:3px}
+.particle:nth-child(5){left:65%;animation-duration:16s;animation-delay:4s;width:2px;height:2px}
+.particle:nth-child(6){left:80%;animation-duration:14s;animation-delay:1.5s;width:4px;height:4px}
+.particle:nth-child(7){left:90%;animation-duration:22s;animation-delay:0.5s;width:2px;height:2px}
+.particle:nth-child(8){left:15%;animation-duration:19s;animation-delay:5s;width:3px;height:3px}
+.particle:nth-child(9){left:45%;animation-duration:17s;animation-delay:2.5s;width:2px;height:2px}
+.particle:nth-child(10){left:75%;animation-duration:13s;animation-delay:3.5s;width:3px;height:3px}
+.particle:nth-child(11){left:5%;animation-duration:25s;animation-delay:6s;width:2px;height:2px}
+.particle:nth-child(12){left:55%;animation-duration:21s;animation-delay:4.5s;width:3px;height:3px}
+.particle:nth-child(13){left:85%;animation-duration:11s;animation-delay:7s;width:2px;height:2px}
+.particle:nth-child(14){left:30%;animation-duration:23s;animation-delay:1.5s;width:3px;height:3px}
+.particle:nth-child(15){left:70%;animation-duration:16s;animation-delay:5.5s;width:2px;height:2px}
+/* Petal particles */
+.petal-particle{position:absolute;animation:floatPetal linear infinite;pointer-events:none;opacity:0.4}
+.petal-particle:nth-child(16){left:12%;animation-duration:22s;animation-delay:1s;width:8px;height:8px;background:#C9A84C;border-radius:50% 0 50% 50%;transform:rotate(45deg)}
+.petal-particle:nth-child(17){left:28%;animation-duration:28s;animation-delay:4s;width:6px;height:6px;background:#9E4A4A;border-radius:50% 0 50% 50%;transform:rotate(30deg)}
+.petal-particle:nth-child(18){left:48%;animation-duration:25s;animation-delay:2s;width:10px;height:10px;background:#C9A84C;border-radius:50% 0 50% 50%;transform:rotate(60deg)}
+.petal-particle:nth-child(19){left:68%;animation-duration:30s;animation-delay:6s;width:7px;height:7px;background:#4A7A6E;border-radius:50% 0 50% 50%;transform:rotate(20deg)}
+.petal-particle:nth-child(20){left:88%;animation-duration:24s;animation-delay:3s;width:9px;height:9px;background:#C9A84C;border-radius:50% 0 50% 50%;transform:rotate(50deg)}
+@keyframes floatPetal{0%{transform:translateY(100vh) rotate(0deg);opacity:0}10%{opacity:0.4}90%{opacity:0.4}100%{transform:translateY(-10vh) rotate(360deg);opacity:0}}
+@keyframes floatParticle{0%{transform:translateY(100vh) rotate(0deg);opacity:0}10%{opacity:1}90%{opacity:1}100%{transform:translateY(-10vh) rotate(720deg);opacity:0}}
+
+/* Paper texture overlay */
+.paper-texture{position:fixed;top:0;left:0;right:0;bottom:0;pointer-events:none;z-index:0;opacity:0.5}
+.paper-texture::before{content:'';position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(61,46,36,0.008) 2px,rgba(61,46,36,0.008) 4px),repeating-linear-gradient(90deg,transparent,transparent 2px,rgba(61,46,36,0.008) 2px,rgba(61,46,36,0.008) 4px)}
+.paper-texture::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 25% 25%,rgba(201,168,76,0.03) 0%,transparent 40%),radial-gradient(circle at 75% 75%,rgba(158,74,74,0.02) 0%,transparent 40%)}
+
+/* Flowing light background for sections */
+.section-flow{position:relative;overflow:hidden}
+.section-flow::before{content:'';position:absolute;top:0;left:-100%;width:200%;height:100%;background:linear-gradient(90deg,transparent 0%,rgba(201,168,76,.02) 25%,rgba(158,74,74,.02) 50%,rgba(201,168,76,.02) 75%,transparent 100%);animation:flowLight 12s ease-in-out infinite;pointer-events:none}
+@keyframes flowLight{0%,100%{transform:translateX(0)}50%{transform:translateX(50%)}}
+
+/* Candle interactive */
+.hero-candle{cursor:pointer;transition:transform .3s ease}
+.hero-candle:hover{transform:scale(1.1)}
+.candle-click-hint{font-size:11px;color:#7A6B5D;margin-top:12px;letter-spacing:2px;opacity:.7;animation:hintPulse 2s ease-in-out infinite}
+@keyframes hintPulse{0%,100%{opacity:.7}50%{opacity:1}}
+
+/* Typewriter effect for narrative text */
+.typewriter-line{opacity:0;transform:translateY(20px);transition:opacity .8s ease,transform .8s ease}
+.typewriter-line.visible{opacity:1;transform:translateY(0)}
+
+/* Game-like interaction: choice cards */
+.choice-card{background:linear-gradient(135deg,#FAF7F1,#F5EDE0);border:1px solid rgba(61,46,36,.08);border-radius:16px;padding:32px 24px;text-align:center;cursor:pointer;transition:all .4s ease;position:relative;overflow:hidden}
+.choice-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:4px;background:linear-gradient(90deg,#C9A84C,#9E4A4A);transform:scaleX(0);transform-origin:left;transition:transform .4s ease}
+.choice-card:hover{transform:translateY(-6px);box-shadow:0 16px 48px rgba(61,46,36,.1)}
+.choice-card:hover::before{transform:scaleX(1)}
+.choice-card.selected{border-color:#C9A84C;box-shadow:0 0 0 2px rgba(201,168,76,.2)}
+.choice-card .choice-icon{font-size:32px;margin-bottom:12px;opacity:.8}
+.choice-card .choice-title{font-size:16px;font-weight:600;color:#3D2E24;margin-bottom:8px}
+.choice-card .choice-desc{font-size:13px;color:#7A6B5D;line-height:1.6}
+
+/* Progress bar for data journey */
+.data-journey{position:fixed;right:20px;top:50%;transform:translateY(-50%);z-index:100;display:flex;flex-direction:column;gap:12px;align-items:center}
+.data-journey-dot{position:relative;width:10px;height:10px;border-radius:50%;background:rgba(201,168,76,.3);border:2px solid rgba(201,168,76,.4);cursor:pointer;transition:all .3s ease}
+.data-journey-dot:hover{transform:scale(1.3);background:rgba(201,168,76,.6)}
+.data-journey-dot.active{background:#C9A84C;border-color:#C9A84C;box-shadow:0 0 8px rgba(201,168,76,.5)}
+.data-journey-dot::after{content:attr(data-name);position:absolute;right:22px;top:50%;transform:translateY(-50%) translateX(8px);background:rgba(42,36,32,.9);color:#C9A84C;padding:4px 10px;border-radius:4px;font-size:11px;white-space:nowrap;pointer-events:none;opacity:0;transition:all .3s ease;font-weight:500}
+.data-journey-dot:hover::after{opacity:1;transform:translateY(-50%) translateX(0)}
+.data-journey-line{width:2px;height:20px;background:rgba(201,168,76,.15)}
+
+/* Petal fall animation for chapter transitions */
+.petal{position:absolute;width:8px;height:8px;border-radius:50% 0 50% 50%;background:rgba(201,168,76,.15);animation:petalFall linear infinite;pointer-events:none}
+.petal:nth-child(1){left:20%;animation-duration:10s;animation-delay:0s;transform:rotate(45deg)}
+.petal:nth-child(2){left:40%;animation-duration:13s;animation-delay:2s;transform:rotate(30deg);background:rgba(158,74,74,.12)}
+.petal:nth-child(3){left:60%;animation-duration:11s;animation-delay:4s;transform:rotate(60deg)}
+.petal:nth-child(4){left:80%;animation-duration:14s;animation-delay:1s;transform:rotate(45deg);background:rgba(74,122,110,.12)}
+.petal:nth-child(5){left:30%;animation-duration:12s;animation-delay:3s;transform:rotate(20deg);background:rgba(201,168,76,.1)}
+.petal:nth-child(6){left:70%;animation-duration:15s;animation-delay:5s;transform:rotate(50deg);background:rgba(158,74,74,.1)}
+@keyframes petalFall{0%{transform:translateY(-20px) rotate(0deg);opacity:0}10%{opacity:1}90%{opacity:.5}100%{transform:translateY(100vh) rotate(360deg);opacity:0}}
+
+/* SVG theme enhancements */
+.svg-chart .candle-bar{fill:linear-gradient(180deg,#C9A84C,#7A6B5D)}
+.svg-chart .glow-line{filter:drop-shadow(0 0 2px currentColor)}
+.svg-chart .glow-point{filter:drop-shadow(0 0 4px currentColor)}
+
+/* Heartbeat pulse for key numbers */
+.heartbeat{animation:heartbeat 2s ease-in-out infinite}
+@keyframes heartbeat{0%,100%{transform:scale(1)}15%{transform:scale(1.05)}30%{transform:scale(1)}45%{transform:scale(1.03)}60%{transform:scale(1)}}
+
+/* Ripple effect on click */
+.ripple-container{position:relative;overflow:hidden}
+.ripple{position:absolute;border-radius:50%;background:rgba(201,168,76,.3);transform:scale(0);animation:rippleEffect .6s ease-out;pointer-events:none}
+@keyframes rippleEffect{to{transform:scale(4);opacity:0}}
+
+/* Memory wall interaction */
+.memory-wall{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:16px;padding:20px}
+.memory-brick{background:linear-gradient(135deg,#FAF7F1,#F5EDE0);border-radius:8px;padding:16px;text-align:center;cursor:pointer;transition:all .3s ease;border:1px solid rgba(61,46,36,.06);position:relative}
+.memory-brick:hover{transform:translateY(-4px) rotate(1deg);box-shadow:0 8px 24px rgba(61,46,36,.08);border-color:rgba(201,168,76,.3)}
+.memory-brick:hover .memory-glow{opacity:1}
+.memory-glow{position:absolute;inset:0;border-radius:8px;background:radial-gradient(circle at center,rgba(201,168,76,.1),transparent 70%);opacity:0;transition:opacity .3s ease;pointer-events:none}
+.memory-brick .memory-name{font-size:13px;font-weight:600;color:#3D2E24;margin-bottom:4px}
+.memory-brick .memory-year{font-size:11px;color:#A89888}
+
+/* Section reveal with narrative */
+.narrative-reveal{opacity:0;transform:translateY(40px);transition:opacity 1s ease,transform 1s ease}
+.narrative-reveal.visible{opacity:1;transform:translateY(0)}
+
+/* Story timeline enhanced */
+.story-timeline{position:relative;padding-left:40px}
+.story-timeline::before{content:'';position:absolute;left:14px;top:0;bottom:0;width:2px;background:linear-gradient(180deg,#C9A84C 0%,#9E4A4A 50%,#4A7A6E 100%);opacity:.3}
+.story-timeline-item{position:relative;margin-bottom:32px;padding:20px 24px;background:rgba(42,36,32,.3);border-radius:12px;border-left:3px solid #C9A84C;opacity:0;transform:translateX(-20px);transition:all .6s ease}
+.story-timeline-item.visible{opacity:1;transform:translateX(0)}
+.story-timeline-item::before{content:'';position:absolute;left:-34px;top:28px;width:12px;height:12px;border-radius:50%;background:#C9A84C;border:3px solid #2A2420;box-shadow:0 0 0 2px rgba(201,168,76,.3)}
+
+/* Scroll indicator */
+.scroll-indicator{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);z-index:50;display:flex;flex-direction:column;align-items:center;gap:8px;animation:fadeOutScroll 1s ease 3s forwards}
+.scroll-indicator .mouse{width:20px;height:32px;border:2px solid rgba(201,168,76,.4);border-radius:10px;position:relative}
+.scroll-indicator .mouse::after{content:'';position:absolute;top:6px;left:50%;transform:translateX(-50%);width:3px;height:6px;background:rgba(201,168,76,.6);border-radius:3px;animation:scrollWheel 2s ease infinite}
+.scroll-indicator span{font-size:10px;color:rgba(201,168,76,.5);letter-spacing:3px}
+@keyframes scrollWheel{0%,100%{transform:translateX(-50%) translateY(0);opacity:1}50%{transform:translateX(-50%) translateY(6px);opacity:.3}}
+@keyframes fadeOutScroll{to{opacity:0;pointer-events:none}}
+
+/* Interactive data points */
+.data-point{cursor:pointer;transition:all .3s ease}
+.data-point:hover{transform:scale(1.3);filter:brightness(1.2)}
+.data-point.active{animation:pointPulse 1s ease infinite}
+@keyframes pointPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.2)}}
+
+/* Warm glow overlay for dark sections */
+.warm-glow{position:absolute;inset:0;pointer-events:none;z-index:0;background:radial-gradient(circle at 30% 50%,rgba(201,168,76,.03) 0%,transparent 50%),radial-gradient(circle at 70% 80%,rgba(158,74,74,.02) 0%,transparent 50%)}
+
+/* Counter animation */
+.counter-value{font-variant-numeric:tabular-nums}
+
+/* Data story card */
+.data-story-card{background:linear-gradient(135deg,rgba(255,255,255,.8),rgba(250,247,241,.9));backdrop-filter:blur(10px);border-radius:16px;padding:28px;border:1px solid rgba(61,46,36,.08);box-shadow:0 4px 20px rgba(61,46,36,.06);transition:all .4s ease}
+.data-story-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(61,46,36,.1)}
+
+/* Comparison slider style */
+.compare-container{position:relative;border-radius:12px;overflow:hidden;background:#FAF7F1}
+.compare-divider{position:absolute;top:0;bottom:0;width:2px;background:#C9A84C;cursor:ew-resize;z-index:10;box-shadow:0 0 8px rgba(201,168,76,.3)}
+.compare-divider::after{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:32px;height:32px;border-radius:50%;background:#C9A84C;border:3px solid #FAF7F1;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+
+/* Animated gradient text */
+.gradient-text{background:linear-gradient(90deg,#C9A84C,#9E4A4A,#C9A84C);background-size:200% 100%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:gradientShift 4s ease infinite}
+@keyframes gradientShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+
+/* Floating memory tag */
+.memory-tag{display:inline-block;padding:6px 14px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);border-radius:20px;font-size:12px;color:#7A6B5D;margin:4px;transition:all .3s ease;cursor:default}
+.memory-tag:hover{background:rgba(201,168,76,.2);transform:translateY(-2px);box-shadow:0 4px 12px rgba(201,168,76,.15)}
+
+/* Light trail effect for chart lines */
+.light-trail{stroke-dasharray:1000;stroke-dashoffset:1000;animation:lightTrail 3s ease forwards}
+@keyframes lightTrail{0%{stroke-dashoffset:1000;filter:drop-shadow(0 0 0 transparent)}50%{filter:drop-shadow(0 0 6px currentColor)}100%{stroke-dashoffset:0;filter:drop-shadow(0 0 2px currentColor)}}
+
+/* Chapter floating decorations */
+.chapter-float{position:absolute;pointer-events:none;z-index:0}
+.chapter-float.paw{opacity:.05;font-size:60px}
+.chapter-float.heart{opacity:.04;font-size:40px}
+
+/* Responsive data journey hide on mobile */
+@media(max-width:768px){.data-journey{display:none}}
+
+/* Body background gradient flow */
+body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:-1;background:linear-gradient(180deg,#F5F0E8 0%,#EDE6D8 30%,#F5F0E8 60%,#EDE6D8 100%);background-size:100% 400%;animation:bgFlow 20s ease infinite;pointer-events:none}
+@keyframes bgFlow{0%,100%{background-position:0% 0%}50%{background-position:0% 100%}}
+
+/* SVG candle stick for chart 1 */
+.candle-stick{transition:all .3s ease}
+.candle-stick:hover{filter:brightness(1.2);transform:scale(1.05)}
+
+/* Life line animation */
+.life-line{stroke-dasharray:2000;stroke-dashoffset:2000;animation:drawLife 3s ease forwards}
+@keyframes drawLife{to{stroke-dashoffset:0}}
+
+/* Scale animation for percentage reveal */
+.scale-reveal{transform:scale(0);animation:scaleReveal .8s cubic-bezier(.175,.885,.32,1.275) forwards}
+@keyframes scaleReveal{to{transform:scale(1)}}
+
+/* Price ladder step animation */
+.ladder-step{opacity:0;transform:translateY(20px);animation:ladderStep .6s ease forwards}
+@keyframes ladderStep{to{opacity:1;transform:translateY(0)}}
+
+/* Region map block animation */
+.region-block{opacity:0;transform:scale(.8);animation:regionBlock .5s ease forwards}
+@keyframes regionBlock{to{opacity:1;transform:scale(1)}}
+
+/* Timeline node glow */
+.timeline-node{cursor:pointer}
+.timeline-node:hover{stroke-width:4;stroke:#C9A84C}
+.timeline-node:hover + text{fill:#C9A84C}
+
+/* Interactive hover zone for charts */
+.chart-hover-zone{position:absolute;inset:0;z-index:5;cursor:crosshair}
+
+/* Tooltip v2 - floating near cursor */
+.tooltip-v2{position:fixed;z-index:1000;background:rgba(42,36,32,.95);color:#FAF7F1;padding:10px 16px;border-radius:8px;font-size:12px;line-height:1.6;pointer-events:none;opacity:0;transition:opacity .2s ease;box-shadow:0 4px 20px rgba(0,0,0,.3);border:1px solid rgba(201,168,76,.2);max-width:220px}
+.tooltip-v2.visible{opacity:1}
+.tooltip-v2 strong{color:#C9A84C;display:block;margin-bottom:4px;font-size:13px}
+
+/* Before/after comparison reveal */
+.reveal-before,.reveal-after{position:absolute;inset:0;transition:clip-path 1s ease}
+.reveal-before{clip-path:inset(0 50% 0 0)}
+.reveal-after{clip-path:inset(0 0 0 50%)}
+.reveal-before.expanded{clip-path:inset(0 0 0 0)}
+.reveal-after.expanded{clip-path:inset(0 0 0 100%)}
+
+/* Main content z-index */
+.container, .section, .hero, .chapter-divider, .ending, .methods, .sources{position:relative;z-index:1}
+
+/* Print */
+@media print{body::before,.particles-container,.scroll-indicator,.data-journey,.section-flow::before{display:none!important}}
+.chart-wrapper{background:#FAF7F1;border:1px solid rgba(61,46,36,.06);border-radius:12px;padding:24px;overflow-x:auto;position:relative;transition:transform .5s ease,box-shadow .5s ease;box-shadow:0 2px 12px rgba(61,46,36,.04)}
+.chart-wrapper:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(61,46,36,.08)}
+.chart-title{font-size:14px;font-weight:600;color:#3D2E24;text-align:center;margin-bottom:4px}
+.chart-subtitle{font-size:11px;color:#A89888;text-align:center;margin-bottom:16px}
+
+/* SVG Charts */
+.svg-chart{width:100%;height:auto;min-height:200px}
+.svg-chart rect,.svg-chart path,.svg-chart circle,.svg-chart polyline,.svg-chart line{transition:all .4s ease}
+.svg-chart rect:hover,.svg-chart path:hover,.svg-chart circle:hover,.svg-chart polyline:hover{filter:brightness(1.1);cursor:pointer}
+.svg-chart circle:hover{r:6;filter:brightness(1.2)}
+.svg-chart polyline{stroke-dasharray:1000;stroke-dashoffset:1000;animation:drawLine 2s ease forwards}
+
+/* Animated bars - applied via JS to avoid affecting grid/legend elements */
+.chart-bar{transform-origin:bottom;animation:growHeight 1.2s ease forwards}
+.chart-bar:nth-child(1){animation-delay:.0s}
+.chart-bar:nth-child(2){animation-delay:.05s}
+.chart-bar:nth-child(3){animation-delay:.1s}
+.chart-bar:nth-child(4){animation-delay:.15s}
+.chart-bar:nth-child(5){animation-delay:.2s}
+.chart-bar:nth-child(6){animation-delay:.25s}
+.chart-bar:nth-child(7){animation-delay:.3s}
+.chart-bar:nth-child(8){animation-delay:.35s}
+.chart-bar:nth-child(9){animation-delay:.4s}
+.chart-bar:nth-child(10){animation-delay:.45s}
+
+/* Tooltip via CSS */
+.tooltip-trigger{position:relative}
+.tooltip-trigger::after{content:attr(data-tooltip);position:absolute;left:50%;top:-40px;transform:translateX(-50%) scale(0);background:rgba(42,36,32,.95);color:#fff;padding:6px 12px;border-radius:6px;font-size:12px;white-space:nowrap;pointer-events:none;opacity:0;transition:all .3s ease;box-shadow:0 4px 12px rgba(0,0,0,.2)}
+.tooltip-trigger:hover::after{transform:translateX(-50%) scale(1);opacity:1}
+
+/* Entrance animations */
+@keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeInLeft{from{opacity:0;transform:translateX(-30px)}to{opacity:1;transform:translateX(0)}}
+@keyframes fadeInRight{from{opacity:0;transform:translateX(30px)}to{opacity:1;transform:translateX(0)}}
+@keyframes scaleIn{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:scale(1)}}
+@keyframes growWidth{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes growHeight{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes drawLine{to{stroke-dashoffset:0}}
+
+.animate-fade-up{animation:fadeInUp .8s ease forwards}
+.animate-fade-left{animation:fadeInLeft .8s ease forwards}
+.animate-fade-right{animation:fadeInRight .8s ease forwards}
+.animate-scale{animation:scaleIn .8s ease forwards}
+
+/* SVG animation classes */
+.svg-grow-rect{transform-origin:bottom;animation:growHeight 1s ease forwards}
+.svg-grow-bar{transform-origin:bottom;animation:growHeight 1.2s ease forwards}
+.svg-draw-line{stroke-dasharray:1000;stroke-dashoffset:1000;animation:drawLine 2s ease forwards}
+
+/* Hover effects for specific chart elements */
+.chart-bar{transition:all .3s ease}
+.chart-bar:hover{filter:brightness(1.15);transform:scaleY(1.05)}
+.chart-segment{transition:all .3s ease;transform-origin:center}
+.chart-segment:hover{transform:scale(1.03);filter:brightness(1.1)}
+.chart-point{transition:all .3s ease}
+.chart-point:hover{r:6;filter:brightness(1.2)}
+
+/* Scroll-triggered entrance - disabled to prevent initial blank page */
+/* .section,.chapter-divider,.content-text,.chart-wrapper,.number-card,.insight-box{opacity:0;animation:fadeInUp .8s ease forwards} */
+/* .section:nth-child(1){animation-delay:0s} .section:nth-child(2){animation-delay:.1s} .section:nth-child(3){animation-delay:.2s} .section:nth-child(4){animation-delay:.3s} .section:nth-child(5){animation-delay:.4s} .section:nth-child(6){animation-delay:.5s} .section:nth-child(7){animation-delay:.6s} .section:nth-child(8){animation-delay:.7s} .section:nth-child(9){animation-delay:.8s} .section:nth-child(10){animation-delay:.9s} .section:nth-child(11){animation-delay:1s} */
+
+/* Number cards */
+.numbers-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:40px}
+.number-card{background:#FAF7F1;border:1px solid rgba(61,46,36,.06);border-radius:12px;padding:28px 20px;text-align:center;transition:transform .4s ease,box-shadow .4s ease}
+.number-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(61,46,36,.06)}
+.number-value{font-size:clamp(28px,4vw,44px);font-weight:700;color:#9E4A4A;margin-bottom:8px}
+.number-label{font-size:14px;font-weight:600;color:#3D2E24;margin-bottom:4px}
+.number-desc{font-size:12px;color:#A89888}
+
+/* Story */
+.story-text{font-size:16px;color:#C4B8A8;line-height:2.4;text-align:center;max-width:600px;margin:0 auto 16px}
+.story-text strong{color:#C9A84C}
+
+/* Ending */
+.ending{padding:80px 20px;background:linear-gradient(180deg,#1E1915 0%,#2A2420 100%);color:#C4B8A8;text-align:center}
+.ending h2{color:#FAF7F1;font-size:clamp(24px,4vw,36px);margin-bottom:20px}
+.ending p{font-size:14px;max-width:640px;margin:0 auto 16px;line-height:2.2}
+.ending-quote{font-size:18px;color:#C9A84C;font-style:italic;margin-top:30px}
+
+/* Methods */
+.methods{padding:60px 20px;background:#F5F0E8}
+.methods h3{color:#9E4A4A;font-size:18px;margin-bottom:12px}
+.limitations-box{background:#FAF7F1;border:1px solid rgba(61,46,36,.06);border-radius:10px;padding:24px;margin-bottom:20px}
+.limitations-box p{font-size:13px;color:#7A6B5D;line-height:2;margin-bottom:10px}
+.limitations-box strong{color:#9E4A4A}
+
+/* Sources */
+.sources{padding:40px 20px 60px;background:#EDE6D8}
+.sources h3{text-align:center;font-size:18px;color:#3D2E24;margin-bottom:20px}
+.sources-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:8px;max-width:860px;margin:0 auto}
+.source-item{font-size:11px;color:#7A6B5D;padding:7px 10px;background:#FAF7F1;border-radius:5px;border:1px solid rgba(61,46,36,.06)}
+
+/* Table */
+.interactive-table{width:100%;border-collapse:collapse;font-size:12px;margin-top:12px}
+.interactive-table th{background:#EDE6D8;padding:10px 12px;text-align:left;font-weight:600;color:#3D2E24;border-bottom:2px solid rgba(61,46,36,.1)}
+.interactive-table td{padding:10px 12px;border-bottom:1px solid rgba(61,46,36,.06);color:#7A6B5D}
+.price-bar{height:6px;border-radius:3px;background:#EDE6D8;overflow:hidden;display:inline-block;width:80px;vertical-align:middle}
+.price-bar-fill{height:100%;border-radius:3px}
+
+/* Tooltip */
+.chart-tooltip{position:fixed;display:none;background:rgba(42,36,32,.95);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:8px 14px;font-size:12px;color:#fff;pointer-events:none;z-index:1000;box-shadow:0 4px 20px rgba(0,0,0,.3);max-width:200px;line-height:1.6}
+
+/* Scrollbar */
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:#F5F0E8}
+::-webkit-scrollbar-thumb{background:#C4B8A8;border-radius:3px}
+
+/* Print */
+@media print{body{background:#fff!important;color:#000!important}.section{padding:20px 16px!important;break-inside:avoid}.section-dark,.ending{background:#fff!important;color:#000!important}.section-dark h2,.section-dark h3,.section-dark p,.ending h2,.ending p{color:#000!important}}
+</style>
+</head>
+<body>
+
+<!-- Floating Particles Background -->
+<div class="particles-container" aria-hidden="true">
+    <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+    <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+    <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+    <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+    <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+    <div class="petal-particle"></div><div class="petal-particle"></div><div class="petal-particle"></div>
+    <div class="petal-particle"></div><div class="petal-particle"></div>
+</div>
+
+<!-- Paper texture overlay -->
+<div class="paper-texture" aria-hidden="true"></div>
+
+<!-- Data Journey Navigation -->
+<div class="data-journey" aria-hidden="true">
+    <div class="data-journey-dot active" data-target="hero" data-name="封面" title="封面"></div>
+    <div class="data-journey-line"></div>
+    <div class="data-journey-dot" data-target="intro" data-name="序章" title="序章"></div>
+    <div class="data-journey-line"></div>
+    <div class="data-journey-dot" data-target="story" data-name="故事" title="故事"></div>
+    <div class="data-journey-line"></div>
+    <div class="data-journey-dot" data-target="ch1" data-name="第一章" title="第一章"></div>
+    <div class="data-journey-line"></div>
+    <div class="data-journey-dot" data-target="ch2" data-name="第二章" title="第二章"></div>
+    <div class="data-journey-line"></div>
+    <div class="data-journey-dot" data-target="ch3" data-name="第三章" title="第三章"></div>
+    <div class="data-journey-line"></div>
+    <div class="data-journey-dot" data-target="ch4" data-name="第四章" title="第四章"></div>
+    <div class="data-journey-line"></div>
+    <div class="data-journey-dot" data-target="ch5" data-name="第五章" title="第五章"></div>
+    <div class="data-journey-line"></div>
+    <div class="data-journey-dot" data-target="ending" data-name="尾声" title="尾声"></div>
+</div>
+
+<!-- Scroll Indicator -->
+<div class="scroll-indicator" id="scrollIndicator">
+    <div class="mouse"></div>
+    <span>向下滚动</span>
+</div>
+
+<!-- Hero -->
+<section class="hero" id="hero">
+    <!-- Star constellation -->
+    <div class="hero-stars" aria-hidden="true">
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+    </div>
+    <!-- Ground horizon -->
+    <div class="hero-ground" aria-hidden="true"></div>
+    <!-- Background candle silhouettes -->
+    <div class="hero-candles-bg" aria-hidden="true">
+        <div class="c-bg"></div><div class="c-bg"></div><div class="c-bg"></div>
+        <div class="c-bg"></div><div class="c-bg"></div><div class="c-bg"></div>
+    </div>
+    <!-- Floating petals -->
+    <div class="hero-petals" aria-hidden="true">
+        <span></span><span></span><span></span><span></span><span></span>
+    </div>
+    <div class="hero-label">数据新闻作品</div>
+    <h1 class="hero-title">最后一面</h1>
+    <p class="hero-subtitle">1.24亿宠物与300万次告别</p>
+    <p class="hero-quote">"当宠物成为家人，离别也成为一道需要回答的问题。"</p>
+    <div class="hero-candle" id="heroCandle" title="点击点燃蜡烛">
+        <div class="hero-candle-flame"></div>
+        <div class="hero-candle-body"></div>
+        <div class="hero-candle-base"></div>
+    </div>
+    <div class="candle-click-hint" id="candleHint">点击点燃蜡烛</div>
+</section>
+
+<!-- Prologue -->
+<section class="section" id="intro">
+    <div class="container">
+        <div style="text-align:center;margin-bottom:40px">
+            <div style="font-size:11px;letter-spacing:6px;color:#9E4A4A;margin-bottom:12px">PROLOGUE</div>
+            <h2 style="font-size:clamp(20px,3vw,28px);font-weight:700;color:#3D2E24;margin-bottom:12px">在进入数字之前</h2>
+            <div style="width:50px;height:2px;background:linear-gradient(90deg,#9E4A4A,#C9A84C);margin:16px auto"></div>
+        </div>
+        <div class="numbers-grid" id="numbersGrid">
+            <div class="number-card" data-number="12400" data-unit="万只" data-story="相当于每10个中国人，就有1只宠物">
+                <div class="number-value">12,400<span style="font-size:18px;color:#A89888">万</span></div>
+                <div class="number-label">中国城镇宠物数量</div>
+                <div class="number-desc">情感经济的基础</div>
+            </div>
+            <div class="number-card" data-number="300" data-unit="万只" data-story="每年有300万个家庭经历离别">
+                <div class="number-value">300<span style="font-size:18px;color:#A89888">万</span></div>
+                <div class="number-label">每年离世的宠物</div>
+                <div class="number-desc">催生殡葬产业</div>
+            </div>
+            <div class="number-card" data-number="5" data-unit="%" data-story="95%的宠物，没有经历过一场被记录的告别">
+                <div class="number-value">5<span style="font-size:18px;color:#A89888">%</span></div>
+                <div class="number-label">宠物殡葬渗透率</div>
+                <div class="number-desc">95%尚未被记录</div>
+            </div>
+        </div>
+        <div class="content-text" style="max-width:700px;margin:40px auto 0;text-align:center">
+            <p>超过95%的宠物，在生命的终点，没有经历一场被记录的告别。这不是一个关于"风口"的故事，而是关于一个正在形成的新型社会结构——<strong>以情感选择而非血缘纽带为核心的亲密关系</strong>。</p>
+        </div>
+    </div>
+</section>
+
+<!-- Story -->
+<section class="section section-dark" id="story">
+    <div class="container">
+        <div style="text-align:center;margin-bottom:30px">
+            <div style="font-size:11px;letter-spacing:6px;color:#C9A84C;margin-bottom:12px">STORY</div>
+            <h2 style="font-size:clamp(22px,3.5vw,36px);color:#FAF7F1">你会如何选择告别？</h2>
+            <div style="width:36px;height:2px;margin:16px auto;background:linear-gradient(90deg,#C9A84C,#9E4A4A)"></div>
+        </div>
+        <div style="max-width:640px;margin:0 auto 40px;text-align:center">
+            <p class="story-text">点击下方卡片，选择一个人物，走进他们的告别故事。</p>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;max-width:1040px;margin:0 auto 40px">
+            <div class="choice-card" data-character="xiaolin" onclick="selectCharacter('xiaolin')">
+                <div class="choice-icon">💻</div>
+                <div class="choice-title">小林 · 28岁程序员</div>
+                <div class="choice-desc">独居，养了一只12岁的柯基豆豆。豆豆走了，他花了一周才搜索"宠物火化"。</div>
+            </div>
+            <div class="choice-card" data-character="auntie" onclick="selectCharacter('auntie')">
+                <div class="choice-icon">👵</div>
+                <div class="choice-title">李阿姨 · 65岁退休教师</div>
+                <div class="choice-desc">老伴去世后，猫咪"花花"陪伴了她8年。现在花花也走了，她不知道该怎么告别。</div>
+            </div>
+            <div class="choice-card" data-character="couple" onclick="selectCharacter('couple')">
+                <div class="choice-icon">👫</div>
+                <div class="choice-title">小王夫妇 · 35岁丁克</div>
+                <div class="choice-desc">结婚十年不打算要孩子，金毛"大福"是他们的"儿子"。为大福办了一场5000元的告别仪式。</div>
+            </div>
+            <div class="choice-card" data-character="student" onclick="selectCharacter('student')">
+                <div class="choice-icon">🎓</div>
+                <div class="choice-title">小周 · 22岁大学生</div>
+                <div class="choice-desc">在外租房读研，仓鼠"团团"陪了她两年。团团走了，她在宿舍楼下埋了它。</div>
+            </div>
+        </div>
+        <div id="characterStory" style="max-width:640px;margin:30px auto 0;text-align:center;display:none">
+            <div style="text-align:center;margin-bottom:20px;font-size:40px;opacity:0.4" id="charEmoji"></div>
+            <p class="story-text" id="charText1"></p>
+            <p class="story-text" id="charText2"></p>
+            <p class="story-text" id="charText3"></p>
+            <p style="font-size:14px;color:#C9A84C;font-style:italic;text-align:center;margin-top:20px">当"家人"离开，我们能给它们什么样的告别？</p>
+        </div>
+    </div>
+</section>
+
+<!-- Chapter 1 -->
+<section class="chapter-divider" id="ch1">
+    <div>
+        <div class="chapter-num">CHAPTER 01</div>
+        <h2>独居的人，离世的宠物</h2>
+        <p class="chapter-quote">"1.24亿只宠物，是谁在为它们流泪？"</p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="content-grid">
+            <div class="content-text">
+                <h3>三条同步上升的曲线</h3>
+                <p>2015年至2025年，中国单身人口从2.0亿增长到<strong>2.9亿</strong>。同期，宠物数量从0.8亿只增长到<strong>2.4亿只</strong>。65岁以上人口占比从10.5%上升到<strong>20%</strong>。</p>
+                <p>当传统的家庭结构松动，宠物填补了一种情感空缺。<strong>孤独不是病，但孤独催生了一个产业。</strong></p>
+                <div class="data-source">数据来源：国家统计局《国民经济和社会发展统计公报》、《2025年中国宠物行业白皮书》</div>
+            </div>
+            <div class="chart-wrapper">
+                <div class="chart-title">单身人口、老龄化与宠物数量</div>
+                <div class="chart-subtitle">2015-2025年趋势对比</div>
+                <svg class="svg-chart" viewBox="0 0 600 300" preserveAspectRatio="xMidYMid meet">
+                    <!-- Soft glow background -->
+                    <defs>
+                        <filter id="glow1" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                        <linearGradient id="lifeGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#C9A84C" stop-opacity="0.15"/><stop offset="100%" stop-color="#C9A84C" stop-opacity="0"/></linearGradient>
+                        <linearGradient id="singleGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#9E4A4A" stop-opacity="0.15"/><stop offset="100%" stop-color="#9E4A4A" stop-opacity="0"/></linearGradient>
+                        <linearGradient id="agingGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#4A7A6E" stop-opacity="0.15"/><stop offset="100%" stop-color="#4A7A6E" stop-opacity="0"/></linearGradient>
+                    </defs>
+                    <!-- Grid -->
+                    <line x1="50" y1="30" x2="50" y2="230" stroke="rgba(61,46,36,.08)" stroke-width="1" stroke-dasharray="3,3"/>
+                    <line x1="50" y1="230" x2="550" y2="230" stroke="rgba(61,46,36,.08)" stroke-width="1"/>
+                    <!-- Horizontal grid lines -->
+                    <line x1="50" y1="80" x2="550" y2="80" stroke="rgba(61,46,36,.04)" stroke-width="1" stroke-dasharray="2,4"/>
+                    <line x1="50" y1="130" x2="550" y2="130" stroke="rgba(61,46,36,.04)" stroke-width="1" stroke-dasharray="2,4"/>
+                    <line x1="50" y1="180" x2="550" y2="180" stroke="rgba(61,46,36,.04)" stroke-width="1" stroke-dasharray="2,4"/>
+                    <!-- Area fills -->
+                    <path d="M 50,190 L 100,180 L 150,170 L 200,160 L 250,150 L 300,140 L 350,130 L 400,120 L 450,110 L 500,100 L 550,90 L 550,230 L 50,230 Z" fill="url(#singleGrad)"/>
+                    <path d="M 50,210 L 100,195 L 150,180 L 200,160 L 250,140 L 300,120 L 350,110 L 400,100 L 450,95 L 500,90 L 550,85 L 550,230 L 50,230 Z" fill="url(#lifeGrad)"/>
+                    <path d="M 50,210 L 100,205 L 150,200 L 200,195 L 250,185 L 300,175 L 350,165 L 400,155 L 450,140 L 500,120 L 550,100 L 550,230 L 50,230 Z" fill="url(#agingGrad)"/>
+                    <!-- Single line (red) - life trajectory -->
+                    <polyline points="50,190 100,180 150,170 200,160 250,150 300,140 350,130 400,120 450,110 500,100 550,90" fill="none" stroke="#9E4A4A" stroke-width="2.5" stroke-linecap="round" filter="url(#glow1)" class="light-trail"/>
+                    <!-- Pet line (gold) -->
+                    <polyline points="50,210 100,195 150,180 200,160 250,140 300,120 350,110 400,100 450,95 500,90 550,85" fill="none" stroke="#C9A84C" stroke-width="2.5" stroke-linecap="round" filter="url(#glow1)" class="light-trail"/>
+                    <!-- Aging line (teal) -->
+                    <polyline points="50,210 100,205 150,200 200,195 250,185 300,175 350,165 400,155 450,140 500,120 550,100" fill="none" stroke="#4A7A6E" stroke-width="2.5" stroke-linecap="round" filter="url(#glow1)" class="light-trail"/>
+                    <!-- Candle-style data points at start -->
+                    <rect x="44" y="182" width="4" height="16" rx="2" fill="#9E4A4A" opacity="0.4"/>
+                    <rect x="44" y="202" width="4" height="16" rx="2" fill="#C9A84C" opacity="0.4"/>
+                    <rect x="44" y="202" width="4" height="16" rx="2" fill="#4A7A6E" opacity="0.4"/>
+                    <!-- End points with glow -->
+                    <circle cx="550" cy="90" r="5" fill="#9E4A4A" stroke="#FAF7F1" stroke-width="2" filter="url(#glow1)" class="chart-point"/>
+                    <circle cx="550" cy="85" r="5" fill="#C9A84C" stroke="#FAF7F1" stroke-width="2" filter="url(#glow1)" class="chart-point"/>
+                    <circle cx="550" cy="100" r="5" fill="#4A7A6E" stroke="#FAF7F1" stroke-width="2" filter="url(#glow1)" class="chart-point"/>
+                    <!-- Y labels -->
+                    <text x="42" y="85" text-anchor="end" font-size="9" fill="#A89888">3.0</text>
+                    <text x="42" y="135" text-anchor="end" font-size="9" fill="#A89888">2.0</text>
+                    <text x="42" y="185" text-anchor="end" font-size="9" fill="#A89888">1.0</text>
+                    <text x="42" y="235" text-anchor="end" font-size="9" fill="#A89888">0</text>
+                    <!-- X labels -->
+                    <text x="50" y="250" text-anchor="middle" font-size="10" fill="#A89888">2015</text>
+                    <text x="175" y="250" text-anchor="middle" font-size="10" fill="#A89888">2018</text>
+                    <text x="300" y="250" text-anchor="middle" font-size="10" fill="#A89888">2021</text>
+                    <text x="425" y="250" text-anchor="middle" font-size="10" fill="#A89888">2024</text>
+                    <text x="550" y="250" text-anchor="middle" font-size="10" fill="#A89888">2025</text>
+                    <!-- Legend with interactive feel -->
+                    <rect x="60" y="30" width="10" height="10" rx="2" fill="#9E4A4A" opacity="0.8"/><text x="76" y="40" font-size="11" fill="#7A6B5D">单身人口 (亿)</text>
+                    <rect x="200" y="30" width="10" height="10" rx="2" fill="#C9A84C" opacity="0.8"/><text x="216" y="40" font-size="11" fill="#7A6B5D">宠物数量 (亿只)</text>
+                    <rect x="360" y="30" width="10" height="10" rx="2" fill="#4A7A6E" opacity="0.8"/><text x="376" y="40" font-size="11" fill="#7A6B5D">65岁+占比 (%)</text>
+                    <!-- Mini paw prints along the journey -->
+                    <text x="100" y="175" font-size="8" fill="#C9A84C" opacity="0.3">🐾</text>
+                    <text x="200" y="155" font-size="8" fill="#C9A84C" opacity="0.3">🐾</text>
+                    <text x="300" y="115" font-size="8" fill="#C9A84C" opacity="0.3">🐾</text>
+                    <text x="400" y="95" font-size="8" fill="#C9A84C" opacity="0.3">🐾</text>
+                    <text x="500" y="85" font-size="8" fill="#C9A84C" opacity="0.3">🐾</text>
+                </svg>
+            </div>
+        </div>
+
+        <div class="content-grid" style="margin-top:60px">
+            <div class="chart-wrapper">
+                <div class="chart-title">宠物主人年龄分布</div>
+                <div class="chart-subtitle">2025年 · 年轮图</div>
+                <svg class="svg-chart" viewBox="0 0 500 300" preserveAspectRatio="xMidYMid meet">
+                    <defs>
+                        <filter id="treeGlow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                    </defs>
+                    <!-- Tree trunk at center -->
+                    <rect x="196" y="150" width="8" height="80" rx="3" fill="#5A4A3A" opacity="0.3"/>
+                    <!-- Tree rings -->
+                    <circle cx="200" cy="150" r="120" fill="none" stroke="rgba(158,74,74,.08)" stroke-width="1"/>
+                    <circle cx="200" cy="150" r="80" fill="none" stroke="rgba(158,74,74,.05)" stroke-width="1"/>
+                    <circle cx="200" cy="150" r="50" fill="none" stroke="rgba(158,74,74,.08)" stroke-width="1"/>
+                    <!-- 90s (41.2%) - outer ring -->
+                    <path d="M 200,30 A 120,120 0 0,1 320,210 L 200,150 Z" fill="#9E4A4A" opacity=".85"/>
+                    <!-- 00s (25.6%) -->
+                    <path d="M 320,210 A 120,120 0 0,1 140,260 L 200,150 Z" fill="#C9A84C" opacity=".85"/>
+                    <!-- 80s (26.5%) -->
+                    <path d="M 140,260 A 120,120 0 0,1 80,90 L 200,150 Z" fill="#4A7A6E" opacity=".85"/>
+                    <!-- Others (6.7%) - inner ring -->
+                    <path d="M 80,90 A 120,120 0 0,1 200,30 L 200,150 Z" fill="#A89888" opacity=".85"/>
+                    <!-- Ring texture lines -->
+                    <circle cx="200" cy="150" r="90" fill="none" stroke="rgba(250,247,241,0.15)" stroke-width="1"/>
+                    <circle cx="200" cy="150" r="60" fill="none" stroke="rgba(250,247,241,0.15)" stroke-width="1"/>
+                    <circle cx="200" cy="150" r="30" fill="none" stroke="rgba(250,247,241,0.15)" stroke-width="1"/>
+                    <!-- Center text -->
+                    <text x="200" y="146" text-anchor="middle" font-size="22" fill="#9E4A4A" font-weight="700">72%</text>
+                    <text x="200" y="164" text-anchor="middle" font-size="10" fill="#A89888">35岁以下</text>
+                    <!-- Legend -->
+                    <rect x="340" y="80" width="12" height="12" rx="3" fill="#9E4A4A"/><text x="358" y="91" font-size="12" fill="#5A4A3A">90后 41.2%</text>
+                    <rect x="340" y="110" width="12" height="12" rx="3" fill="#C9A84C"/><text x="358" y="121" font-size="12" fill="#5A4A3A">00后 25.6%</text>
+                    <rect x="340" y="140" width="12" height="12" rx="3" fill="#4A7A6E"/><text x="358" y="151" font-size="12" fill="#5A4A3A">80后 26.5%</text>
+                    <rect x="340" y="170" width="12" height="12" rx="3" fill="#A89888"/><text x="358" y="181" font-size="12" fill="#5A4A3A">其他 6.7%</text>
+                </svg>
+            </div>
+            <div class="content-text">
+                <h3>72%的宠物主人不到35岁</h3>
+                <p>在中国，养宠不再是老年人的专属。<strong>90后占41.2%</strong>，00后占25.6%，两者合计超过七成。</p>
+                <p>同时，<strong>42%</strong>的养宠人处于未婚或单身状态。宠物正在成为独居青年的"情感室友"。当年轻人说"它是我家人"的时候，他们是在说一种不同于血缘的、选择性的亲密关系。在"独居社会"成为趋势的今天，宠物殡葬不是"风口"，而是<strong>大时代孤独的一个具象出口</strong>。</p>
+                <div class="data-source">数据来源：《2025年中国宠物行业白皮书》</div>
+            </div>
+        </div>
+
+        <div class="content-grid" style="margin-top:60px">
+            <div class="content-text">
+                <h3>从8.5亿到100亿</h3>
+                <p>2019年，中国宠物殡葬市场规模约为<strong>8.5亿元</strong>。到2023年，这个数字增长到<strong>18.25亿元</strong>。</p>
+                <p>行业预测，到2030年，将突破<strong>100亿元</strong>。年均复合增长率超过30%。</p>
+                <div class="data-source">数据来源：炼丹炉大数据《宠物殡葬行业洞察》、中研普华产业研究院</div>
+            </div>
+            <div class="chart-wrapper">
+                <div class="chart-title">中国宠物殡葬行业市场规模</div>
+                <div class="chart-subtitle">2019-2030（单位：亿元）</div>
+                <svg class="svg-chart" viewBox="0 0 600 280" preserveAspectRatio="xMidYMid meet">
+                    <defs>
+                        <radialGradient id="candleGlow" cx="0.5" cy="0.5" r="0.5"><stop offset="0%" stop-color="#C9A84C" stop-opacity="0.4"/><stop offset="50%" stop-color="#9E4A4A" stop-opacity="0.15"/><stop offset="100%" stop-color="#9E4A4A" stop-opacity="0"/></radialGradient>
+                        <linearGradient id="marketGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#9E4A4A" stop-opacity="0.2"/><stop offset="100%" stop-color="#9E4A4A" stop-opacity="0"/></linearGradient>
+                        <filter id="candleFlameGlow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                    </defs>
+                    <!-- Grid lines -->
+                    <line x1="50" y1="30" x2="50" y2="230" stroke="rgba(61,46,36,.08)" stroke-width="1" stroke-dasharray="3,3"/>
+                    <line x1="50" y1="230" x2="550" y2="230" stroke="rgba(61,46,36,.08)" stroke-width="1"/>
+                    <line x1="50" y1="80" x2="550" y2="80" stroke="rgba(61,46,36,.04)" stroke-width="1" stroke-dasharray="2,4"/>
+                    <line x1="50" y1="130" x2="550" y2="130" stroke="rgba(61,46,36,.04)" stroke-width="1" stroke-dasharray="2,4"/>
+                    <line x1="50" y1="180" x2="550" y2="180" stroke="rgba(61,46,36,.04)" stroke-width="1" stroke-dasharray="2,4"/>
+                    <!-- Candle glow circles at each data point -->
+                    <circle cx="50" cy="220" r="15" fill="url(#candleGlow)" opacity="0.3"/>
+                    <circle cx="90" cy="210" r="18" fill="url(#candleGlow)" opacity="0.35"/>
+                    <circle cx="130" cy="200" r="21" fill="url(#candleGlow)" opacity="0.4"/>
+                    <circle cx="170" cy="195" r="24" fill="url(#candleGlow)" opacity="0.45"/>
+                    <circle cx="210" cy="185" r="28" fill="url(#candleGlow)" opacity="0.5"/>
+                    <circle cx="250" cy="175" r="32" fill="url(#candleGlow)" opacity="0.55"/>
+                    <circle cx="290" cy="160" r="38" fill="url(#candleGlow)" opacity="0.6"/>
+                    <circle cx="330" cy="140" r="45" fill="url(#candleGlow)" opacity="0.65"/>
+                    <circle cx="370" cy="120" r="52" fill="url(#candleGlow)" opacity="0.7"/>
+                    <circle cx="410" cy="100" r="58" fill="url(#candleGlow)" opacity="0.75"/>
+                    <circle cx="450" cy="80" r="65" fill="url(#candleGlow)" opacity="0.8"/>
+                    <circle cx="490" cy="60" r="72" fill="url(#candleGlow)" opacity="0.85"/>
+                    <circle cx="530" cy="40" r="78" fill="url(#candleGlow)" opacity="0.9"/>
+                    <circle cx="550" cy="30" r="85" fill="url(#candleGlow)" opacity="1"/>
+                    <!-- Area fill below -->
+                    <path d="M 50,220 L 90,210 L 130,200 L 170,195 L 210,185 L 250,175 L 290,160 L 330,140 L 370,120 L 410,100 L 450,80 L 490,60 L 530,40 L 550,30 L 550,230 L 50,230 Z" fill="url(#marketGrad)" opacity=".4"/>
+                    <!-- Candle sticks at each year -->
+                    <rect x="47" y="220" width="6" height="8" rx="2" fill="#7A6B5D" opacity="0.6"/>
+                    <rect x="87" y="210" width="6" height="8" rx="2" fill="#7A6B5D" opacity="0.6"/>
+                    <rect x="127" y="200" width="6" height="8" rx="2" fill="#7A6B5D" opacity="0.6"/>
+                    <rect x="167" y="195" width="6" height="8" rx="2" fill="#7A6B5D" opacity="0.6"/>
+                    <rect x="207" y="185" width="6" height="8" rx="2" fill="#7A6B5D" opacity="0.6"/>
+                    <rect x="247" y="175" width="6" height="8" rx="2" fill="#7A6B5D" opacity="0.6"/>
+                    <rect x="287" y="160" width="6" height="8" rx="2" fill="#7A6B5D" opacity="0.6"/>
+                    <rect x="327" y="140" width="6" height="8" rx="2" fill="#7A6B5D" opacity="0.6"/>
+                    <rect x="367" y="120" width="6" height="8" rx="2" fill="#7A6B5D" opacity="0.6"/>
+                    <rect x="407" y="100" width="6" height="8" rx="2" fill="#7A6B5D" opacity="0.6"/>
+                    <rect x="447" y="80" width="6" height="8" rx="2" fill="#7A6B5D" opacity="0.6"/>
+                    <rect x="487" y="60" width="6" height="8" rx="2" fill="#7A6B5D" opacity="0.6"/>
+                    <rect x="527" y="40" width="6" height="8" rx="2" fill="#7A6B5D" opacity="0.6"/>
+                    <rect x="547" y="30" width="6" height="8" rx="2" fill="#7A6B5D" opacity="0.6"/>
+                    <!-- Flame data points -->
+                    <circle cx="50" cy="220" r="3" fill="#C9A84C" filter="url(#candleFlameGlow)"/>
+                    <circle cx="90" cy="210" r="3" fill="#C9A84C" filter="url(#candleFlameGlow)"/>
+                    <circle cx="130" cy="200" r="3" fill="#C9A84C" filter="url(#candleFlameGlow)"/>
+                    <circle cx="170" cy="195" r="3" fill="#C9A84C" filter="url(#candleFlameGlow)"/>
+                    <circle cx="210" cy="185" r="4" fill="#C9A84C" filter="url(#candleFlameGlow)"/>
+                    <circle cx="250" cy="175" r="4" fill="#C9A84C" filter="url(#candleFlameGlow)"/>
+                    <circle cx="290" cy="160" r="4" fill="#C9A84C" filter="url(#candleFlameGlow)"/>
+                    <circle cx="330" cy="140" r="5" fill="#C9A84C" filter="url(#candleFlameGlow)"/>
+                    <circle cx="370" cy="120" r="5" fill="#C9A84C" filter="url(#candleFlameGlow)"/>
+                    <circle cx="410" cy="100" r="5" fill="#C9A84C" filter="url(#candleFlameGlow)"/>
+                    <circle cx="450" cy="80" r="6" fill="#C9A84C" filter="url(#candleFlameGlow)"/>
+                    <circle cx="490" cy="60" r="6" fill="#C9A84C" filter="url(#candleFlameGlow)"/>
+                    <circle cx="530" cy="40" r="6" fill="#C9A84C" filter="url(#candleFlameGlow)"/>
+                    <circle cx="550" cy="30" r="7" fill="#C9A84C" filter="url(#candleFlameGlow)"/>
+                    <!-- Connecting line -->
+                    <polyline points="50,220 90,210 130,200 170,195 210,185 250,175 290,160 330,140 370,120 410,100 450,80 490,60 530,40 550,30" fill="none" stroke="#9E4A4A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3,3" opacity="0.5"/>
+                    <!-- Predict divider -->
+                    <line x1="260" y1="30" x2="260" y2="230" stroke="#9E4A4A" stroke-width="1" stroke-dasharray="5,5" opacity=".5"/>
+                    <text x="270" y="45" font-size="9" fill="#9E4A4A">预测 →</text>
+                    <text x="250" y="45" font-size="9" fill="#9E4A4A" text-anchor="end">← 实际</text>
+                    <!-- Y labels -->
+                    <text x="42" y="35" text-anchor="end" font-size="10" fill="#A89888">120</text>
+                    <text x="42" y="85" text-anchor="end" font-size="10" fill="#A89888">90</text>
+                    <text x="42" y="135" text-anchor="end" font-size="10" fill="#A89888">60</text>
+                    <text x="42" y="185" text-anchor="end" font-size="10" fill="#A89888">30</text>
+                    <text x="42" y="235" text-anchor="end" font-size="10" fill="#A89888">0</text>
+                    <!-- X labels -->
+                    <text x="50" y="250" text-anchor="middle" font-size="9" fill="#A89888">2019</text>
+                    <text x="210" y="250" text-anchor="middle" font-size="9" fill="#A89888">2023</text>
+                    <text x="370" y="250" text-anchor="middle" font-size="9" fill="#A89888">2027</text>
+                    <text x="550" y="250" text-anchor="middle" font-size="9" fill="#A89888">2030</text>
+                    <!-- Bottom caption -->
+                    <text x="300" y="268" text-anchor="middle" font-size="10" fill="#A89888" opacity="0.6" font-style="italic">每一支蜡烛，都是一个行业的微光</text>
+                </svg>
+            </div>
+        </div>
+        <div style="max-width:800px;margin:48px auto 0;text-align:center">
+            <div style="width:60px;height:2px;background:linear-gradient(90deg,#9E4A4A,#C9A84C);margin:0 auto 20px"></div>
+            <p style="font-size:15px;color:#7A6B5D;line-height:2.4;font-style:italic">当我们谈论宠物殡葬时，我们真正谈论的是一个正在形成的新型社会契约：在血缘家庭瓦解的今天，人们如何通过情感选择重新定义"家人"。1.24亿只宠物、2.9亿单身人口、2亿65岁以上老人——这些数字不是孤立的统计，它们指向同一个趋势：<strong>情感正在取代血缘，成为关系的核心纽带。</strong>宠物殡葬不是"风口"，它是大时代孤独的一个具象出口。</p>
+        </div>
+        <div class="section-bridge">
+            <div class="bridge-arrow">&#9660;</div>
+            <p>当年轻人把宠物当作"家人"，面对离别时，他们能为一场告别付出多少？</p>
+        </div>
+    </div>
+</section>
+
+<!-- Chapter 2 -->
+<section class="chapter-divider" style="background:linear-gradient(180deg,#3D1E1E 0%,#2A1515 100%)" id="ch2">
+    <div>
+        <div class="chapter-num" style="color:#C9A84C">CHAPTER 02</div>
+        <h2>200元到20000元</h2>
+        <p class="chapter-quote">"当年轻人面对宠物的离去，一场告别的价格从一顿火锅到一次出国旅行。"</p>
+    </div>
+</section>
+
+<section class="section" style="background:#3D1E1E;color:#D4C8B8">
+    <div class="container">
+        <div class="content-grid">
+            <div class="content-text">
+                <h3 style="color:#FAF7F1">200元到20000元：一条消费升级的阶梯</h3>
+                <p>宠物殡葬服务正在经历一条清晰的三级升级路径：</p>
+                <p><strong style="color:#C9A84C">基础层</strong>：集体火化 200-500元<br>满足"能处理"的基本需求，但无法取回骨灰。上海某门店20斤以内宠物集体火化价格为<strong>271元</strong>，广州某商家为<strong>289元</strong>。</p>
+                <p><strong style="color:#C9A84C">中层</strong>：单炉火化+告别仪式 1000-5000元<br>宠物主人可以全程陪同，有简单的仪式感，可以取回骨灰。北京海淀区某门店单炉火化<strong>781元</strong>，上海某门店<strong>766元</strong>，广州天河某商家<strong>953元</strong>（20-30斤）。</p>
+                <p><strong style="color:#C9A84C">顶层</strong>：定制纪念品+生态葬 5000-20000元<br>骨灰晶石、生命树、AI数字纪念……宠物以另一种形式，继续陪伴主人。有店面推出<strong>9880元</strong>的"高端定制豪华送别仪式"，手工定制宠物石膏雕塑高达<strong>18888元</strong>。</p>
+                <p>但价格之外，藏着更多陷阱：同款骨灰罐网购不到<strong>30元</strong>，店里标价<strong>99元</strong>；火化前未告知费用，结束后直接要价<strong>1976元</strong>；谈好单独火化<strong>599元</strong>，最终却被与其他宠物一起焚烧。新华社调查还发现，<strong>广佛仅一半商家</strong>拥有相关服务资质。</p>
+                <div class="data-source" style="color:#7A6B5D;border-color:rgba(255,255,255,.06)">数据来源：新华社、南方都市报、法治日报、北京商报、央广网、澎湃新闻调查报道</div>
+            </div>
+            <div class="chart-wrapper" style="background:rgba(255,255,255,.03);border-color:rgba(255,255,255,.06)">
+                <div class="chart-title" style="color:#FAF7F1">告别之路</div>
+                <div class="chart-subtitle" style="color:#7A6B5D">价格阶梯 · 服务层级</div>
+                <svg class="svg-chart" viewBox="0 0 500 350" preserveAspectRatio="xMidYMid meet">
+    <defs>
+        <filter id="stepGlow" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="4" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        <linearGradient id="stepGrad1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#A89888" stop-opacity="0.2"/><stop offset="100%" stop-color="#A89888" stop-opacity="0.05"/></linearGradient>
+        <linearGradient id="stepGrad2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#4A7A6E" stop-opacity="0.25"/><stop offset="100%" stop-color="#4A7A6E" stop-opacity="0.05"/></linearGradient>
+        <linearGradient id="stepGrad3" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#C9A84C" stop-opacity="0.25"/><stop offset="100%" stop-color="#C9A84C" stop-opacity="0.05"/></linearGradient>
+    </defs>
+    <!-- Step 1: 基础层 -->
+    <rect x="80" y="250" width="340" height="60" rx="8" fill="url(#stepGrad1)" stroke="rgba(168,152,136,0.2)" stroke-width="1" class="price-step" data-step="basic" style="cursor:pointer"/>
+    <text x="120" y="270" font-size="14" fill="#FAF7F1" font-weight="600">基础层</text>
+    <text x="120" y="290" font-size="12" fill="#D4C8B8">200-500元 · 集体火化</text>
+    <text x="370" y="280" text-anchor="end" font-size="18" fill="#C9A84C" font-weight="700">200</text>
+    <!-- Step 2: 中层 -->
+    <rect x="80" y="170" width="340" height="60" rx="8" fill="url(#stepGrad2)" stroke="rgba(74,122,110,0.2)" stroke-width="1" class="price-step" data-step="mid" style="cursor:pointer"/>
+    <text x="120" y="190" font-size="14" fill="#FAF7F1" font-weight="600">中层</text>
+    <text x="120" y="210" font-size="12" fill="#D4C8B8">1000-5000元 · 单炉火化+告别仪式</text>
+    <text x="370" y="200" text-anchor="end" font-size="18" fill="#C9A84C" font-weight="700">1,000</text>
+    <!-- Step 3: 顶层 -->
+    <rect x="80" y="90" width="340" height="60" rx="8" fill="url(#stepGrad3)" stroke="rgba(201,168,76,0.2)" stroke-width="1" class="price-step" data-step="top" style="cursor:pointer"/>
+    <text x="120" y="110" font-size="14" fill="#FAF7F1" font-weight="600">顶层</text>
+    <text x="120" y="130" font-size="12" fill="#D4C8B8">5000-20000元 · 定制纪念品+生态葬</text>
+    <text x="370" y="120" text-anchor="end" font-size="18" fill="#C9A84C" font-weight="700">5,000</text>
+    <!-- Arrow -->
+    <line x1="60" y1="300" x2="60" y2="80" stroke="#C9A84C" stroke-width="2" stroke-dasharray="5,5" opacity="0.4"/>
+    <text x="45" y="200" font-size="10" fill="#C9A84C" text-anchor="middle" writing-mode="tb">价格递增</text>
+    <!-- Paw prints -->
+    <text x="90" y="245" font-size="10" fill="#C9A84C" opacity="0.25">🐾</text>
+    <text x="90" y="165" font-size="10" fill="#C9A84C" opacity="0.25">🐾</text>
+    <text x="90" y="85" font-size="10" fill="#C9A84C" opacity="0.25">🐾</text>
+</svg>
+            </div>
+            <div id="priceDetailPanel" style="max-width:800px;margin:24px auto 0;padding:24px;background:rgba(0,0,0,.2);border-radius:12px;border-left:3px solid #C9A84C;display:none;transition:opacity .5s ease">
+                <h4 id="priceDetailTitle" style="color:#C9A84C;font-size:16px;margin-bottom:12px"></h4>
+                <p id="priceDetailContent" style="color:#D4C8B8;font-size:14px;line-height:2"></p>
+                <div style="text-align:center;margin-top:16px">
+                    <span style="font-size:12px;color:#7A6B5D;cursor:pointer" onclick="document.getElementById('priceDetailPanel').style.display='none'">收起 ▲</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-grid" style="margin-top:60px">
+            <div class="chart-wrapper" style="background:rgba(255,255,255,.03);border-color:rgba(255,255,255,.06)">
+                <div class="chart-title" style="color:#FAF7F1">七城市宠物殡葬服务价格对比</div>
+                <div class="chart-subtitle" style="color:#7A6B5D">基础火化价格 · 元</div>
+                <svg class="svg-chart" viewBox="0 0 600 280" preserveAspectRatio="xMidYMid meet">
+                    <defs>
+                        <linearGradient id="monGrad1" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#5A4A3A"/><stop offset="50%" stop-color="#7A6B5D"/><stop offset="100%" stop-color="#5A4A3A"/></linearGradient>
+                        <linearGradient id="monGrad2" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#4A3A2A"/><stop offset="50%" stop-color="#6A5B4D"/><stop offset="100%" stop-color="#4A3A2A"/></linearGradient>
+                        <linearGradient id="monGrad3" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#3A2A1A"/><stop offset="50%" stop-color="#5A4B3D"/><stop offset="100%" stop-color="#3A2A1A"/></linearGradient>
+                        <filter id="flameGlow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                    </defs>
+                    <!-- Ground line -->
+                    <line x1="40" y1="210" x2="580" y2="210" stroke="rgba(201,168,76,0.15)" stroke-width="1"/>
+                    <!-- 上海 600 - tallest monument -->
+                    <g transform="translate(85, 55)" class="monument-group">
+                        <rect x="-18" y="0" width="36" height="155" rx="3" fill="url(#monGrad1)" stroke="rgba(201,168,76,0.15)" stroke-width="1"/>
+                        <rect x="-12" y="5" width="24" height="145" rx="2" fill="rgba(201,168,76,0.05)"/>
+                        <text x="0" y="-8" text-anchor="middle" font-size="11" fill="#C9A84C" font-weight="700">600</text>
+                        <ellipse cx="0" cy="-14" rx="5" ry="7" fill="#C9A84C" opacity="0.7" filter="url(#flameGlow)"/>
+                    </g>
+                    <text x="85" y="230" text-anchor="middle" font-size="10" fill="#B8A898">上海</text>
+                    <!-- 北京 500 -->
+                    <g transform="translate(160, 70)" class="monument-group">
+                        <rect x="-18" y="0" width="36" height="140" rx="3" fill="url(#monGrad2)" stroke="rgba(201,168,76,0.15)" stroke-width="1"/>
+                        <rect x="-12" y="5" width="24" height="130" rx="2" fill="rgba(201,168,76,0.05)"/>
+                        <text x="0" y="-8" text-anchor="middle" font-size="11" fill="#C9A84C" font-weight="700">500</text>
+                        <ellipse cx="0" cy="-14" rx="5" ry="7" fill="#C9A84C" opacity="0.6" filter="url(#flameGlow)"/>
+                    </g>
+                    <text x="160" y="230" text-anchor="middle" font-size="10" fill="#B8A898">北京</text>
+                    <!-- 深圳 450 -->
+                    <g transform="translate(235, 82)" class="monument-group">
+                        <rect x="-18" y="0" width="36" height="128" rx="3" fill="url(#monGrad3)" stroke="rgba(201,168,76,0.15)" stroke-width="1"/>
+                        <rect x="-12" y="5" width="24" height="118" rx="2" fill="rgba(201,168,76,0.05)"/>
+                        <text x="0" y="-8" text-anchor="middle" font-size="11" fill="#C9A84C" font-weight="700">450</text>
+                        <ellipse cx="0" cy="-14" rx="5" ry="7" fill="#C9A84C" opacity="0.5" filter="url(#flameGlow)"/>
+                    </g>
+                    <text x="235" y="230" text-anchor="middle" font-size="10" fill="#B8A898">深圳</text>
+                    <!-- 广州 400 -->
+                    <g transform="translate(310, 92)" class="monument-group">
+                        <rect x="-18" y="0" width="36" height="118" rx="3" fill="url(#monGrad2)" stroke="rgba(201,168,76,0.15)" stroke-width="1"/>
+                        <rect x="-12" y="5" width="24" height="108" rx="2" fill="rgba(201,168,76,0.05)"/>
+                        <text x="0" y="-8" text-anchor="middle" font-size="11" fill="#C9A84C" font-weight="700">400</text>
+                        <ellipse cx="0" cy="-14" rx="5" ry="7" fill="#C9A84C" opacity="0.45" filter="url(#flameGlow)"/>
+                    </g>
+                    <text x="310" y="230" text-anchor="middle" font-size="10" fill="#B8A898">广州</text>
+                    <!-- 杭州 350 -->
+                    <g transform="translate(385, 102)" class="monument-group">
+                        <rect x="-18" y="0" width="36" height="108" rx="3" fill="url(#monGrad3)" stroke="rgba(201,168,76,0.15)" stroke-width="1"/>
+                        <rect x="-12" y="5" width="24" height="98" rx="2" fill="rgba(201,168,76,0.05)"/>
+                        <text x="0" y="-8" text-anchor="middle" font-size="11" fill="#C9A84C" font-weight="700">350</text>
+                        <ellipse cx="0" cy="-14" rx="5" ry="7" fill="#C9A84C" opacity="0.4" filter="url(#flameGlow)"/>
+                    </g>
+                    <text x="385" y="230" text-anchor="middle" font-size="10" fill="#B8A898">杭州</text>
+                    <!-- 成都 300 -->
+                    <g transform="translate(460, 112)" class="monument-group">
+                        <rect x="-18" y="0" width="36" height="98" rx="3" fill="url(#monGrad2)" stroke="rgba(201,168,76,0.15)" stroke-width="1"/>
+                        <rect x="-12" y="5" width="24" height="88" rx="2" fill="rgba(201,168,76,0.05)"/>
+                        <text x="0" y="-8" text-anchor="middle" font-size="11" fill="#C9A84C" font-weight="700">300</text>
+                        <ellipse cx="0" cy="-14" rx="5" ry="7" fill="#C9A84C" opacity="0.35" filter="url(#flameGlow)"/>
+                    </g>
+                    <text x="460" y="230" text-anchor="middle" font-size="10" fill="#B8A898">成都</text>
+                    <!-- 重庆 250 - smallest -->
+                    <g transform="translate(535, 122)" class="monument-group">
+                        <rect x="-18" y="0" width="36" height="88" rx="3" fill="url(#monGrad3)" stroke="rgba(201,168,76,0.15)" stroke-width="1"/>
+                        <rect x="-12" y="5" width="24" height="78" rx="2" fill="rgba(201,168,76,0.05)"/>
+                        <text x="0" y="-8" text-anchor="middle" font-size="11" fill="#C9A84C" font-weight="700">250</text>
+                        <ellipse cx="0" cy="-14" rx="5" ry="7" fill="#C9A84C" opacity="0.3" filter="url(#flameGlow)"/>
+                    </g>
+                    <text x="535" y="230" text-anchor="middle" font-size="10" fill="#B8A898">重庆</text>
+                    <!-- Paw prints at bottom -->
+                    <text x="60" y="250" font-size="10" fill="#C9A84C" opacity="0.15">🐾</text>
+                    <text x="200" y="250" font-size="10" fill="#C9A84C" opacity="0.15">🐾</text>
+                    <text x="340" y="250" font-size="10" fill="#C9A84C" opacity="0.15">🐾</text>
+                    <text x="480" y="250" font-size="10" fill="#C9A84C" opacity="0.15">🐾</text>
+                    <!-- Title hint -->
+                    <text x="300" y="270" text-anchor="middle" font-size="10" fill="#7A6B5D" opacity="0.6" font-style="italic">每座城市，都有一座纪念的碑</text>
+                </svg>
+            </div>
+            <div class="content-text">
+                <h3 style="color:#FAF7F1">同一座城市，价格相差25倍</h3>
+                <p>我们整理了七个城市的宠物殡葬服务价格。集体火化（基础）的价格区间：<strong>200-600元</strong>。宠物墓地的价格区间：<strong>5000-50000元</strong>。</p>
+                <p>同一城市不同商家，基础火化的报价相差可达3倍。北京一家高端宠物殡葬店将服务分为"厚养薄葬"<strong>1499元</strong>、"尽善尽美"<strong>3999元</strong>、"不留遗憾"<strong>9999元</strong>三档。9999元套餐包含基础火化、全身干洗、3小时告别室、纪念照拍摄、新西兰灵魂沟通师30分钟疗愈，以及爪印、毛发吊坠、骨灰吊坠、镀金肖像等纪念品。</p>
+                <p>上海某宠物殡葬师透露，其店面基本每单价格都在<strong>2000元以上</strong>，每月都有两三单价格超万元的殡葬单。宠物墓地价格同样悬殊：福建某地有墓碑的单独树葬宠物墓地<strong>万元以上</strong>，联排墓地价格一个超<strong>6000元</strong>。</p>
+                <p>告别一只宠物的成本，从一顿火锅到一次出国旅行，全看你走进哪一家店。价格差异的背后，是行业标准化缺失的缩影。但更深的问题是：<strong>当告别可以被定价，情感是否也在被商品化？</strong>200元的基础火化与20000元的定制纪念，本质上是同一种"爱"的不同表达方式，还是一种情感消费的阶层划分？</p>
+            </div>
+        </div>
+
+        <div class="content-grid" style="margin-top:60px">
+            <div class="content-text">
+                <h3 style="color:#FAF7F1">同一城市，两种告别</h3>
+                <p>即便在同一座城市，选择"单独火化"还是"集体火化"，价格差距可达<strong>2.5-3倍</strong>。更关键的是，集体火化意味着你无法取回宠物的骨灰。</p>
+                <p>北京：单炉<strong>781元</strong> vs 集体<strong>291元</strong>（差2.7倍）<br>上海：单炉<strong>766元</strong> vs 集体<strong>271元</strong>（差2.8倍）<br>广州：单炉<strong>953元</strong> vs 集体<strong>289元</strong>（差3.3倍）<br>深圳：单炉约<strong>800元</strong> vs 集体约<strong>300元</strong>（差2.7倍）</p>
+                <p>这不仅是价格差异，更是<strong>"选择权"的差异</strong>——选择集体火化，意味着你放弃了一场单独告别的可能。</p>
+            </div>
+            <div class="chart-wrapper" style="background:rgba(255,255,255,.03);border-color:rgba(255,255,255,.06)">
+                <div class="chart-title" style="color:#FAF7F1">单炉 vs 集体火化价格</div>
+                <div class="chart-subtitle" style="color:#7A6B5D">典型城市对比 · 元</div>
+                <svg class="svg-chart" viewBox="0 0 500 260" preserveAspectRatio="xMidYMid meet">
+                    <defs>
+                        <linearGradient id="soloGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#C9A84C" stop-opacity="0.8"/><stop offset="100%" stop-color="#C9A84C" stop-opacity="0.2"/></linearGradient>
+                        <linearGradient id="groupGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#7A6B5D" stop-opacity="0.6"/><stop offset="100%" stop-color="#7A6B5D" stop-opacity="0.1"/></linearGradient>
+                    </defs>
+                    <!-- Grid -->
+                    <line x1="50" y1="30" x2="50" y2="190" stroke="rgba(255,255,255,.06)" stroke-width="1"/>
+                    <line x1="50" y1="190" x2="460" y2="190" stroke="rgba(255,255,255,.06)" stroke-width="1"/>
+                    <line x1="50" y1="130" x2="460" y2="130" stroke="rgba(255,255,255,.04)" stroke-width="1" stroke-dasharray="3,3"/>
+                    <line x1="50" y1="70" x2="460" y2="70" stroke="rgba(255,255,255,.04)" stroke-width="1" stroke-dasharray="3,3"/>
+                    <!-- Y labels -->
+                    <text x="42" y="75" text-anchor="end" font-size="9" fill="#7A6B5D">1000</text>
+                    <text x="42" y="135" text-anchor="end" font-size="9" fill="#7A6B5D">500</text>
+                    <text x="42" y="195" text-anchor="end" font-size="9" fill="#7A6B5D">0</text>
+                    <!-- Beijing 781 vs 291 -->
+                    <rect x="70" y="45" width="22" height="145" rx="2" fill="url(#soloGrad)"/>
+                    <rect x="95" y="134" width="22" height="56" rx="2" fill="url(#groupGrad)"/>
+                    <text x="81" y="38" text-anchor="middle" font-size="9" fill="#C9A84C">781</text>
+                    <text x="106" y="153" text-anchor="middle" font-size="8" fill="#7A6B5D">291</text>
+                    <text x="93" y="208" text-anchor="middle" font-size="10" fill="#B8A898">北京</text>
+                    <!-- Shanghai 766 vs 271 -->
+                    <rect x="155" y="48" width="22" height="142" rx="2" fill="url(#soloGrad)"/>
+                    <rect x="180" y="138" width="22" height="52" rx="2" fill="url(#groupGrad)"/>
+                    <text x="166" y="41" text-anchor="middle" font-size="9" fill="#C9A84C">766</text>
+                    <text x="191" y="157" text-anchor="middle" font-size="8" fill="#7A6B5D">271</text>
+                    <text x="178" y="208" text-anchor="middle" font-size="10" fill="#B8A898">上海</text>
+                    <!-- Guangzhou 953 vs 289 -->
+                    <rect x="240" y="20" width="22" height="170" rx="2" fill="url(#soloGrad)"/>
+                    <rect x="265" y="136" width="22" height="54" rx="2" fill="url(#groupGrad)"/>
+                    <text x="251" y="13" text-anchor="middle" font-size="9" fill="#C9A84C">953</text>
+                    <text x="276" y="155" text-anchor="middle" font-size="8" fill="#7A6B5D">289</text>
+                    <text x="263" y="208" text-anchor="middle" font-size="10" fill="#B8A898">广州</text>
+                    <!-- Shenzhen ~800 vs ~300 -->
+                    <rect x="325" y="55" width="22" height="135" rx="2" fill="url(#soloGrad)"/>
+                    <rect x="350" y="132" width="22" height="58" rx="2" fill="url(#groupGrad)"/>
+                    <text x="336" y="48" text-anchor="middle" font-size="9" fill="#C9A84C">~800</text>
+                    <text x="361" y="151" text-anchor="middle" font-size="8" fill="#7A6B5D">~300</text>
+                    <text x="348" y="208" text-anchor="middle" font-size="10" fill="#B8A898">深圳</text>
+                    <!-- Legend -->
+                    <rect x="380" y="30" width="12" height="8" rx="2" fill="#C9A84C" opacity="0.8"/><text x="398" y="38" font-size="10" fill="#B8A898">单炉火化</text>
+                    <rect x="380" y="48" width="12" height="8" rx="2" fill="#7A6B5D" opacity="0.6"/><text x="398" y="56" font-size="10" fill="#B8A898">集体火化</text>
+                    <!-- Caption -->
+                    <text x="255" y="240" text-anchor="middle" font-size="10" fill="#7A6B5D" opacity="0.6" font-style="italic">金色柱子，是可以单独告别的价格</text>
+                </svg>
+            </div>
+        </div>
+
+        <div style="max-width:800px;margin:48px auto 0;text-align:center">
+            <div style="width:60px;height:2px;background:linear-gradient(90deg,#C9A84C,#9E4A4A);margin:0 auto 20px"></div>
+            <p style="font-size:15px;color:#B8A898;line-height:2.4;font-style:italic">价格阶梯的背后，是一个残酷的现实：告别的"尊严"正在被标价。200元的基础火化与20000元的定制纪念，也许来自同一只宠物、同一个主人。价格的差异，本质上不是"爱"的差异，而是<strong>信息的差异、选择的差异、认知的差异</strong>。当宠物殡葬从"必需服务"变成"消费升级"，我们必须警惕：情感的深度，不应该由钱包的厚度来定义。</p>
+        </div>
+        <div class="section-bridge">
+            <div class="bridge-arrow" style="color:#C9A84C">&#9660;</div>
+            <p style="color:#7A6B5D">当价格可以衡量告别的"尊严"，处理方式本身也在发生一场静默的革命。</p>
+        </div>
+    </div>
+</section>
+
+<!-- Chapter 3 -->
+<section class="chapter-divider" style="background:linear-gradient(180deg,#1E2E2A 0%,#152420 100%)" id="ch3">
+    <div>
+        <div class="chapter-num" style="color:#4A9E8A">CHAPTER 03</div>
+        <h2>从垃圾桶到纪念碑</h2>
+        <p class="chapter-quote">"当告别可以被定价，处理方式本身也在发生一场静默的革命。"</p>
+    </div>
+</section>
+
+<section class="section" style="background:#1E2E2A;color:#B8C4C0">
+    <div class="container">
+        <div class="content-grid">
+            <div class="content-text">
+                <h3 style="color:#E8F0EC">处理方式的变迁</h3>
+                <p>2010年，约70%的宠物遗体被主人随意丢弃或自行掩埋。只有不到10%选择火化。</p>
+                <p>到2025年，火化比例上升到约68%。选择数字纪念、骨灰晶石、生命树等新兴方式的比例，也从几乎为0，增长到约12%。</p>
+                <p>但变迁并非均匀。中国畜牧业协会的调查显示，<strong>60.4%</strong>的宠主希望为宠物举行"遗体告别"，<strong>56.3%</strong>希望进行"遗容整理"。然而，在实际行为上，一份针对40位年轻人的调查发现，宠物病故后选择土葬的达<strong>25人</strong>，选择火化的仅<strong>15人</strong>；而在29位中老年人中，<strong>26人</strong>选择土葬，仅<strong>3人</strong>选择火化。年轻人的"意愿"与"行动"之间，存在着一道认知与经济的鸿沟。</p>
+                <p>更深层的问题是，即便选择火化，也并非都能如愿。由于"动物无害化处理许可"资质获取难度大，<strong>大多数宠物殡葬机构没有资质</strong>，只能采取与事业单位合作挂靠的方式完成火化。这意味着，你支付的"单炉火化"费用，宠物可能仍然被与其他动物一起集中处理。</p>
+                <div class="data-source" style="color:#5A7A70;border-color:rgba(255,255,255,.06)">数据来源：综合《中国宠物行业白皮书》、炼丹炉大数据、新华社调查、中国畜牧业协会</div>
+            </div>
+            <div class="chart-wrapper" style="background:rgba(255,255,255,.03);border-color:rgba(255,255,255,.06)">
+                <div class="chart-title" style="color:#E8F0EC">宠物遗体处理方式变迁</div>
+                <div class="chart-subtitle" style="color:#5A7A70">2010 vs 2025</div>
+                <svg class="svg-chart" viewBox="0 0 600 320" preserveAspectRatio="xMidYMid meet">
+                    <defs>
+                        <filter id="treeGlow2" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                    </defs>
+                    <!-- Ground line -->
+                    <line x1="50" y1="260" x2="550" y2="260" stroke="rgba(201,168,76,0.15)" stroke-width="1"/>
+                    <!-- 2010: Withered Tree -->
+                    <g transform="translate(150, 260)">
+                        <!-- Trunk -->
+                        <path d="M -5,0 L -3,-60 L 3,-60 L 5,0 Z" fill="#5A4A3A" opacity="0.5"/>
+                        <!-- Branches -->
+                        <path d="M -3,-40 L -25,-80" stroke="#5A4A3A" stroke-width="1.5" opacity="0.4"/>
+                        <path d="M 3,-40 L 25,-80" stroke="#5A4A3A" stroke-width="1.5" opacity="0.4"/>
+                        <path d="M -2,-55 L -15,-95" stroke="#5A4A3A" stroke-width="1" opacity="0.4"/>
+                        <path d="M 2,-55 L 15,-95" stroke="#5A4A3A" stroke-width="1" opacity="0.4"/>
+                        <!-- Fallen leaves (discard 70%) -->
+                        <ellipse cx="-30" cy="5" rx="8" ry="4" fill="#A89888" opacity="0.5" transform="rotate(-20)"/>
+                        <ellipse cx="-10" cy="8" rx="10" ry="5" fill="#A89888" opacity="0.6" transform="rotate(15)"/>
+                        <ellipse cx="15" cy="6" rx="9" ry="4.5" fill="#A89888" opacity="0.5" transform="rotate(-10)"/>
+                        <ellipse cx="35" cy="4" rx="7" ry="3.5" fill="#A89888" opacity="0.4" transform="rotate(25)"/>
+                        <ellipse cx="0" cy="10" rx="12" ry="6" fill="#A89888" opacity="0.7" transform="rotate(5)"/>
+                        <ellipse cx="-20" cy="12" rx="8" ry="4" fill="#A89888" opacity="0.5" transform="rotate(-15)"/>
+                        <ellipse cx="20" cy="12" rx="8" ry="4" fill="#A89888" opacity="0.5" transform="rotate(10)"/>
+                        <!-- Green leaves (cremate 10%) -->
+                        <ellipse cx="-22" cy="-78" rx="5" ry="3" fill="#4A7A6E" opacity="0.6" transform="rotate(-30)"/>
+                        <ellipse cx="22" cy="-78" rx="5" ry="3" fill="#4A7A6E" opacity="0.6" transform="rotate(30)"/>
+                        <!-- Year label -->
+                        <text x="0" y="45" text-anchor="middle" font-size="13" fill="#E8F0EC" font-weight="600">2010年</text>
+                        <text x="0" y="60" text-anchor="middle" font-size="10" fill="#A89888">70%丢弃</text>
+                    </g>
+                    <!-- Transition arrow -->
+                    <path d="M 240,150 L 320,150" stroke="#4A9E8A" stroke-width="2" stroke-dasharray="6,4" opacity=".5" marker-end="url(#arrowhead2)"/>
+                    <defs><marker id="arrowhead2" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#4A9E8A" opacity=".5"/></marker></defs>
+                    <text x="280" y="140" text-anchor="middle" font-size="11" fill="#4A9E8A">15年的转变</text>
+                    <text x="280" y="170" text-anchor="middle" font-size="10" fill="#4A9E8A" opacity="0.7">从落叶到花开</text>
+                    <!-- 2025: Blooming Tree -->
+                    <g transform="translate(420, 260)">
+                        <!-- Trunk -->
+                        <path d="M -8,0 L -5,-80 L 5,-80 L 8,0 Z" fill="#5A4A3A" opacity="0.6"/>
+                        <!-- Branches -->
+                        <path d="M -5,-50 L -35,-100" stroke="#5A4A3A" stroke-width="2" opacity="0.5"/>
+                        <path d="M 5,-50 L 35,-100" stroke="#5A4A3A" stroke-width="2" opacity="0.5"/>
+                        <path d="M -3,-65 L -20,-120" stroke="#5A4A3A" stroke-width="1.5" opacity="0.5"/>
+                        <path d="M 3,-65 L 20,-120" stroke="#5A4A3A" stroke-width="1.5" opacity="0.5"/>
+                        <path d="M -4,-35 L -30,-70" stroke="#5A4A3A" stroke-width="1.5" opacity="0.5"/>
+                        <path d="M 4,-35 L 30,-70" stroke="#5A4A3A" stroke-width="1.5" opacity="0.5"/>
+                        <!-- Green leaves canopy (cremate 68%) - dense -->
+                        <circle cx="-30" cy="-95" r="18" fill="#4A7A6E" opacity="0.5" filter="url(#treeGlow2)"/>
+                        <circle cx="30" cy="-95" r="18" fill="#4A7A6E" opacity="0.5" filter="url(#treeGlow2)"/>
+                        <circle cx="0" cy="-110" r="22" fill="#4A7A6E" opacity="0.6" filter="url(#treeGlow2)"/>
+                        <circle cx="-20" cy="-115" r="15" fill="#4A7A6E" opacity="0.4" filter="url(#treeGlow2)"/>
+                        <circle cx="20" cy="-115" r="15" fill="#4A7A6E" opacity="0.4" filter="url(#treeGlow2)"/>
+                        <circle cx="-35" cy="-70" r="14" fill="#4A7A6E" opacity="0.4" filter="url(#treeGlow2)"/>
+                        <circle cx="35" cy="-70" r="14" fill="#4A7A6E" opacity="0.4" filter="url(#treeGlow2)"/>
+                        <circle cx="0" cy="-80" r="20" fill="#4A7A6E" opacity="0.5" filter="url(#treeGlow2)"/>
+                        <circle cx="-15" cy="-85" r="12" fill="#4A7A6E" opacity="0.3" filter="url(#treeGlow2)"/>
+                        <circle cx="15" cy="-85" r="12" fill="#4A7A6E" opacity="0.3" filter="url(#treeGlow2)"/>
+                        <!-- Gold flowers (new ways 12%) -->
+                        <circle cx="-10" cy="-105" r="4" fill="#C9A84C" opacity="0.8" filter="url(#treeGlow2)"/>
+                        <circle cx="10" cy="-100" r="3.5" fill="#C9A84C" opacity="0.8" filter="url(#treeGlow2)"/>
+                        <circle cx="0" cy="-125" r="4" fill="#C9A84C" opacity="0.8" filter="url(#treeGlow2)"/>
+                        <circle cx="-25" cy="-85" r="3" fill="#C9A84C" opacity="0.7" filter="url(#treeGlow2)"/>
+                        <circle cx="25" cy="-88" r="3.5" fill="#C9A84C" opacity="0.7" filter="url(#treeGlow2)"/>
+                        <circle cx="-5" cy="-70" r="3" fill="#C9A84C" opacity="0.6" filter="url(#treeGlow2)"/>
+                        <circle cx="5" cy="-72" r="3" fill="#C9A84C" opacity="0.6" filter="url(#treeGlow2)"/>
+                        <!-- Few fallen leaves (discard 15%) -->
+                        <ellipse cx="-20" cy="5" rx="5" ry="2.5" fill="#A89888" opacity="0.3" transform="rotate(-15)"/>
+                        <ellipse cx="10" cy="8" rx="6" ry="3" fill="#A89888" opacity="0.4" transform="rotate(10)"/>
+                        <ellipse cx="30" cy="4" rx="4" ry="2" fill="#A89888" opacity="0.3" transform="rotate(20)"/>
+                        <!-- Year label -->
+                        <text x="0" y="45" text-anchor="middle" font-size="13" fill="#E8F0EC" font-weight="600">2025年</text>
+                        <text x="0" y="60" text-anchor="middle" font-size="10" fill="#4A7A6E">68%火化</text>
+                    </g>
+                    <!-- Legend -->
+                    <g transform="translate(100, 290)">
+                        <ellipse cx="0" cy="0" rx="8" ry="4" fill="#A89888" opacity="0.6" transform="rotate(10)"/>
+                        <text x="15" y="4" font-size="11" fill="#B8C4C0">落叶/丢弃</text>
+                    </g>
+                    <g transform="translate(240, 290)">
+                        <circle cx="0" cy="0" r="6" fill="#4A7A6E" opacity="0.6"/>
+                        <text x="15" y="4" font-size="11" fill="#B8C4C0">绿叶/火化</text>
+                    </g>
+                    <g transform="translate(380, 290)">
+                        <circle cx="0" cy="0" r="4" fill="#C9A84C" opacity="0.8"/>
+                        <text x="15" y="4" font-size="11" fill="#B8C4C0">花朵/新兴</text>
+                    </g>
+                    <text x="300" y="315" text-anchor="middle" font-size="10" fill="#5A7A70" opacity="0.6" font-style="italic">一棵树，记录了社会的变迁</text>
+                </svg>
+            </div>
+        </div>
+
+        <div class="content-grid" style="margin-top:60px">
+            <div class="chart-wrapper" style="background:rgba(255,255,255,.03);border-color:rgba(255,255,255,.06)">
+                <div class="chart-title" style="color:#E8F0EC">意愿与行动之间</div>
+                <div class="chart-subtitle" style="color:#5A7A70">不同年龄群体宠物遗体处理方式 · 人</div>
+                <svg class="svg-chart" viewBox="0 0 500 280" preserveAspectRatio="xMidYMid meet">
+                    <!-- Base line -->
+                    <line x1="60" y1="220" x2="440" y2="220" stroke="rgba(201,168,76,0.15)" stroke-width="1"/>
+                    <!-- 年轻人 40人 -->
+                    <g transform="translate(120, 220)">
+                        <rect x="-35" y="-160" width="70" height="160" rx="4" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="1"/>
+                        <rect x="-35" y="-100" width="70" height="100" rx="0" fill="#A89888" opacity="0.5"/>
+                        <rect x="-35" y="-160" width="70" height="60" rx="0" fill="#4A7A6E" opacity="0.7"/>
+                        <rect x="-35" y="-160" width="70" height="8" rx="4" fill="#4A7A6E" opacity="0.7"/>
+                        <rect x="-35" y="-8" width="70" height="8" rx="4" fill="#A89888" opacity="0.5"/>
+                        <text x="0" y="-115" text-anchor="middle" font-size="10" fill="#FAF7F1">25人</text>
+                        <text x="0" y="-145" text-anchor="middle" font-size="10" fill="#FAF7F1">15人</text>
+                        <text x="0" y="15" text-anchor="middle" font-size="12" fill="#E8F0EC" font-weight="600">年轻人</text>
+                        <text x="0" y="32" text-anchor="middle" font-size="10" fill="#5A7A70">40人调查</text>
+                    </g>
+                    <!-- 中老年人 29人 -->
+                    <g transform="translate(320, 220)">
+                        <rect x="-35" y="-116" width="70" height="116" rx="4" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="1"/>
+                        <rect x="-35" y="-104" width="70" height="104" rx="0" fill="#A89888" opacity="0.4"/>
+                        <rect x="-35" y="-116" width="70" height="12" rx="0" fill="#4A7A6E" opacity="0.6"/>
+                        <rect x="-35" y="-116" width="70" height="6" rx="3" fill="#4A7A6E" opacity="0.6"/>
+                        <rect x="-35" y="-8" width="70" height="8" rx="4" fill="#A89888" opacity="0.4"/>
+                        <text x="0" y="-55" text-anchor="middle" font-size="10" fill="#FAF7F1">26人</text>
+                        <text x="0" y="-110" text-anchor="middle" font-size="9" fill="#FAF7F1">3人</text>
+                        <text x="0" y="15" text-anchor="middle" font-size="12" fill="#E8F0EC" font-weight="600">中老年人</text>
+                        <text x="0" y="32" text-anchor="middle" font-size="10" fill="#5A7A70">29人调查</text>
+                    </g>
+                    <line x1="220" y1="50" x2="220" y2="230" stroke="rgba(255,255,255,.06)" stroke-width="1" stroke-dasharray="4,4"/>
+                    <rect x="140" y="250" width="12" height="8" rx="2" fill="#A89888" opacity="0.6"/><text x="158" y="258" font-size="10" fill="#B8C4C0">土葬</text>
+                    <rect x="240" y="250" width="12" height="8" rx="2" fill="#4A7A6E" opacity="0.7"/><text x="258" y="258" font-size="10" fill="#B8C4C0">火化</text>
+                    <text x="250" y="275" text-anchor="middle" font-size="10" fill="#5A7A70" opacity="0.6" font-style="italic">绿色占比，是选择"有尊严告别"的人</text>
+                </svg>
+            </div>
+            <div class="content-text">
+                <h3 style="color:#E8F0EC">嘴上说着"家人"，身体却在"土葬"</h3>
+                <p>中国畜牧业协会的调查显示，<strong>60.4%</strong>的宠主希望为宠物举行"遗体告别"，<strong>56.3%</strong>希望进行"遗容整理"。但在实际行动中，两代人的差异触目惊心。</p>
+                <p>在针对40位年轻人的调查中，宠物病故后选择土葬的达<strong>25人</strong>（62.5%），选择火化的仅<strong>15人</strong>。而在29位中老年人中，<strong>26人</strong>（89.7%）选择土葬，仅<strong>3人</strong>选择火化。</p>
+                <p>年轻人的"意愿"与"行动"之间，存在着一道<strong>认知与经济的鸿沟</strong>——他们或许想要一场体面的告别，但不知道去哪里火化，或者负担不起单炉火化的价格。</p>
+            </div>
+        </div>
+
+        <div style="max-width:800px;margin:48px auto 0;text-align:center">
+            <div style="width:60px;height:2px;background:linear-gradient(90deg,#4A7A6E,#C9A84C);margin:0 auto 20px"></div>
+            <p style="font-size:15px;color:#B8C4C0;line-height:2.4;font-style:italic">从"丢掉"到"纪念"，这不是一个简单的消费升级故事，而是一个社会对生命态度的微型切片。2010年的70%丢弃率，反映的是一个把宠物当"物"的时代；2025年的68%火化率，反映的是一个把宠物当"家人"的时代。但这里有一个悖论：<strong>我们越把宠物当家人，离别时的痛苦就越深。</strong>这种痛苦催生了一个产业，但这个产业是否真的能抚平伤痛，还是只是把告别包装成了另一种可以消费的商品？</p>
+        </div>
+        <div class="section-bridge">
+            <div class="bridge-arrow" style="color:#4A9E8A">&#9660;</div>
+            <p style="color:#5A7A70">但"火化"不是终点。全国哪里能完成一场体面的告别？</p>
+        </div>
+    </div>
+</section>
+
+<!-- Chapter 4 -->
+<section class="chapter-divider" style="background:linear-gradient(180deg,#2A2A3D 0%,#1E1E2D 100%)" id="ch4">
+    <div>
+        <div class="chapter-num" style="color:#8A8AC4">CHAPTER 04</div>
+        <h2>5%的渗透率，95%的沉默</h2>
+        <p class="chapter-quote">"当越来越多的人选择有尊严的告别，谁有资格完成它？"</p>
+    </div>
+</section>
+
+<section class="section" style="background:#2A2A3D;color:#B8B8C8">
+    <div class="container">
+        <div class="content-grid">
+            <div class="content-text">
+                <h3 style="color:#E8E8F0">我们还有很长的路</h3>
+                <p>2025年，全球宠物殡葬服务市场规模约22亿美元。其中，美国占14.5亿美元，渗透率约68%。日本占1.8亿美元，渗透率约45%。</p>
+                <p>中国占4.1亿美元（约30亿人民币），但渗透率仅约<strong>5%</strong>。</p>
+                <p>差距不只是数字。英国有<strong>300多家</strong>宠物殡葬公司，提供火化、葬礼、宠物墓地等全套服务，还开发了网上虚拟宠物墓地和哀思热线。日本有专为宠物服务的寺庙，提供诵经超度、骨灰寄存等服务。法国和新加坡立法<strong>强制要求宠物必须火化</strong>，违规处理将面临罚款或监禁。俄罗斯设有面积约<strong>2公顷</strong>的专门宠物墓地，严禁直接埋葬或丢弃。</p>
+                <p>全球约<strong>67%</strong>的宠物主人将宠物视为家庭成员，但在中国，"家庭成员"的身份，未必能换来一场体面的告别。</p>
+                <div class="data-source" style="color:#6A6A88;border-color:rgba(255,255,255,.06)">数据来源：Grand View Research、KBV Research、Industry Research、艾瑞咨询</div>
+            </div>
+            <div class="chart-wrapper" style="background:rgba(255,255,255,.03);border-color:rgba(255,255,255,.06)">
+                <div class="chart-title" style="color:#E8E8F0">各国宠物殡葬服务渗透率</div>
+                <div class="chart-subtitle" style="color:#6A6A88">2025年</div>
+                <svg class="svg-chart" viewBox="0 0 600 260" preserveAspectRatio="xMidYMid meet">
+                    <defs>
+                        <radialGradient id="brightGlow" cx="0.5" cy="0.5" r="0.5"><stop offset="0%" stop-color="#C9A84C" stop-opacity="0.6"/><stop offset="50%" stop-color="#C9A84C" stop-opacity="0.2"/><stop offset="100%" stop-color="#C9A84C" stop-opacity="0"/></radialGradient>
+                        <radialGradient id="mediumGlow" cx="0.5" cy="0.5" r="0.5"><stop offset="0%" stop-color="#4A7A6E" stop-opacity="0.5"/><stop offset="50%" stop-color="#4A7A6E" stop-opacity="0.15"/><stop offset="100%" stop-color="#4A7A6E" stop-opacity="0"/></radialGradient>
+                        <radialGradient id="dimGlow" cx="0.5" cy="0.5" r="0.5"><stop offset="0%" stop-color="#9E4A4A" stop-opacity="0.3"/><stop offset="50%" stop-color="#9E4A4A" stop-opacity="0.1"/><stop offset="100%" stop-color="#9E4A4A" stop-opacity="0"/></radialGradient>
+                        <filter id="brightFlame" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="4" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                    </defs>
+                    <!-- Grid -->
+                    <line x1="80" y1="30" x2="80" y2="200" stroke="rgba(255,255,255,.08)" stroke-width="1" stroke-dasharray="3,3"/>
+                    <line x1="80" y1="200" x2="550" y2="200" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
+                    <!-- USA 68% - bright lamp -->
+                    <ellipse cx="140" cy="50" rx="50" ry="50" fill="url(#brightGlow)" opacity="0.7"/>
+                    <circle cx="140" cy="50" r="18" fill="#C9A84C" opacity="0.9" filter="url(#brightFlame)"/>
+                    <circle cx="140" cy="50" r="8" fill="#FAF7F1" opacity="0.6"/>
+                    <rect x="136" y="70" width="8" height="20" rx="2" fill="#7A6B5D" opacity="0.5"/>
+                    <rect x="132" y="90" width="16" height="4" rx="2" fill="#7A6B5D" opacity="0.3"/>
+                    <text x="140" y="140" text-anchor="middle" font-size="14" fill="#C9A84C" font-weight="700">68%</text>
+                    <text x="140" y="225" text-anchor="middle" font-size="12" fill="#B8B8C8">美国</text>
+                    <text x="140" y="240" text-anchor="middle" font-size="10" fill="#7A7A88">14.5亿美元</text>
+                    <!-- Japan 45% - medium lamp -->
+                    <ellipse cx="260" cy="80" rx="40" ry="40" fill="url(#mediumGlow)" opacity="0.7"/>
+                    <circle cx="260" cy="80" r="14" fill="#4A7A6E" opacity="0.9" filter="url(#brightFlame)"/>
+                    <circle cx="260" cy="80" r="6" fill="#FAF7F1" opacity="0.5"/>
+                    <rect x="256" y="95" width="8" height="16" rx="2" fill="#7A6B5D" opacity="0.5"/>
+                    <rect x="252" y="111" width="16" height="4" rx="2" fill="#7A6B5D" opacity="0.3"/>
+                    <text x="260" y="160" text-anchor="middle" font-size="14" fill="#4A7A6E" font-weight="700">45%</text>
+                    <text x="260" y="225" text-anchor="middle" font-size="12" fill="#B8B8C8">日本</text>
+                    <text x="260" y="240" text-anchor="middle" font-size="10" fill="#7A7A88">1.8亿美元</text>
+                    <!-- China 5% - dim candle -->
+                    <ellipse cx="380" cy="170" rx="25" ry="25" fill="url(#dimGlow)" opacity="0.5"/>
+                    <circle cx="380" cy="170" r="6" fill="#9E4A4A" opacity="0.8" filter="url(#brightFlame)"/>
+                    <circle cx="380" cy="170" r="3" fill="#FAF7F1" opacity="0.4"/>
+                    <rect x="376" y="177" width="8" height="12" rx="2" fill="#7A6B5D" opacity="0.5"/>
+                    <rect x="372" y="189" width="16" height="4" rx="2" fill="#7A6B5D" opacity="0.3"/>
+                    <text x="380" y="140" text-anchor="middle" font-size="14" fill="#9E4A4A" font-weight="700">5%</text>
+                    <text x="380" y="225" text-anchor="middle" font-size="12" fill="#B8B8C8">中国</text>
+                    <text x="380" y="240" text-anchor="middle" font-size="10" fill="#7A7A88">4.1亿美元</text>
+                    <!-- Caption -->
+                    <text x="300" y="258" text-anchor="middle" font-size="10" fill="#7A7A88" opacity="0.6" font-style="italic">光亮的差距，是市场的空间</text>
+                </svg>
+            </div>
+        </div>
+
+        <div class="content-grid" style="margin-top:60px">
+            <div class="chart-wrapper" style="background:rgba(255,255,255,.03);border-color:rgba(255,255,255,.06)">
+                <div class="chart-title" style="color:#E8E8F0">中国宠物殡葬服务区域分布</div>
+                <div class="chart-subtitle" style="color:#6A6A88">2024年上半年</div>
+                <svg class="svg-chart" viewBox="0 0 600 300" preserveAspectRatio="xMidYMid meet">
+                    <defs>
+                        <filter id="leafGlow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                    </defs>
+                    <!-- Ground line -->
+                    <line x1="40" y1="240" x2="560" y2="240" stroke="rgba(201,168,76,0.1)" stroke-width="1"/>
+                    <!-- 华东 40.25% - largest golden leaf -->
+                    <g transform="translate(120, 140)" filter="url(#leafGlow)">
+                        <ellipse cx="0" cy="0" rx="55" ry="35" fill="#C9A84C" opacity="0.7" transform="rotate(-15)"/>
+                        <ellipse cx="0" cy="0" rx="45" ry="25" fill="#C9A84C" opacity="0.4" transform="rotate(-15)"/>
+                        <path d="M 0,0 L 0,-50" stroke="rgba(201,168,76,0.3)" stroke-width="1" transform="rotate(-15)"/>
+                        <text x="0" y="5" text-anchor="middle" font-size="16" fill="#FAF7F1" font-weight="700" transform="rotate(0)">40.25%</text>
+                        <text x="0" y="25" text-anchor="middle" font-size="12" fill="#E8E8F0" transform="rotate(0)">华东</text>
+                    </g>
+                    <!-- 华北 15.14% -->
+                    <g transform="translate(260, 80) rotate(20)">
+                        <ellipse cx="0" cy="0" rx="30" ry="20" fill="#8A8AC4" opacity="0.6"/>
+                        <ellipse cx="0" cy="0" rx="22" ry="14" fill="#8A8AC4" opacity="0.3"/>
+                        <path d="M 0,0 L 0,-28" stroke="rgba(138,138,196,0.3)" stroke-width="1"/>
+                        <text x="0" y="4" text-anchor="middle" font-size="11" fill="#FAF7F1" font-weight="700" transform="rotate(-20)">15.14%</text>
+                        <text x="0" y="18" text-anchor="middle" font-size="9" fill="#B8B8C8" transform="rotate(-20)">华北</text>
+                    </g>
+                    <!-- 华南 14.15% -->
+                    <g transform="translate(260, 180) rotate(-25)">
+                        <ellipse cx="0" cy="0" rx="28" ry="18" fill="#8A8AC4" opacity="0.55"/>
+                        <ellipse cx="0" cy="0" rx="20" ry="12" fill="#8A8AC4" opacity="0.3"/>
+                        <path d="M 0,0 L 0,-26" stroke="rgba(138,138,196,0.3)" stroke-width="1"/>
+                        <text x="0" y="4" text-anchor="middle" font-size="11" fill="#FAF7F1" font-weight="700" transform="rotate(25)">14.15%</text>
+                        <text x="0" y="18" text-anchor="middle" font-size="9" fill="#B8B8C8" transform="rotate(25)">华南</text>
+                    </g>
+                    <!-- 华中 13.32% -->
+                    <g transform="translate(360, 100) rotate(10)">
+                        <ellipse cx="0" cy="0" rx="25" ry="16" fill="#8A8AC4" opacity="0.5"/>
+                        <ellipse cx="0" cy="0" rx="18" ry="10" fill="#8A8AC4" opacity="0.25"/>
+                        <path d="M 0,0 L 0,-24" stroke="rgba(138,138,196,0.3)" stroke-width="1"/>
+                        <text x="0" y="4" text-anchor="middle" font-size="11" fill="#FAF7F1" font-weight="700" transform="rotate(-10)">13.32%</text>
+                        <text x="0" y="18" text-anchor="middle" font-size="9" fill="#B8B8C8" transform="rotate(-10)">华中</text>
+                    </g>
+                    <!-- 西南 9% -->
+                    <g transform="translate(360, 200) rotate(35)">
+                        <ellipse cx="0" cy="0" rx="20" ry="14" fill="#8A8AC4" opacity="0.45"/>
+                        <ellipse cx="0" cy="0" rx="14" ry="8" fill="#8A8AC4" opacity="0.2"/>
+                        <path d="M 0,0 L 0,-18" stroke="rgba(138,138,196,0.3)" stroke-width="1"/>
+                        <text x="0" y="4" text-anchor="middle" font-size="10" fill="#FAF7F1" font-weight="700" transform="rotate(-35)">9%</text>
+                        <text x="0" y="16" text-anchor="middle" font-size="8" fill="#B8B8C8" transform="rotate(-35)">西南</text>
+                    </g>
+                    <!-- 东北 -->
+                    <g transform="translate(440, 80) rotate(-15)">
+                        <ellipse cx="0" cy="0" rx="15" ry="10" fill="#8A8AC4" opacity="0.35"/>
+                        <path d="M 0,0 L 0,-15" stroke="rgba(138,138,196,0.2)" stroke-width="1"/>
+                        <text x="0" y="4" text-anchor="middle" font-size="9" fill="#B8B8C8" transform="rotate(15)">东北</text>
+                    </g>
+                    <!-- 西北 -->
+                    <g transform="translate(440, 180) rotate(40)">
+                        <ellipse cx="0" cy="0" rx="15" ry="10" fill="#8A8AC4" opacity="0.35"/>
+                        <path d="M 0,0 L 0,-15" stroke="rgba(138,138,196,0.2)" stroke-width="1"/>
+                        <text x="0" y="4" text-anchor="middle" font-size="9" fill="#B8B8C8" transform="rotate(-40)">西北</text>
+                    </g>
+                    <!-- Caption -->
+                    <text x="300" y="270" text-anchor="middle" font-size="10" fill="#7A7A88" opacity="0.6" font-style="italic">每片落叶，都有自己的位置</text>
+                </svg>
+            </div>
+            <div class="content-text">
+                <h3 style="color:#E8E8F0">华东占40%，东北不到3%</h3>
+                <p>宠物殡葬服务，高度集中在经济发达地区。2024年上半年，华东地区市场占比40.25%，华北15.14%，华南14.15%，华中13.32%。</p>
+                <p>而东北和西北，合计不到6%。这些企业高度集中——北京一地占比约<strong>40%</strong>，华东地区企业分布占比<strong>37.03%</strong>。</p>
+                <p>重庆两江新区的"拾光森林"宠物生命纪念馆，约300平方米，去年7月开业，已服务<strong>500多只</strong>宠物，多的时候一个月单量在<strong>80只</strong>左右。这仅是西南地区的一个亮点，却无法改变全国格局。</p>
+                <p><strong>5%的渗透率</strong>，说明我们还有95%的路要走。但更深层的问题是：是什么阻碍了另外95%？在一线城市，人们讨论"数字化纪念"和"AI宠物"；在三四线城市，很多人甚至不知道宠物可以火化。这不是贫富差距，这是<strong>"告别权"的鸿沟</strong>。</p>
+            </div>
+        </div>
+
+        <div class="content-grid" style="margin-top:60px">
+            <div class="chart-wrapper" style="background:rgba(255,255,255,.03);border-color:rgba(255,255,255,.06)">
+                <div class="chart-title" style="color:#E8E8F0">六年，8000支蜡烛</div>
+                <div class="chart-subtitle" style="color:#6A6A88">宠物殡葬企业注册数量增长</div>
+                <svg class="svg-chart" viewBox="0 0 500 260" preserveAspectRatio="xMidYMid meet">
+                    <line x1="50" y1="200" x2="450" y2="200" stroke="rgba(138,138,196,0.15)" stroke-width="1"/>
+                    <g transform="translate(100, 200)">
+                        <rect x="-15" y="-25" width="30" height="25" rx="2" fill="rgba(138,138,196,0.3)" stroke="rgba(138,138,196,0.2)" stroke-width="1"/>
+                        <ellipse cx="0" cy="-28" rx="4" ry="5" fill="#8A8AC4" opacity="0.3"/>
+                        <text x="0" y="-34" text-anchor="middle" font-size="9" fill="#8A8AC4">998</text>
+                        <text x="0" y="18" text-anchor="middle" font-size="11" fill="#B8B8C8">2019</text>
+                    </g>
+                    <g transform="translate(200, 200)">
+                        <rect x="-15" y="-78" width="30" height="78" rx="2" fill="rgba(138,138,196,0.45)" stroke="rgba(138,138,196,0.3)" stroke-width="1"/>
+                        <ellipse cx="0" cy="-82" rx="5" ry="6" fill="#8A8AC4" opacity="0.5"/>
+                        <text x="0" y="-90" text-anchor="middle" font-size="10" fill="#8A8AC4">4459</text>
+                        <text x="0" y="18" text-anchor="middle" font-size="11" fill="#B8B8C8">2023</text>
+                    </g>
+                    <g transform="translate(300, 200)">
+                        <rect x="-15" y="-90" width="30" height="90" rx="2" fill="rgba(201,168,76,0.45)" stroke="rgba(201,168,76,0.3)" stroke-width="1"/>
+                        <ellipse cx="0" cy="-95" rx="5" ry="7" fill="#C9A84C" opacity="0.6"/>
+                        <text x="0" y="-106" text-anchor="middle" font-size="10" fill="#C9A84C">5135</text>
+                        <text x="0" y="18" text-anchor="middle" font-size="11" fill="#B8B8C8">2024H1</text>
+                    </g>
+                    <g transform="translate(400, 200)">
+                        <rect x="-15" y="-140" width="30" height="140" rx="2" fill="rgba(201,168,76,0.6)" stroke="rgba(201,168,76,0.4)" stroke-width="1"/>
+                        <ellipse cx="0" cy="-146" rx="6" ry="8" fill="#C9A84C" opacity="0.8" filter="url(#brightFlame)"/>
+                        <text x="0" y="-160" text-anchor="middle" font-size="11" fill="#C9A84C" font-weight="700">8000+</text>
+                        <text x="0" y="18" text-anchor="middle" font-size="11" fill="#C9A84C">2025</text>
+                    </g>
+                    <polyline points="100,175 200,122 300,110 400,60" fill="none" stroke="rgba(201,168,76,0.3)" stroke-width="2" stroke-dasharray="4,4"/>
+                    <text x="250" y="240" text-anchor="middle" font-size="10" fill="#6A6A88" opacity="0.6" font-style="italic">每多一支蜡烛，就多一个告别的选择</text>
+                </svg>
+            </div>
+            <div class="content-text">
+                <h3 style="color:#E8E8F0">从998到8000：行业的爆发</h3>
+                <p>2019年，全国宠物殡葬企业仅<strong>998家</strong>。到2023年，这个数字翻了4倍多，达到<strong>4459家</strong>。2024年上半年约<strong>5135家</strong>，截至2025年6月已超<strong>8000家</strong>。近三个月新增就超过<strong>1900家</strong>。</p>
+                <p>但爆发并不均匀。这些企业高度集中——北京一地占比约<strong>40%</strong>，华东地区企业分布占比<strong>37.03%</strong>。</p>
+                <p>重庆两江新区的"拾光森林"宠物生命纪念馆，约300平方米，去年7月开业，已服务<strong>500多只</strong>宠物，多的时候一个月单量在<strong>80只</strong>左右。这仅是西南地区的一个亮点，却无法改变全国格局。</p>
+            </div>
+        </div>
+
+        <div style="max-width:800px;margin:48px auto 0;text-align:center">
+            <div style="width:60px;height:2px;background:linear-gradient(90deg,#8A8AC4,#C9A84C);margin:0 auto 20px"></div>
+            <p style="font-size:15px;color:#B8B8C8;line-height:2.4;font-style:italic">5%的渗透率，不只是一个数字，它是一道社会分层的切口。在一线城市，人们讨论"数字化纪念"和"AI宠物"；在三四线城市，很多人甚至不知道宠物可以火化。这不是贫富差距，这是<strong>"告别权"的鸿沟</strong>。当我们为5%的渗透率欢呼时，别忘了还有95%的宠物，在生命的终点，没有经历一场被记录的告别。<strong>宠物殡葬的"风口"，只属于一线城市的中产。</strong></p>
+        </div>
+        <div class="section-bridge">
+            <div class="bridge-arrow" style="color:#8A8AC4">&#9660;</div>
+            <p style="color:#6A6A88">当5%与95%的鸿沟摆在面前，法律能做些什么？</p>
+        </div>
+    </div>
+</section>
+
+<!-- Chapter 5 -->
+<section class="chapter-divider" style="background:linear-gradient(180deg,#2A2E1E 0%,#1E2015 100%)" id="ch5">
+    <div>
+        <div class="chapter-num" style="color:#9E9E4A">CHAPTER 05</div>
+        <h2>当法律追上情感</h2>
+        <p class="chapter-quote">"从无法可依，到试点破冰。"</p>
+    </div>
+</section>
+
+<section class="section" style="background:#2A2E1E;color:#C4C4B8">
+    <div class="container">
+        <div style="text-align:center;margin-bottom:32px">
+            <h3 style="color:#ECECDB">从"无法可依"到"试点破冰"</h3>
+            <p style="max-width:640px;margin:0 auto;font-size:14px;color:#C4C4B8">从法律到执行，从国家到地方，宠物殡葬的规范化，正在缓慢但确定地推进。</p>
+        </div>
+        <div style="max-width:720px;margin:0 auto">
+            <svg class="svg-chart" viewBox="0 0 700 280" preserveAspectRatio="xMidYMid meet" id="lawTimeline">
+                <defs>
+                    <filter id="lawGlow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="4" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                </defs>
+                <!-- Timeline line -->
+                <line x1="50" y1="140" x2="650" y2="140" stroke="#9E9E4A" stroke-width="2" stroke-dasharray="8,4" opacity=".4"/>
+                <!-- 2021 -->
+                <circle cx="150" cy="140" r="10" fill="#2A2E1E" stroke="#9E9E4A" stroke-width="3" class="timeline-node" data-law="law1" style="cursor:pointer" filter="url(#lawGlow)"/>
+                <text x="150" y="120" text-anchor="middle" font-size="13" fill="#9E9E4A" font-weight="600">2021年5月</text>
+                <text x="150" y="175" text-anchor="middle" font-size="11" fill="#C4C4B8">《动物防疫法》</text>
+                <text x="150" y="190" text-anchor="middle" font-size="10" fill="#7A7A5D">首次国家法律约束</text>
+                <!-- 2023 -->
+                <circle cx="350" cy="140" r="10" fill="#2A2E1E" stroke="#9E9E4A" stroke-width="3" class="timeline-node" data-law="law2" style="cursor:pointer" filter="url(#lawGlow)"/>
+                <text x="350" y="120" text-anchor="middle" font-size="13" fill="#9E9E4A" font-weight="600">2023年</text>
+                <text x="350" y="175" text-anchor="middle" font-size="11" fill="#C4C4B8">《无害化处理管理办法》</text>
+                <text x="350" y="190" text-anchor="middle" font-size="10" fill="#7A7A5D">细化处理要求</text>
+                <!-- 2025 -->
+                <circle cx="550" cy="140" r="10" fill="#2A2E1E" stroke="#C9A84C" stroke-width="3" class="timeline-node" data-law="law3" style="cursor:pointer" filter="url(#lawGlow)"/>
+                <text x="550" y="120" text-anchor="middle" font-size="13" fill="#C9A84C" font-weight="600">2025年3月</text>
+                <text x="550" y="175" text-anchor="middle" font-size="11" fill="#C4C4B8">深圳首家获批</text>
+                <text x="550" y="190" text-anchor="middle" font-size="10" fill="#7A7A5D">全链条服务落地</text>
+            </svg>
+        </div>
+
+        <div class="content-grid" style="margin-top:48px">
+            <div class="content-text">
+                <h3 style="color:#ECECDB">谁为"告别权"立法？</h3>
+                <p>在全球范围内，宠物殡葬的立法状态差异巨大。法国和新加坡<strong>立法强制宠物必须火化</strong>，违规处理将面临罚款或监禁。英国有<strong>300多家</strong>宠物殡葬公司，提供从火化到虚拟墓地、哀思热线等全套服务。日本有专为宠物服务的寺庙，提供诵经超度、骨灰寄存。俄罗斯设有面积约<strong>2公顷</strong>的专门宠物墓地，严禁直接埋葬或丢弃。</p>
+                <p>而在中国，宠物殡葬仍处于<strong>"无法可依"的灰色地带</strong>——仅有《动物防疫法》对"病死动物无害化处理"的原则性规定，没有专门针对宠物殡葬的立法。涉及民政、农林、畜牧、环保、市场监管等多个部门，但至今没有明确的主管部门。</p>
+            </div>
+            <div class="chart-wrapper" style="background:rgba(255,255,255,.03);border-color:rgba(255,255,255,.06)">
+                <div class="chart-title" style="color:#ECECDB">各国宠物殡葬立法状态</div>
+                <div class="chart-subtitle" style="color:#7A7A5D">从"强制火化"到"无法可依"</div>
+                <svg class="svg-chart" viewBox="0 0 500 220" preserveAspectRatio="xMidYMid meet">
+                    <defs>
+                        <radialGradient id="greenGlow" cx="0.5" cy="0.5" r="0.5"><stop offset="0%" stop-color="#4A7A6E" stop-opacity="0.8"/><stop offset="100%" stop-color="#4A7A6E" stop-opacity="0.2"/></radialGradient>
+                        <radialGradient id="blueGlow" cx="0.5" cy="0.5" r="0.5"><stop offset="0%" stop-color="#8A8AC4" stop-opacity="0.8"/><stop offset="100%" stop-color="#8A8AC4" stop-opacity="0.2"/></radialGradient>
+                        <radialGradient id="yellowGlow" cx="0.5" cy="0.5" r="0.5"><stop offset="0%" stop-color="#C9A84C" stop-opacity="0.8"/><stop offset="100%" stop-color="#C9A84C" stop-opacity="0.2"/></radialGradient>
+                        <radialGradient id="redGlow" cx="0.5" cy="0.5" r="0.5"><stop offset="0%" stop-color="#9E4A4A" stop-opacity="0.8"/><stop offset="100%" stop-color="#9E4A4A" stop-opacity="0.2"/></radialGradient>
+                    </defs>
+                    <!-- Row 1 -->
+                    <!-- France -->
+                    <circle cx="60" cy="50" r="22" fill="url(#greenGlow)"/>
+                    <circle cx="60" cy="50" r="10" fill="#4A7A6E" opacity="0.9"/>
+                    <text x="60" y="90" text-anchor="middle" font-size="11" fill="#FAF7F1" font-weight="600">法国</text>
+                    <text x="60" y="105" text-anchor="middle" font-size="9" fill="#7A7A5D">强制火化</text>
+                    <!-- Singapore -->
+                    <circle cx="160" cy="50" r="22" fill="url(#greenGlow)"/>
+                    <circle cx="160" cy="50" r="10" fill="#4A7A6E" opacity="0.9"/>
+                    <text x="160" y="90" text-anchor="middle" font-size="11" fill="#FAF7F1" font-weight="600">新加坡</text>
+                    <text x="160" y="105" text-anchor="middle" font-size="9" fill="#7A7A5D">强制火化</text>
+                    <!-- UK -->
+                    <circle cx="260" cy="50" r="22" fill="url(#blueGlow)"/>
+                    <circle cx="260" cy="50" r="10" fill="#8A8AC4" opacity="0.9"/>
+                    <text x="260" y="90" text-anchor="middle" font-size="11" fill="#FAF7F1" font-weight="600">英国</text>
+                    <text x="260" y="105" text-anchor="middle" font-size="9" fill="#7A7A5D">300+家公司</text>
+                    <!-- Row 2 -->
+                    <!-- Japan -->
+                    <circle cx="85" cy="140" r="22" fill="url(#blueGlow)"/>
+                    <circle cx="85" cy="140" r="10" fill="#8A8AC4" opacity="0.9"/>
+                    <text x="85" y="180" text-anchor="middle" font-size="11" fill="#FAF7F1" font-weight="600">日本</text>
+                    <text x="85" y="195" text-anchor="middle" font-size="9" fill="#7A7A5D">寺庙诵经服务</text>
+                    <!-- Russia -->
+                    <circle cx="210" cy="140" r="22" fill="url(#yellowGlow)"/>
+                    <circle cx="210" cy="140" r="10" fill="#C9A84C" opacity="0.9"/>
+                    <text x="210" y="180" text-anchor="middle" font-size="11" fill="#FAF7F1" font-weight="600">俄罗斯</text>
+                    <text x="210" y="195" text-anchor="middle" font-size="9" fill="#7A7A5D">专门墓地</text>
+                    <!-- China -->
+                    <circle cx="340" cy="140" r="22" fill="url(#redGlow)"/>
+                    <circle cx="340" cy="140" r="10" fill="#9E4A4A" opacity="0.9"/>
+                    <text x="340" y="180" text-anchor="middle" font-size="11" fill="#FAF7F1" font-weight="600">中国</text>
+                    <text x="340" y="195" text-anchor="middle" font-size="9" fill="#7A7A5D">仅有防疫法</text>
+                    <!-- Legend -->
+                    <g transform="translate(420, 30)">
+                        <circle cx="0" cy="0" r="5" fill="#4A7A6E"/><text x="12" y="4" font-size="9" fill="#7A7A5D">立法强制</text>
+                        <circle cx="0" cy="18" r="5" fill="#8A8AC4"/><text x="12" y="22" font-size="9" fill="#7A7A5D">成熟服务</text>
+                        <circle cx="0" cy="36" r="5" fill="#C9A84C"/><text x="12" y="40" font-size="9" fill="#7A7A5D">专门设施</text>
+                        <circle cx="0" cy="54" r="5" fill="#9E4A4A"/><text x="12" y="58" font-size="9" fill="#7A7A5D">无法可依</text>
+                    </g>
+                </svg>
+            </div>
+        </div>
+
+        <div id="lawDetailPanel" style="max-width:720px;margin:24px auto 0;padding:24px;background:rgba(0,0,0,.2);border-radius:12px;border-left:3px solid #C9A84C;display:none;transition:all .5s ease">
+            <h4 id="lawDetailTitle" style="color:#C9A84C;font-size:16px;margin-bottom:12px"></h4>
+            <p id="lawDetailContent" style="color:#C4C4B8;font-size:14px;line-height:2"></p>
+            <div style="text-align:center;margin-top:16px">
+                <span style="font-size:12px;color:#7A7A5D;cursor:pointer" onclick="document.getElementById('lawDetailPanel').style.display='none'">收起 ▲</span>
+            </div>
+        </div>
+        <div class="data-source" style="text-align:center;margin-top:24px;color:#7A7A5D">数据来源：中国人大网、农业农村部、新华社"新华视点"</div>
+        <div style="max-width:800px;margin:32px auto 0;text-align:center">
+            <p style="font-size:14px;color:#C4C4B8;line-height:2.2">法律的困境不在于"有没有"，而在于"谁来管"。宠物殡葬涉及<strong>民政、农林、畜牧、环保、市场监管</strong>等多个部门，但至今没有明确的主管部门。《动物防疫法》规定，随意弃置病死动物可处<strong>3000元以上3万元以下</strong>罚款，情节严重的处<strong>3万元以上10万元以下</strong>罚款——但现实中，公园里、小区绿化带中，宠物墓葬仍频频出现。</p>
+            <p style="font-size:14px;color:#C4C4B8;line-height:2.2">资质门槛同样高悬。正规宠物殡葬机构需要取得《动物防疫条件合格证》、环境影响评价、动物无害化处理许可证，以及焚烧资质——"普通民营企业很难符合相关要求"，多数机构只能以挂靠事业单位的方式完成火化。2025年6月，宠物殡葬师职业技能评价标准起草工作在北京启动，这是行业走向专业化的"第一步"。</p>
+        </div>
+        <div style="max-width:800px;margin:48px auto 0;text-align:center">
+            <div style="width:60px;height:2px;background:linear-gradient(90deg,#9E9E4A,#C9A84C);margin:0 auto 20px"></div>
+            <p style="font-size:15px;color:#C4C4B8;line-height:2.4;font-style:italic">从2021年到2025年，宠物殡葬的法律化进程用了四年。这四年里，无数宠物主人经历了"无法可依"的困境。法律的改变是缓慢的，但社会意识的改变是迅速的。深圳的首家全链条服务获批，不仅仅是一个城市的试点，它可能是整个行业的"破冰点"。</p>
+            <p style="font-size:15px;color:#C4C4B8;line-height:2.4;font-style:italic">2025年6月，宠物殡葬师职业技能评价标准起草工作在北京启动——这是行业从"灰色地带"走向"专业化"的关键一步。但在更多城市，宠物殡葬仍然游离于<strong>民政、农林、环保、市场监管</strong>的交叉空白地带。<strong>当法律追上情感，宠物殡葬才能从"灰色地带"走向"阳光化"。</strong></p>
+        </div>
+    </div>
+</section>
+
+<!-- Ending -->
+<section class="ending" id="ending">
+    <div class="container">
+        <div style="font-size:11px;letter-spacing:6px;color:#C9A84C;margin-bottom:12px">EPILOGUE</div>
+        <h2>关于"家人"的一道题</h2>
+        <div style="margin-top:28px">
+            <p>宠物殡葬，是一个终点产业。但它的数据指向的，却是一个起点——关于我们如何定义家庭、如何安放情感、如何面对死亡。</p>
+            <p>1.24亿只宠物，2.9亿单身人口，2亿65岁以上老人。这些数字背后，是一种正在形成的新型社会结构：以情感选择而非血缘纽带为核心的亲密关系。</p>
+            <p>当一只宠物离世，主人为它选择的告别方式，折射的是这个社会对"生命尊严"的理解程度。</p>
+            <p><strong>但我们必须警惕一种浪漫化的叙事。</strong>宠物殡葬产业的兴起，不仅仅是"社会进步"的标志，它也可能是情感商品化的开始。当告别可以被定价、被套餐化、被消费，我们是否正在将最深层的情感体验，转化为另一种可以被买卖的服务？</p>
+            <p>从这个角度看，宠物殡葬不只是关于宠物的"身后事"，它也是关于我们自己的"身前事"。</p>
+        </div>
+        <div class="ending-quote">当我们说"家人"时，我们准备好了吗？</div>
+    </div>
+</section>
+
+<!-- Methods -->
+<section class="methods" id="methods">
+    <div class="container">
+        <div style="text-align:center;margin-bottom:32px">
+            <div style="font-size:11px;letter-spacing:6px;color:#9E4A4A;margin-bottom:12px">METHODOLOGY</div>
+            <h2 style="font-size:clamp(20px,3vw,28px);font-weight:700;color:#3D2E24;margin-bottom:12px">数据方法与局限性</h2>
+            <div style="width:50px;height:2px;background:linear-gradient(90deg,#9E4A4A,#C9A84C);margin:16px auto"></div>
+        </div>
+        <div style="max-width:800px;margin:0 auto">
+            <div style="margin-bottom:28px">
+                <h3>数据收集方法</h3>
+                <p style="font-size:14px;color:#7A6B5D;line-height:2">本作品所有数据来自公开渠道，包括：《2025中国宠物行业白皮书》、国家统计局《国民经济和社会发展统计公报》、新华社"新华视点"调查报道、天眼查/企查查企业注册数据、Grand View Research和KBV Research行业报告。未采用问卷调查、网络爬虫或实地采访。</p>
+            </div>
+            <div class="limitations-box">
+                <h3>数据局限性说明</h3>
+                <p><strong>1. "300万"宠物年死亡率：</strong>按10%年死亡率对1.24亿宠物数量的估算。实际死亡率可能因物种（猫/狗）、年龄差异而不同，目前缺乏全国性的官方死亡统计。</p>
+                <p><strong>2. "渗透率5%"：</strong>基于行业研究机构（Grand View Research、中研普华）的推算数据，不同机构的统计口径存在差异，并非官方发布的精确统计。</p>
+                <p><strong>3. 2030年市场规模预测：</strong>100亿元为行业研究机构的中性预测，基于当前增长率外推，存在政策变化、经济波动等不确定性。</p>
+                <p><strong>4. 企业注册数据：</strong>"8000家"为经营范围包含"宠物殡葬"的工商注册企业数，实际从事殡葬服务的企业可能更少，部分企业可能已注销。</p>
+            </div>
+            <div>
+                <h3>数据处理时间</h3>
+                <p style="font-size:13px;color:#A89888;line-height:2">所有数据收集与处理完成于2025年6月。部分数据（如2024年白皮书）为最新可得公开数据。</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Sources -->
+<section class="sources" id="sources">
+    <div class="container">
+        <h3>数据来源</h3>
+        <div class="sources-grid">
+            <div class="source-item">《2025年中国宠物行业白皮书》</div>
+            <div class="source-item">国家统计局《国民经济和社会发展统计公报》</div>
+            <div class="source-item">新华社"新华视点"调查报道</div>
+            <div class="source-item">天眼查/企查查企业注册数据</div>
+            <div class="source-item">Grand View Research 行业报告</div>
+            <div class="source-item">KBV Research 市场研究报告</div>
+            <div class="source-item">炼丹炉大数据《宠物殡葬行业洞察》</div>
+            <div class="source-item">中研普华产业研究院</div>
+            <div class="source-item">观研天下《中国宠物殡葬行业发展现状研究报告》</div>
+            <div class="source-item">中国人大网《动物防疫法》</div>
+            <div class="source-item">农业农村部《病死畜禽和病害畜禽产品无害化处理管理办法》</div>
+            <div class="source-item">新华社"新华视点"深圳宠物无害化处理中心报道</div>
+            <div class="source-item">南方都市报/N视频宠物殡葬调查报道</div>
+            <div class="source-item">澎湃新闻宠物殡葬行业调查</div>
+            <div class="source-item">北京商报宠物殡葬市场价格调查</div>
+            <div class="source-item">中国新闻网宠物殡葬收费乱象报道</div>
+            <div class="source-item">《中国宠物管理白皮书》（2024年）</div>
+            <div class="source-item">观研天下《中国宠物殡葬行业发展现状研究报告》</div>
+            <div class="source-item">艾瑞咨询宠物经济市场数据</div>
+            <div class="source-item">Industry Research 全球宠物殡葬市场报告</div>
+        </div>
+    </div>
+</section>
+
+<footer style="text-align:center;padding:40px 20px">
+    <p style="font-size:14px;color:#3D2E24;margin-bottom:8px">最后一面 | 数据新闻作品</p>
+    <p style="font-size:13px;color:#7A6B5D">袁俊祺、田鎏、罗明亮、谭钊 | 指导老师：王悦 | 湖北民族大学</p>
+</footer>
+
+<div class="chart-tooltip" id="globalTooltip"></div>
+
+<script>
+// Enhanced interactions - no external libraries
+document.addEventListener('DOMContentLoaded', function() {
+  // 1. Scroll-triggered entrance animation using IntersectionObserver
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+
+  // Observe chart wrappers, number cards, insight boxes, content-text
+  document.querySelectorAll('.chart-wrapper, .number-card, .content-text').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(30px)';
+    el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+    observer.observe(el);
+  });
+
+  // 2. Enhanced SVG hover effects with tooltips
+  const tooltip = document.getElementById('globalTooltip');
+  
+  // Add data-tooltip to SVG elements based on their content
+  // Chart 1: Trend lines (polyline)
+  document.querySelectorAll('.svg-chart polyline').forEach((poly, idx) => {
+    poly.addEventListener('mouseenter', function(e) {
+      this.style.strokeWidth = '4';
+      this.style.filter = 'drop-shadow(0 0 4px currentColor)';
+    });
+    poly.addEventListener('mouseleave', function() {
+      this.style.strokeWidth = '2.5';
+      this.style.filter = '';
+    });
+  });
+
+  // Chart 1: Circles (data points)
+  document.querySelectorAll('.svg-chart circle').forEach(circle => {
+    circle.addEventListener('mouseenter', function() {
+      this.setAttribute('r', '6');
+      this.style.filter = 'drop-shadow(0 0 6px currentColor)';
+    });
+    circle.addEventListener('mouseleave', function() {
+      this.setAttribute('r', '4');
+      this.style.filter = '';
+    });
+  });
+
+  // Chart bars: enhanced hover with scale
+  document.querySelectorAll('.svg-chart rect').forEach(rect => {
+    // Skip if it's a legend or label element (small rects)
+    const width = parseFloat(rect.getAttribute('width') || 0);
+    const height = parseFloat(rect.getAttribute('height') || 0);
+    if (width > 20 && height > 20) {
+      rect.addEventListener('mouseenter', function() {
+        this.style.filter = 'brightness(1.2) drop-shadow(0 4px 8px rgba(0,0,0,0.15))';
+        this.style.transform = 'scale(1.02)';
+      });
+      rect.addEventListener('mouseleave', function() {
+        this.style.filter = '';
+        this.style.transform = '';
+      });
+    }
+  });
+
+  // Pie/Donut chart paths: scale on hover
+  document.querySelectorAll('.svg-chart path').forEach(path => {
+    const fill = path.getAttribute('fill') || '';
+    if (fill && fill !== 'none' && fill !== 'transparent') {
+      path.addEventListener('mouseenter', function() {
+        this.style.filter = 'brightness(1.1) drop-shadow(0 2px 6px rgba(0,0,0,0.2))';
+        this.style.transform = 'scale(1.02)';
+      });
+      path.addEventListener('mouseleave', function() {
+        this.style.filter = '';
+        this.style.transform = '';
+      });
+    }
+  });
+
+  // 3. Staggered animation for chart elements - add chart-bar class to data rects
+  document.querySelectorAll('.svg-chart').forEach(chart => {
+    const rects = chart.querySelectorAll('rect');
+    let barIndex = 0;
+    rects.forEach((rect) => {
+      const width = parseFloat(rect.getAttribute('width') || 0);
+      const height = parseFloat(rect.getAttribute('height') || 0);
+      if (width > 20 && height > 20) {
+        rect.classList.add('chart-bar');
+        rect.style.animationDelay = (barIndex * 0.05) + 's';
+        barIndex++;
+      }
+    });
+  });
+
+  // 4. Parallax effect for chapter dividers
+  window.addEventListener('scroll', () => {
+    const scrollY = window.scrollY;
+    document.querySelectorAll('.chapter-divider').forEach(divider => {
+      const rect = divider.getBoundingClientRect();
+      if (rect.top < window.innerHeight && rect.bottom > 0) {
+        const offset = (window.innerHeight - rect.top) * 0.05;
+        divider.style.backgroundPositionY = offset + 'px';
+      }
+    });
+  });
+
+  // 5. Candle interaction - click to light
+  const candle = document.getElementById('heroCandle');
+  const candleHint = document.getElementById('candleHint');
+  if (candle) {
+    candle.addEventListener('click', function() {
+      this.classList.toggle('lit');
+      if (this.classList.contains('lit')) {
+        candleHint.textContent = '再次点击熄灭蜡烛';
+        candleHint.style.color = '#C9A84C';
+      } else {
+        candleHint.textContent = '点击点燃蜡烛';
+        candleHint.style.color = '#7A6B5D';
+      }
+    });
+  }
+
+  // 6. Character selection game
+  window.selectCharacter = function(char) {
+    const cards = document.querySelectorAll('.choice-card');
+    cards.forEach(c => c.classList.remove('selected'));
+    const selected = document.querySelector('.choice-card[data-character="' + char + '"]');
+    if (selected) selected.classList.add('selected');
+    
+    const story = document.getElementById('characterStory');
+    const emoji = document.getElementById('charEmoji');
+    const text1 = document.getElementById('charText1');
+    const text2 = document.getElementById('charText2');
+    const text3 = document.getElementById('charText3');
+    
+    const stories = {
+      xiaolin: {
+        emoji: '🐕',
+        lines: [
+          '豆豆是一只12岁的柯基。它的主人小林，28岁，独居，程序员。2024年冬天，豆豆走了。',
+          '小林花了整整一周，才鼓起勇气搜索"宠物火化"。他最终选择了一个2000元的单炉火化套餐。',
+          '在中国，每年约有300万只宠物离世，像豆豆一样。它们的主人，大多是和小林一样的年轻人——独居、未婚、把宠物当成家人。'
+        ]
+      },
+      auntie: {
+        emoji: '🐱',
+        lines: [
+          '李阿姨今年65岁，退休教师。老伴去世后，猫咪"花花"陪伴了她8年。',
+          '花花走了，李阿姨在社区群询问"宠物火化"。她发现最近的服务点在30公里外，价格是800元。',
+          '对于许多老年人来说，宠物不仅是伴侣，更是精神上的"子女"。但当他们需要告别时，往往面临信息匮乏和服务不便的双重困境。'
+        ]
+      },
+      couple: {
+        emoji: '🦮',
+        lines: [
+          '小王夫妇结婚十年，不打算要孩子。金毛"大福"是他们的"儿子"，今年10岁。',
+          '大福走后，他们办了一场5000元的告别仪式：定制骨灰盒、纪念视频、生命树种植。',
+          '对他们而言，这不是"消费"，而是给"家人"应有的尊严。宠物殡葬，正在从"处理遗体"演变为"纪念生命"。'
+        ]
+      },
+      student: {
+        emoji: '🐹',
+        lines: [
+          '小周今年22岁，在外租房读研。仓鼠"团团"陪了她两年，是宿舍里唯一允许养的宠物。',
+          '团团走了，她在宿舍楼下的一棵树下埋了它。没有火化，没有仪式，只有一张手机里的合影。',
+          '对于年轻人来说，宠物可能只是一只仓鼠、一只兔子。但离别时的眼泪，和失去一只狗一样真实。低成本宠物的殡葬服务，几乎不存在。'
+        ]
+      }
+    };
+    
+    const data = stories[char];
+    if (data && story) {
+      emoji.textContent = data.emoji;
+      text1.textContent = data.lines[0];
+      text2.textContent = data.lines[1];
+      text3.textContent = data.lines[2];
+      story.style.display = 'block';
+      story.style.opacity = '0';
+      story.style.transform = 'translateY(20px)';
+      story.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+      setTimeout(() => {
+        story.style.opacity = '1';
+        story.style.transform = 'translateY(0)';
+      }, 50);
+    }
+  };
+
+  // 7. Number card click - reveal story
+  document.querySelectorAll('.number-card').forEach(card => {
+    card.style.cursor = 'pointer';
+    card.addEventListener('click', function() {
+      const story = this.getAttribute('data-story');
+      if (story) {
+        const existing = this.querySelector('.number-story');
+        if (existing) {
+          existing.remove();
+        } else {
+          const div = document.createElement('div');
+          div.className = 'number-story';
+          div.style.cssText = 'margin-top:12px;padding-top:12px;border-top:1px solid rgba(61,46,36,.08);font-size:12px;color:#9E4A4A;font-style:italic;animation:fadeInUp 0.5s ease';
+          div.textContent = story;
+          this.appendChild(div);
+        }
+      }
+    });
+  });
+
+  // 8. Data journey navigation
+  document.querySelectorAll('.data-journey-dot').forEach(dot => {
+    dot.addEventListener('click', function() {
+      const target = this.getAttribute('data-target');
+      if (target) {
+        document.getElementById(target)?.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+
+  // 9. Update data journey active state on scroll (throttled)
+  const journeySections = ['hero', 'intro', 'story', 'ch1', 'ch2', 'ch3', 'ch4', 'ch5', 'ending'];
+  let scrollTick = false;
+  function updateJourneyOnScroll() {
+    if (!scrollTick) {
+      requestAnimationFrame(() => {
+        const scrollY = window.scrollY + window.innerHeight / 2;
+        let activeIndex = 0;
+        journeySections.forEach((id, idx) => {
+          const el = document.getElementById(id);
+          if (el && el.offsetTop <= scrollY) {
+            activeIndex = idx;
+          }
+        });
+        document.querySelectorAll('.data-journey-dot').forEach((dot, idx) => {
+          dot.classList.toggle('active', idx === activeIndex);
+        });
+        // Hide scroll indicator
+        const indicator = document.getElementById('scrollIndicator');
+        if (indicator && window.scrollY > 100) {
+          indicator.style.opacity = '0';
+          indicator.style.pointerEvents = 'none';
+        }
+        scrollTick = false;
+      });
+      scrollTick = true;
+    }
+  }
+  window.addEventListener('scroll', updateJourneyOnScroll, { passive: true });
+
+  // 11. Tooltip v2 for SVG elements
+  const tooltipV2 = document.createElement('div');
+  tooltipV2.className = 'tooltip-v2';
+  document.body.appendChild(tooltipV2);
+  
+  // Add tooltips to chart bars with price data
+  const priceData = {
+    '600': '上海：基础火化 600元',
+    '500': '北京：基础火化 500元',
+    '450': '深圳：基础火化 450元',
+    '400': '广州：基础火化 400元',
+    '350': '杭州：基础火化 350元',
+    '300': '成都：基础火化 300元',
+    '250': '重庆：基础火化 250元'
+  };
+  
+  document.querySelectorAll('.svg-chart rect').forEach(rect => {
+    const textEl = rect.nextElementSibling;
+    if (textEl && textEl.tagName === 'text') {
+      const val = textEl.textContent?.trim();
+      if (priceData[val]) {
+        rect.addEventListener('mouseenter', function(e) {
+          tooltipV2.innerHTML = '<strong>' + priceData[val] + '</strong>';
+          tooltipV2.classList.add('visible');
+        });
+        rect.addEventListener('mousemove', function(e) {
+          tooltipV2.style.left = (e.clientX + 12) + 'px';
+          tooltipV2.style.top = (e.clientY - 30) + 'px';
+        });
+        rect.addEventListener('mouseleave', function() {
+          tooltipV2.classList.remove('visible');
+        });
+      }
+    }
+  });
+
+  // 12. Price steps click - show detailed info
+  const priceDetails = {
+    basic: {
+      title: '基础层 · 200-500元 · 集体火化',
+      content: '这是大多数人选择的"默认选项"。宠物被与其他宠物一起放入火化炉，主人无法全程观看，也无法单独取回自家宠物的骨灰。价格之所以低，是因为服务被高度标准化：接走遗体、集体火化、统一处理。对许多第一次面对宠物离世的主人来说，这是"能处理就行"的选择。但这个选择背后有一个隐含的代价：你可能永远无法确认，那捧骨灰是否真的属于它。'
+    },
+    mid: {
+      title: '中层 · 1000-5000元 · 单炉火化+告别仪式',
+      content: '这是行业的中坚力量。主人可以全程陪同，看着宠物被单独送入火化炉。告别仪式可能只是一间安静的房间、一束鲜花、一段视频，但它给了主人一个"说再见"的机会。这个价格区间的意义，不只是服务升级，更是情感需求被看见。它意味着：人们开始承认，宠物的离去值得一场仪式。'
+    },
+    top: {
+      title: '顶层 · 5000-20000元 · 定制纪念品+生态葬',
+      content: '骨灰晶石、生命树种植、AI数字纪念、宠物墓地……这个层级的关键词是"永恒"。它回答的是一个更深的问题：离别之后，我们如何继续与"家人"保持联系？骨灰晶石可以戴在手上，生命树可以种在院子里，AI数字宠物可以在手机里继续"活着"。这不是消费，而是一种试图对抗"永别"的努力。'
+    }
+  };
+
+  document.querySelectorAll('.price-step').forEach(step => {
+    step.addEventListener('click', function() {
+      const stepKey = this.getAttribute('data-step');
+      const panel = document.getElementById('priceDetailPanel');
+      const title = document.getElementById('priceDetailTitle');
+      const content = document.getElementById('priceDetailContent');
+      if (priceDetails[stepKey] && panel) {
+        title.textContent = priceDetails[stepKey].title;
+        content.textContent = priceDetails[stepKey].content;
+        panel.style.display = 'block';
+        panel.style.opacity = '0';
+        setTimeout(() => { panel.style.opacity = '1'; }, 30);
+      }
+    });
+  });
+
+  // 13. Law timeline click - show detailed policy info
+  const lawDetails = {
+    law1: {
+      title: '2021年5月 · 《动物防疫法》修订',
+      content: '新修订的《动物防疫法》首次从国家法律层面明确了病死动物无害化处理的要求。第九十八条规定：未按规定处理或随意弃置病死动物、病害动物产品的，责令改正，处三千元以上三万元以下罚款；情节严重的，责令停业整顿，并处三万元以上十万元以下罚款。上海、深圳等地随即出台地方条例，要求养犬人、动物诊疗机构不得自行掩埋或乱扔犬只尸体，应送至指定无害化处理场所。然而，法律并未明确宠物殡葬的具体服务标准和监管主体，也未区分"病死动物"与"宠物"的情感差异。'
+    },
+    law2: {
+      title: '2023年 · 《病死畜禽和病害畜禽产品无害化处理管理办法》',
+      content: '农业农村部发布该办法，进一步细化了无害化处理的技术规范和监管流程。要求建立无害化处理收集、暂存、运输、处理全链条管理。按规定，宠物殡葬服务企业需先获取《动物防疫条件合格证》，通过环境影响评价，取得"动物无公害化处理资质"，有资质的机构才能对动物做无害化处理。但"动物无害化处理许可"由政府部门农业局下发，需要通过"特定单位邀请"或省籍单位批准，普通民营企业很难符合相关要求。这导致大多数宠物殡葬机构只能以挂靠事业单位的方式完成火化。'
+    },
+    law3: {
+      title: '2025年3月 · 深圳首家宠物殡葬全链条服务获批',
+      content: '深圳市批准了广东省首家具备动物防疫条件合格证、面向家养宠物的动物无害化处理中心。这是国内首个将宠物遗体分类管理、闭环防疫运输、个性化善终服务、专业无害化处理全链条纳入规范化管理的城市试点。该机构可满足宠物尸体全链条场景需求，标志着宠物殡葬从"灰色地带"走向"阳光化"的可能。中国人民大学公共管理学院教授许光建指出，应明确监管部门的职责和内容，建立协同监管机制，加强行业监管，规范操作流程。'
+    }
+  };
+  
+  document.querySelectorAll('.timeline-node').forEach(node => {
+    node.addEventListener('click', function() {
+      const lawKey = this.getAttribute('data-law');
+      const panel = document.getElementById('lawDetailPanel');
+      const title = document.getElementById('lawDetailTitle');
+      const content = document.getElementById('lawDetailContent');
+      if (lawDetails[lawKey] && panel) {
+        title.textContent = lawDetails[lawKey].title;
+        content.textContent = lawDetails[lawKey].content;
+        panel.style.display = 'block';
+        panel.style.opacity = '0';
+        panel.style.transform = 'translateY(10px)';
+        setTimeout(() => {
+          panel.style.opacity = '1';
+          panel.style.transform = 'translateY(0)';
+        }, 30);
+      }
+    });
+  });
+
+  // 13. Ripple effect on click
+  document.addEventListener('click', function(e) {
+    const target = e.target.closest('.number-card, .choice-card, .chart-wrapper');
+    if (target) {
+      const ripple = document.createElement('span');
+      ripple.className = 'ripple';
+      const rect = target.getBoundingClientRect();
+      const size = Math.max(rect.width, rect.height);
+      ripple.style.width = ripple.style.height = size + 'px';
+      ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
+      ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
+      target.style.position = 'relative';
+      target.style.overflow = 'hidden';
+      target.appendChild(ripple);
+      setTimeout(() => ripple.remove(), 600);
+    }
+  });
+});
+
+// 14. Pre-select first character on load for better UX
+window.addEventListener('load', function() {
+  setTimeout(() => {
+    const firstCard = document.querySelector('.choice-card[data-character="xiaolin"]');
+    if (firstCard && !firstCard.classList.contains('selected')) {
+      // Don't auto-select, let user discover
+    }
+  }, 1000);
+});
+</script>
+</body>
+</html>
