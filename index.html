@@ -17,12 +17,12 @@ a, button, .choice-card, .number-card, .chart-wrapper, .timeline-node, .data-jou
 
 /* Hero */
 .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;flex-direction:column;background:linear-gradient(180deg,#0A0A0A 0%,#141414 100%);color:#FFFFFF;text-align:center;padding:60px 20px;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(circle at 50% 70%,rgba(0,212,255,.06) 0%,transparent 60%),radial-gradient(circle at 30% 20%,rgba(158,74,74,.04) 0%,transparent 40%),radial-gradient(circle at 80% 40%,rgba(74,122,110,.03) 0%,transparent 30%);pointer-events:none;animation:heroPulse 8s ease-in-out infinite}
+.hero::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(circle at 50% 70%,rgba(0,212,255,.06) 0%,transparent 60%),radial-gradient(circle at 30% 20%,rgba(255,107,107,.04) 0%,transparent 40%),radial-gradient(circle at 80% 40%,rgba(0,212,255,.03) 0%,transparent 30%);pointer-events:none;animation:heroPulse 8s ease-in-out infinite}
 @keyframes heroPulse{0%,100%{opacity:.8}50%{opacity:1}}
 
 /* Star constellation background */
 .hero-stars{position:absolute;inset:0;pointer-events:none;z-index:0}
-.hero-stars span{position:absolute;width:2px;height:2px;border-radius:50%;background:rgba(201,168,76,.4);animation:twinkle 3s ease-in-out infinite}
+.hero-stars span{position:absolute;width:2px;height:2px;border-radius:50%;background:rgba(0,212,255,.4);animation:twinkle 3s ease-in-out infinite}
 .hero-stars span:nth-child(1){left:20%;top:15%;animation-delay:0s}
 .hero-stars span:nth-child(2){left:35%;top:25%;animation-delay:.5s}
 .hero-stars span:nth-child(3){left:50%;top:10%;animation-delay:1s}
@@ -63,9 +63,9 @@ a, button, .choice-card, .number-card, .chart-wrapper, .timeline-node, .data-jou
 .hero-petals{position:absolute;inset:0;pointer-events:none;z-index:0;overflow:hidden}
 .hero-petals span{position:absolute;width:6px;height:6px;border-radius:50% 0 50% 50%;background:rgba(0,212,255,.1);animation:petalDrift 20s linear infinite}
 .hero-petals span:nth-child(1){left:15%;top:80%;animation-delay:0s;animation-duration:25s}
-.hero-petals span:nth-child(2){left:40%;top:70%;animation-delay:5s;animation-duration:22s;background:rgba(158,74,74,.08)}
+.hero-petals span:nth-child(2){left:40%;top:70%;animation-delay:5s;animation-duration:22s;background:rgba(255,107,107,.08)}
 .hero-petals span:nth-child(3){left:65%;top:85%;animation-delay:10s;animation-duration:28s}
-.hero-petals span:nth-child(4){left:85%;top:75%;animation-delay:15s;animation-duration:20s;background:rgba(74,122,110,.08)}
+.hero-petals span:nth-child(4){left:85%;top:75%;animation-delay:15s;animation-duration:20s;background:rgba(0,212,255,.08)}
 .hero-petals span:nth-child(5){left:25%;top:90%;animation-delay:8s;animation-duration:24s}
 @keyframes petalDrift{0%{transform:translateY(0) rotate(0deg);opacity:0}10%{opacity:.5}90%{opacity:.2}100%{transform:translateY(-200px) rotate(360deg);opacity:0}}
 .hero-label{font-size:11px;letter-spacing:6px;color:#00D4FF;margin-bottom:20px}
@@ -77,8 +77,8 @@ a, button, .choice-card, .number-card, .chart-wrapper, .timeline-node, .data-jou
 .hero-candle.lit .hero-candle-body{background:linear-gradient(180deg,#00D4FF,#AAAAAA);opacity:.7;box-shadow:0 0 20px rgba(0,212,255,.3)}
 .hero-candle-flame{width:16px;height:24px;background:radial-gradient(circle at 50% 30%,#00D4FF,rgba(0,212,255,.3));border-radius:50% 50% 50% 50%/60% 60% 40% 40%;margin:0 auto 4px;opacity:0;transition:opacity 1s ease;filter:drop-shadow(0 0 8px rgba(0,212,255,.5))}
 .hero-candle.lit .hero-candle-flame{opacity:1;animation:flame 3s ease-in-out infinite}
-.hero-candle-base{width:40px;height:4px;background:rgba(201,168,76,.15);border-radius:2px;position:absolute;left:50%;bottom:0;transform:translateX(-50%);transition:all 1s ease}
-.hero-candle.lit .hero-candle-base{background:rgba(201,168,76,.4);box-shadow:0 0 10px rgba(0,212,255,.2)}
+.hero-candle-base{width:40px;height:4px;background:rgba(0,212,255,.15);border-radius:2px;position:absolute;left:50%;bottom:0;transform:translateX(-50%);transition:all 1s ease}
+.hero-candle.lit .hero-candle-base{background:rgba(0,212,255,.4);box-shadow:0 0 10px rgba(0,212,255,.2)}
 @keyframes flame{0%,100%{transform:scale(1) translateY(0)}50%{transform:scale(1.1) translateY(-2px)}}
 
 /* Section */
@@ -90,9 +90,9 @@ a, button, .choice-card, .number-card, .chart-wrapper, .timeline-node, .data-jou
 
 /* Chapter divider */
 .chapter-divider{padding:100px 20px;text-align:center;background:linear-gradient(180deg,#0A0A0A 0%,#141414 100%);position:relative;overflow:hidden}
-.chapter-divider::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(circle at 20% 50%,rgba(201,168,76,.03) 0%,transparent 50%),radial-gradient(circle at 80% 50%,rgba(158,74,74,.03) 0%,transparent 50%);pointer-events:none}
+.chapter-divider::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(circle at 20% 50%,rgba(0,212,255,.03) 0%,transparent 50%),radial-gradient(circle at 80% 50%,rgba(255,107,107,.03) 0%,transparent 50%);pointer-events:none}
 .chapter-divider .chapter-num{font-size:11px;letter-spacing:6px;color:#00D4FF;margin-bottom:16px;position:relative;z-index:1}
-.chapter-divider h2{font-size:clamp(24px,5vw,40px);color:#141414;letter-spacing:2px;margin-bottom:16px;position:relative;z-index:1}
+.chapter-divider h2{font-size:clamp(24px,5vw,40px);color:#FFFFFF;letter-spacing:2px;margin-bottom:16px;position:relative;z-index:1}
 .chapter-divider .chapter-quote{font-size:14px;color:#AAAAAA;font-style:italic;max-width:480px;margin:0 auto;line-height:2;position:relative;z-index:1}
 
 /* Content */
@@ -113,7 +113,7 @@ a, button, .choice-card, .number-card, .chart-wrapper, .timeline-node, .data-jou
 
 /* Flowing particles background */
 .particles-container{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:hidden}
-.particle{position:absolute;width:3px;height:3px;border-radius:50%;background:rgba(201,168,76,.25);animation:floatParticle linear infinite}
+.particle{position:absolute;width:3px;height:3px;border-radius:50%;background:rgba(0,212,255,.25);animation:floatParticle linear infinite}
 .particle:nth-child(1){left:10%;animation-duration:15s;animation-delay:0s;width:2px;height:2px}
 .particle:nth-child(2){left:20%;animation-duration:18s;animation-delay:2s;width:4px;height:4px}
 .particle:nth-child(3){left:35%;animation-duration:12s;animation-delay:1s;width:2px;height:2px}
@@ -142,11 +142,11 @@ a, button, .choice-card, .number-card, .chart-wrapper, .timeline-node, .data-jou
 /* Paper texture overlay */
 .paper-texture{position:fixed;top:0;left:0;right:0;bottom:0;pointer-events:none;z-index:0;opacity:0.5}
 .paper-texture::before{content:'';position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(61,46,36,0.008) 2px,rgba(61,46,36,0.008) 4px),repeating-linear-gradient(90deg,transparent,transparent 2px,rgba(61,46,36,0.008) 2px,rgba(61,46,36,0.008) 4px)}
-.paper-texture::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 25% 25%,rgba(201,168,76,0.03) 0%,transparent 40%),radial-gradient(circle at 75% 75%,rgba(158,74,74,0.02) 0%,transparent 40%)}
+.paper-texture::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 25% 25%,rgba(0,212,255,0.03) 0%,transparent 40%),radial-gradient(circle at 75% 75%,rgba(255,107,107,0.02) 0%,transparent 40%)}
 
 /* Flowing light background for sections */
 .section-flow{position:relative;overflow:hidden}
-.section-flow::before{content:'';position:absolute;top:0;left:-100%;width:200%;height:100%;background:linear-gradient(90deg,transparent 0%,rgba(201,168,76,.02) 25%,rgba(158,74,74,.02) 50%,rgba(201,168,76,.02) 75%,transparent 100%);animation:flowLight 12s ease-in-out infinite;pointer-events:none}
+.section-flow::before{content:'';position:absolute;top:0;left:-100%;width:200%;height:100%;background:linear-gradient(90deg,transparent 0%,rgba(0,212,255,.02) 25%,rgba(255,107,107,.02) 50%,rgba(0,212,255,.02) 75%,transparent 100%);animation:flowLight 12s ease-in-out infinite;pointer-events:none}
 @keyframes flowLight{0%,100%{transform:translateX(0)}50%{transform:translateX(50%)}}
 
 /* Candle interactive */
@@ -160,7 +160,7 @@ a, button, .choice-card, .number-card, .chart-wrapper, .timeline-node, .data-jou
 .typewriter-line.visible{opacity:1;transform:translateY(0)}
 
 /* Game-like interaction: choice cards */
-.choice-card{background:linear-gradient(135deg,#141414,#F5EDE0);border:1px solid rgba(61,46,36,.08);border-radius:16px;padding:32px 24px;text-align:center;cursor:pointer;transition:all .4s ease;position:relative;overflow:hidden}
+.choice-card{background:linear-gradient(135deg,#141414,#1E1E1E);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:32px 24px;text-align:center;cursor:pointer;transition:all .4s ease;position:relative;overflow:hidden}
 .choice-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:4px;background:linear-gradient(90deg,#00D4FF,#FF6B6B);transform:scaleX(0);transform-origin:left;transition:transform .4s ease}
 .choice-card:hover{transform:translateY(-6px);box-shadow:0 16px 48px rgba(255,255,255,.1)}
 .choice-card:hover::before{transform:scaleX(1)}
@@ -171,19 +171,19 @@ a, button, .choice-card, .number-card, .chart-wrapper, .timeline-node, .data-jou
 
 /* Progress bar for data journey */
 .data-journey{position:fixed;right:20px;top:50%;transform:translateY(-50%);z-index:100;display:flex;flex-direction:column;gap:12px;align-items:center}
-.data-journey-dot{position:relative;width:10px;height:10px;border-radius:50%;background:rgba(0,212,255,.3);border:2px solid rgba(201,168,76,.4);cursor:pointer;transition:all .3s ease}
-.data-journey-dot:hover{transform:scale(1.3);background:rgba(201,168,76,.6)}
+.data-journey-dot{position:relative;width:10px;height:10px;border-radius:50%;background:rgba(0,212,255,.3);border:2px solid rgba(0,212,255,.4);cursor:pointer;transition:all .3s ease}
+.data-journey-dot:hover{transform:scale(1.3);background:rgba(0,212,255,.6)}
 .data-journey-dot.active{background:#00D4FF;border-color:#00D4FF;box-shadow:0 0 8px rgba(0,212,255,.5)}
 .data-journey-dot::after{content:attr(data-name);position:absolute;right:22px;top:50%;transform:translateY(-50%) translateX(8px);background:rgba(42,36,32,.9);color:#00D4FF;padding:4px 10px;border-radius:4px;font-size:11px;white-space:nowrap;pointer-events:none;opacity:0;transition:all .3s ease;font-weight:500}
 .data-journey-dot:hover::after{opacity:1;transform:translateY(-50%) translateX(0)}
-.data-journey-line{width:2px;height:20px;background:rgba(201,168,76,.15)}
+.data-journey-line{width:2px;height:20px;background:rgba(0,212,255,.15)}
 
 /* Petal fall animation for chapter transitions */
-.petal{position:absolute;width:8px;height:8px;border-radius:50% 0 50% 50%;background:rgba(201,168,76,.15);animation:petalFall linear infinite;pointer-events:none}
+.petal{position:absolute;width:8px;height:8px;border-radius:50% 0 50% 50%;background:rgba(0,212,255,.15);animation:petalFall linear infinite;pointer-events:none}
 .petal:nth-child(1){left:20%;animation-duration:10s;animation-delay:0s;transform:rotate(45deg)}
-.petal:nth-child(2){left:40%;animation-duration:13s;animation-delay:2s;transform:rotate(30deg);background:rgba(158,74,74,.12)}
+.petal:nth-child(2){left:40%;animation-duration:13s;animation-delay:2s;transform:rotate(30deg);background:rgba(255,107,107,.12)}
 .petal:nth-child(3){left:60%;animation-duration:11s;animation-delay:4s;transform:rotate(60deg)}
-.petal:nth-child(4){left:80%;animation-duration:14s;animation-delay:1s;transform:rotate(45deg);background:rgba(74,122,110,.12)}
+.petal:nth-child(4){left:80%;animation-duration:14s;animation-delay:1s;transform:rotate(45deg);background:rgba(0,212,255,.12)}
 .petal:nth-child(5){left:30%;animation-duration:12s;animation-delay:3s;transform:rotate(20deg);background:rgba(0,212,255,.1)}
 .petal:nth-child(6){left:70%;animation-duration:15s;animation-delay:5s;transform:rotate(50deg);background:rgba(255,107,107,.1)}
 @keyframes petalFall{0%{transform:translateY(-20px) rotate(0deg);opacity:0}10%{opacity:1}90%{opacity:.5}100%{transform:translateY(100vh) rotate(360deg);opacity:0}}
@@ -204,8 +204,8 @@ a, button, .choice-card, .number-card, .chart-wrapper, .timeline-node, .data-jou
 
 /* Memory wall interaction */
 .memory-wall{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:16px;padding:20px}
-.memory-brick{background:linear-gradient(135deg,#141414,#F5EDE0);border-radius:8px;padding:16px;text-align:center;cursor:pointer;transition:all .3s ease;border:1px solid rgba(255,255,255,.05);position:relative}
-.memory-brick:hover{transform:translateY(-4px) rotate(1deg);box-shadow:0 8px 24px rgba(61,46,36,.08);border-color:rgba(0,212,255,.3)}
+.memory-brick{background:linear-gradient(135deg,#141414,#1E1E1E);border-radius:8px;padding:16px;text-align:center;cursor:pointer;transition:all .3s ease;border:1px solid rgba(255,255,255,.05);position:relative}
+.memory-brick:hover{transform:translateY(-4px) rotate(1deg);box-shadow:0 8px 24px rgba(255,255,255,.08);border-color:rgba(0,212,255,.3)}
 .memory-brick:hover .memory-glow{opacity:1}
 .memory-glow{position:absolute;inset:0;border-radius:8px;background:radial-gradient(circle at center,rgba(0,212,255,.1),transparent 70%);opacity:0;transition:opacity .3s ease;pointer-events:none}
 .memory-brick .memory-name{font-size:13px;font-weight:600;color:#FFFFFF;margin-bottom:4px}
@@ -224,8 +224,8 @@ a, button, .choice-card, .number-card, .chart-wrapper, .timeline-node, .data-jou
 
 /* Scroll indicator */
 .scroll-indicator{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);z-index:50;display:flex;flex-direction:column;align-items:center;gap:8px;animation:fadeOutScroll 1s ease 3s forwards}
-.scroll-indicator .mouse{width:20px;height:32px;border:2px solid rgba(201,168,76,.4);border-radius:10px;position:relative}
-.scroll-indicator .mouse::after{content:'';position:absolute;top:6px;left:50%;transform:translateX(-50%);width:3px;height:6px;background:rgba(201,168,76,.6);border-radius:3px;animation:scrollWheel 2s ease infinite}
+.scroll-indicator .mouse{width:20px;height:32px;border:2px solid rgba(0,212,255,.4);border-radius:10px;position:relative}
+.scroll-indicator .mouse::after{content:'';position:absolute;top:6px;left:50%;transform:translateX(-50%);width:3px;height:6px;background:rgba(0,212,255,.6);border-radius:3px;animation:scrollWheel 2s ease infinite}
 .scroll-indicator span{font-size:10px;color:rgba(0,212,255,.5);letter-spacing:3px}
 @keyframes scrollWheel{0%,100%{transform:translateX(-50%) translateY(0);opacity:1}50%{transform:translateX(-50%) translateY(6px);opacity:.3}}
 @keyframes fadeOutScroll{to{opacity:0;pointer-events:none}}
@@ -237,13 +237,13 @@ a, button, .choice-card, .number-card, .chart-wrapper, .timeline-node, .data-jou
 @keyframes pointPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.2)}}
 
 /* Warm glow overlay for dark sections */
-.warm-glow{position:absolute;inset:0;pointer-events:none;z-index:0;background:radial-gradient(circle at 30% 50%,rgba(201,168,76,.03) 0%,transparent 50%),radial-gradient(circle at 70% 80%,rgba(158,74,74,.02) 0%,transparent 50%)}
+.warm-glow{position:absolute;inset:0;pointer-events:none;z-index:0;background:radial-gradient(circle at 30% 50%,rgba(0,212,255,.03) 0%,transparent 50%),radial-gradient(circle at 70% 80%,rgba(255,107,107,.02) 0%,transparent 50%)}
 
 /* Counter animation */
 .counter-value{font-variant-numeric:tabular-nums}
 
 /* Data story card */
-.data-story-card{background:linear-gradient(135deg,rgba(255,255,255,.8),rgba(250,247,241,.9));backdrop-filter:blur(10px);border-radius:16px;padding:28px;border:1px solid rgba(61,46,36,.08);box-shadow:0 4px 20px rgba(255,255,255,.05);transition:all .4s ease}
+.data-story-card{background:linear-gradient(135deg,rgba(255,255,255,.8),rgba(250,247,241,.9));backdrop-filter:blur(10px);border-radius:16px;padding:28px;border:1px solid rgba(255,255,255,.08);box-shadow:0 4px 20px rgba(255,255,255,.05);transition:all .4s ease}
 .data-story-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(255,255,255,.1)}
 
 /* Comparison slider style */
@@ -257,7 +257,7 @@ a, button, .choice-card, .number-card, .chart-wrapper, .timeline-node, .data-jou
 
 /* Floating memory tag */
 .memory-tag{display:inline-block;padding:6px 14px;background:rgba(0,212,255,.1);border:1px solid rgba(0,212,255,.2);border-radius:20px;font-size:12px;color:#AAAAAA;margin:4px;transition:all .3s ease;cursor:default}
-.memory-tag:hover{background:rgba(0,212,255,.2);transform:translateY(-2px);box-shadow:0 4px 12px rgba(201,168,76,.15)}
+.memory-tag:hover{background:rgba(0,212,255,.2);transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,212,255,.15)}
 
 /* Light trail effect for chart lines */
 .light-trail{stroke-dasharray:1000;stroke-dashoffset:1000;animation:lightTrail 3s ease forwards}
@@ -304,7 +304,7 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:-1;
 .chart-hover-zone{position:absolute;inset:0;z-index:5;cursor:crosshair}
 
 /* Tooltip v2 - floating near cursor */
-.tooltip-v2{position:fixed;z-index:1000;background:rgba(42,36,32,.95);color:#141414;padding:10px 16px;border-radius:8px;font-size:12px;line-height:1.6;pointer-events:none;opacity:0;transition:opacity .2s ease;box-shadow:0 4px 20px rgba(0,0,0,.3);border:1px solid rgba(0,212,255,.2);max-width:220px}
+.tooltip-v2{position:fixed;z-index:1000;background:rgba(30,30,30,.95);color:#FFFFFF;padding:10px 16px;border-radius:8px;font-size:12px;line-height:1.6;pointer-events:none;opacity:0;transition:opacity .2s ease;box-shadow:0 4px 20px rgba(0,0,0,.3);border:1px solid rgba(0,212,255,.2);max-width:220px}
 .tooltip-v2.visible{opacity:1}
 .tooltip-v2 strong{color:#00D4FF;display:block;margin-bottom:4px;font-size:13px}
 
@@ -320,8 +320,8 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:-1;
 
 /* Print */
 @media print{body::before,.particles-container,.scroll-indicator,.data-journey,.section-flow::before{display:none!important}}
-.chart-wrapper{background:#141414;border:1px solid rgba(255,255,255,.05);border-radius:12px;padding:24px;overflow-x:auto;position:relative;transition:transform .5s ease,box-shadow .5s ease;box-shadow:0 2px 12px rgba(61,46,36,.04)}
-.chart-wrapper:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(61,46,36,.08)}
+.chart-wrapper{background:#141414;border:1px solid rgba(255,255,255,.05);border-radius:12px;padding:24px;overflow-x:auto;position:relative;transition:transform .5s ease,box-shadow .5s ease;box-shadow:0 2px 12px rgba(0,0,0,.04)}
+.chart-wrapper:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(255,255,255,.08)}
 .chart-title{font-size:14px;font-weight:600;color:#FFFFFF;text-align:center;margin-bottom:4px}
 .chart-subtitle{font-size:11px;color:#666666;text-align:center;margin-bottom:16px}
 
@@ -396,7 +396,7 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:-1;
 
 /* Ending */
 .ending{padding:80px 20px;background:linear-gradient(180deg,#0A0A0A 0%,#141414 100%);color:#AAAAAA;text-align:center}
-.ending h2{color:#141414;font-size:clamp(24px,4vw,36px);margin-bottom:20px}
+.ending h2{color:#FFFFFF;font-size:clamp(24px,4vw,36px);margin-bottom:20px}
 .ending p{font-size:14px;max-width:640px;margin:0 auto 16px;line-height:2.2}
 .ending-quote{font-size:18px;color:#00D4FF;font-style:italic;margin-top:30px}
 
@@ -544,7 +544,7 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:-1;
     <div class="container">
         <div style="text-align:center;margin-bottom:30px">
             <div style="font-size:11px;letter-spacing:6px;color:#00D4FF;margin-bottom:12px">STORY</div>
-            <h2 style="font-size:clamp(22px,3.5vw,36px);color:#141414">你会如何选择告别？</h2>
+            <h2 style="font-size:clamp(22px,3.5vw,36px);color:#FFFFFF">你会如何选择告别？</h2>
             <div style="width:36px;height:2px;margin:16px auto;background:linear-gradient(90deg,#00D4FF,#FF6B6B)"></div>
         </div>
         <div style="max-width:640px;margin:0 auto 40px;text-align:center">
@@ -612,12 +612,12 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:-1;
                         <linearGradient id="agingGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#4A7A6E" stop-opacity="0.15"/><stop offset="100%" stop-color="#4A7A6E" stop-opacity="0"/></linearGradient>
                     </defs>
                     <!-- Grid -->
-                    <line x1="50" y1="30" x2="50" y2="230" stroke="rgba(61,46,36,.08)" stroke-width="1" stroke-dasharray="3,3"/>
-                    <line x1="50" y1="230" x2="550" y2="230" stroke="rgba(61,46,36,.08)" stroke-width="1"/>
+                    <line x1="50" y1="30" x2="50" y2="230" stroke="rgba(255,255,255,.08)" stroke-width="1" stroke-dasharray="3,3"/>
+                    <line x1="50" y1="230" x2="550" y2="230" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
                     <!-- Horizontal grid lines -->
-                    <line x1="50" y1="80" x2="550" y2="80" stroke="rgba(61,46,36,.04)" stroke-width="1" stroke-dasharray="2,4"/>
-                    <line x1="50" y1="130" x2="550" y2="130" stroke="rgba(61,46,36,.04)" stroke-width="1" stroke-dasharray="2,4"/>
-                    <line x1="50" y1="180" x2="550" y2="180" stroke="rgba(61,46,36,.04)" stroke-width="1" stroke-dasharray="2,4"/>
+                    <line x1="50" y1="80" x2="550" y2="80" stroke="rgba(0,0,0,.04)" stroke-width="1" stroke-dasharray="2,4"/>
+                    <line x1="50" y1="130" x2="550" y2="130" stroke="rgba(0,0,0,.04)" stroke-width="1" stroke-dasharray="2,4"/>
+                    <line x1="50" y1="180" x2="550" y2="180" stroke="rgba(0,0,0,.04)" stroke-width="1" stroke-dasharray="2,4"/>
                     <!-- Area fills -->
                     <path d="M 50,190 L 100,180 L 150,170 L 200,160 L 250,150 L 300,140 L 350,130 L 400,120 L 450,110 L 500,100 L 550,90 L 550,230 L 50,230 Z" fill="url(#singleGrad)"/>
                     <path d="M 50,210 L 100,195 L 150,180 L 200,160 L 250,140 L 300,120 L 350,110 L 400,100 L 450,95 L 500,90 L 550,85 L 550,230 L 50,230 Z" fill="url(#lifeGrad)"/>
@@ -631,11 +631,11 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:-1;
                     <!-- Candle-style data points at start -->
                     <rect x="44" y="182" width="4" height="16" rx="2" fill="#FF6B6B" opacity="0.4"/>
                     <rect x="44" y="202" width="4" height="16" rx="2" fill="#00D4FF" opacity="0.4"/>
-                    <rect x="44" y="202" width="4" height="16" rx="2" fill="#4A7A6E" opacity="0.4"/>
+                    <rect x="44" y="202" width="4" height="16" rx="2" fill="#00D4FF" opacity="0.4"/>
                     <!-- End points with glow -->
-                    <circle cx="550" cy="90" r="5" fill="#FF6B6B" stroke="#141414" stroke-width="2" filter="url(#glow1)" class="chart-point"/>
-                    <circle cx="550" cy="85" r="5" fill="#00D4FF" stroke="#141414" stroke-width="2" filter="url(#glow1)" class="chart-point"/>
-                    <circle cx="550" cy="100" r="5" fill="#4A7A6E" stroke="#141414" stroke-width="2" filter="url(#glow1)" class="chart-point"/>
+                    <circle cx="550" cy="90" r="5" fill="#FF6B6B" stroke="#FFFFFF" stroke-width="2" filter="url(#glow1)" class="chart-point"/>
+                    <circle cx="550" cy="85" r="5" fill="#00D4FF" stroke="#FFFFFF" stroke-width="2" filter="url(#glow1)" class="chart-point"/>
+                    <circle cx="550" cy="100" r="5" fill="#00D4FF" stroke="#FFFFFF" stroke-width="2" filter="url(#glow1)" class="chart-point"/>
                     <!-- Y labels -->
                     <text x="42" y="85" text-anchor="end" font-size="9" fill="#666666">3.0</text>
                     <text x="42" y="135" text-anchor="end" font-size="9" fill="#666666">2.0</text>
@@ -650,7 +650,7 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:-1;
                     <!-- Legend with interactive feel -->
                     <rect x="60" y="30" width="10" height="10" rx="2" fill="#FF6B6B" opacity="0.8"/><text x="76" y="40" font-size="11" fill="#AAAAAA">单身人口 (亿)</text>
                     <rect x="200" y="30" width="10" height="10" rx="2" fill="#00D4FF" opacity="0.8"/><text x="216" y="40" font-size="11" fill="#AAAAAA">宠物数量 (亿只)</text>
-                    <rect x="360" y="30" width="10" height="10" rx="2" fill="#4A7A6E" opacity="0.8"/><text x="376" y="40" font-size="11" fill="#AAAAAA">65岁+占比 (%)</text>
+                    <rect x="360" y="30" width="10" height="10" rx="2" fill="#00D4FF" opacity="0.8"/><text x="376" y="40" font-size="11" fill="#AAAAAA">65岁+占比 (%)</text>
                     <!-- Mini paw prints along the journey -->
                     <text x="100" y="175" font-size="8" fill="#00D4FF" opacity="0.3">🐾</text>
                     <text x="200" y="155" font-size="8" fill="#00D4FF" opacity="0.3">🐾</text>
@@ -672,15 +672,15 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:-1;
                     <!-- Tree trunk at center -->
                     <rect x="196" y="150" width="8" height="80" rx="3" fill="#5A4A3A" opacity="0.3"/>
                     <!-- Tree rings -->
-                    <circle cx="200" cy="150" r="120" fill="none" stroke="rgba(158,74,74,.08)" stroke-width="1"/>
-                    <circle cx="200" cy="150" r="80" fill="none" stroke="rgba(158,74,74,.05)" stroke-width="1"/>
-                    <circle cx="200" cy="150" r="50" fill="none" stroke="rgba(158,74,74,.08)" stroke-width="1"/>
+                    <circle cx="200" cy="150" r="120" fill="none" stroke="rgba(255,107,107,.08)" stroke-width="1"/>
+                    <circle cx="200" cy="150" r="80" fill="none" stroke="rgba(255,107,107,.05)" stroke-width="1"/>
+                    <circle cx="200" cy="150" r="50" fill="none" stroke="rgba(255,107,107,.08)" stroke-width="1"/>
                     <!-- 90s (41.2%) - outer ring -->
                     <path d="M 200,30 A 120,120 0 0,1 320,210 L 200,150 Z" fill="#FF6B6B" opacity=".85"/>
                     <!-- 00s (25.6%) -->
                     <path d="M 320,210 A 120,120 0 0,1 140,260 L 200,150 Z" fill="#00D4FF" opacity=".85"/>
                     <!-- 80s (26.5%) -->
-                    <path d="M 140,260 A 120,120 0 0,1 80,90 L 200,150 Z" fill="#4A7A6E" opacity=".85"/>
+                    <path d="M 140,260 A 120,120 0 0,1 80,90 L 200,150 Z" fill="#00D4FF" opacity=".85"/>
                     <!-- Others (6.7%) - inner ring -->
                     <path d="M 80,90 A 120,120 0 0,1 200,30 L 200,150 Z" fill="#666666" opacity=".85"/>
                     <!-- Ring texture lines -->
@@ -693,7 +693,7 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:-1;
                     <!-- Legend -->
                     <rect x="340" y="80" width="12" height="12" rx="3" fill="#FF6B6B"/><text x="358" y="91" font-size="12" fill="#5A4A3A">90后 41.2%</text>
                     <rect x="340" y="110" width="12" height="12" rx="3" fill="#00D4FF"/><text x="358" y="121" font-size="12" fill="#5A4A3A">00后 25.6%</text>
-                    <rect x="340" y="140" width="12" height="12" rx="3" fill="#4A7A6E"/><text x="358" y="151" font-size="12" fill="#5A4A3A">80后 26.5%</text>
+                    <rect x="340" y="140" width="12" height="12" rx="3" fill="#00D4FF"/><text x="358" y="151" font-size="12" fill="#5A4A3A">80后 26.5%</text>
                     <rect x="340" y="170" width="12" height="12" rx="3" fill="#666666"/><text x="358" y="181" font-size="12" fill="#5A4A3A">其他 6.7%</text>
                 </svg>
             </div>
@@ -722,11 +722,11 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:-1;
                         <filter id="candleFlameGlow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
                     </defs>
                     <!-- Grid lines -->
-                    <line x1="50" y1="30" x2="50" y2="230" stroke="rgba(61,46,36,.08)" stroke-width="1" stroke-dasharray="3,3"/>
-                    <line x1="50" y1="230" x2="550" y2="230" stroke="rgba(61,46,36,.08)" stroke-width="1"/>
-                    <line x1="50" y1="80" x2="550" y2="80" stroke="rgba(61,46,36,.04)" stroke-width="1" stroke-dasharray="2,4"/>
-                    <line x1="50" y1="130" x2="550" y2="130" stroke="rgba(61,46,36,.04)" stroke-width="1" stroke-dasharray="2,4"/>
-                    <line x1="50" y1="180" x2="550" y2="180" stroke="rgba(61,46,36,.04)" stroke-width="1" stroke-dasharray="2,4"/>
+                    <line x1="50" y1="30" x2="50" y2="230" stroke="rgba(255,255,255,.08)" stroke-width="1" stroke-dasharray="3,3"/>
+                    <line x1="50" y1="230" x2="550" y2="230" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
+                    <line x1="50" y1="80" x2="550" y2="80" stroke="rgba(0,0,0,.04)" stroke-width="1" stroke-dasharray="2,4"/>
+                    <line x1="50" y1="130" x2="550" y2="130" stroke="rgba(0,0,0,.04)" stroke-width="1" stroke-dasharray="2,4"/>
+                    <line x1="50" y1="180" x2="550" y2="180" stroke="rgba(0,0,0,.04)" stroke-width="1" stroke-dasharray="2,4"/>
                     <!-- Candle glow circles at each data point -->
                     <circle cx="50" cy="220" r="15" fill="url(#candleGlow)" opacity="0.3"/>
                     <circle cx="90" cy="210" r="18" fill="url(#candleGlow)" opacity="0.35"/>
@@ -820,7 +820,7 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:-1;
     <div class="container">
         <div class="content-grid">
             <div class="content-text">
-                <h3 style="color:#141414">200元到20000元：一条消费升级的阶梯</h3>
+                <h3 style="color:#FFFFFF">200元到20000元：一条消费升级的阶梯</h3>
                 <p>宠物殡葬服务正在经历一条清晰的三级升级路径：</p>
                 <p><strong style="color:#00D4FF">基础层</strong>：集体火化 200-500元<br>满足"能处理"的基本需求，但无法取回骨灰。上海某门店20斤以内宠物集体火化价格为<strong>271元</strong>，广州某商家为<strong>289元</strong>。</p>
                 <p><strong style="color:#00D4FF">中层</strong>：单炉火化+告别仪式 1000-5000元<br>宠物主人可以全程陪同，有简单的仪式感，可以取回骨灰。北京海淀区某门店单炉火化<strong>781元</strong>，上海某门店<strong>766元</strong>，广州天河某商家<strong>953元</strong>（20-30斤）。</p>
@@ -829,7 +829,7 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:-1;
                 <div class="data-source" style="color:#AAAAAA;border-color:rgba(255,255,255,.06)">数据来源：新华社、南方都市报、法治日报、北京商报、央广网、澎湃新闻调查报道</div>
             </div>
             <div class="chart-wrapper" style="background:rgba(255,255,255,.03);border-color:rgba(255,255,255,.06)">
-                <div class="chart-title" style="color:#141414">告别之路</div>
+                <div class="chart-title" style="color:#FFFFFF">告别之路</div>
                 <div class="chart-subtitle" style="color:#AAAAAA">价格阶梯 · 服务层级</div>
                 <svg class="svg-chart" viewBox="0 0 500 350" preserveAspectRatio="xMidYMid meet">
     <defs>
@@ -840,17 +840,17 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:-1;
     </defs>
     <!-- Step 1: 基础层 -->
     <rect x="80" y="250" width="340" height="60" rx="8" fill="url(#stepGrad1)" stroke="rgba(168,152,136,0.2)" stroke-width="1" class="price-step" data-step="basic" style="cursor:pointer"/>
-    <text x="120" y="270" font-size="14" fill="#141414" font-weight="600">基础层</text>
+    <text x="120" y="270" font-size="14" fill="#FFFFFF" font-weight="600">基础层</text>
     <text x="120" y="290" font-size="12" fill="#D4C8B8">200-500元 · 集体火化</text>
     <text x="370" y="280" text-anchor="end" font-size="18" fill="#00D4FF" font-weight="700">200</text>
     <!-- Step 2: 中层 -->
     <rect x="80" y="170" width="340" height="60" rx="8" fill="url(#stepGrad2)" stroke="rgba(0,212,255,0.2)" stroke-width="1" class="price-step" data-step="mid" style="cursor:pointer"/>
-    <text x="120" y="190" font-size="14" fill="#141414" font-weight="600">中层</text>
+    <text x="120" y="190" font-size="14" fill="#FFFFFF" font-weight="600">中层</text>
     <text x="120" y="210" font-size="12" fill="#D4C8B8">1000-5000元 · 单炉火化+告别仪式</text>
     <text x="370" y="200" text-anchor="end" font-size="18" fill="#00D4FF" font-weight="700">1,000</text>
     <!-- Step 3: 顶层 -->
     <rect x="80" y="90" width="340" height="60" rx="8" fill="url(#stepGrad3)" stroke="rgba(0,212,255,0.2)" stroke-width="1" class="price-step" data-step="top" style="cursor:pointer"/>
-    <text x="120" y="110" font-size="14" fill="#141414" font-weight="600">顶层</text>
+    <text x="120" y="110" font-size="14" fill="#FFFFFF" font-weight="600">顶层</text>
     <text x="120" y="130" font-size="12" fill="#D4C8B8">5000-20000元 · 定制纪念品+生态葬</text>
     <text x="370" y="120" text-anchor="end" font-size="18" fill="#00D4FF" font-weight="700">5,000</text>
     <!-- Arrow -->
@@ -873,7 +873,7 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:-1;
 
         <div class="content-grid" style="margin-top:60px">
             <div class="chart-wrapper" style="background:rgba(255,255,255,.03);border-color:rgba(255,255,255,.06)">
-                <div class="chart-title" style="color:#141414">七城市宠物殡葬服务价格对比</div>
+                <div class="chart-title" style="color:#FFFFFF">七城市宠物殡葬服务价格对比</div>
                 <div class="chart-subtitle" style="color:#AAAAAA">基础火化价格 · 元</div>
                 <svg class="svg-chart" viewBox="0 0 600 280" preserveAspectRatio="xMidYMid meet">
                     <defs>
@@ -883,59 +883,59 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:-1;
                         <filter id="flameGlow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
                     </defs>
                     <!-- Ground line -->
-                    <line x1="40" y1="210" x2="580" y2="210" stroke="rgba(201,168,76,0.15)" stroke-width="1"/>
+                    <line x1="40" y1="210" x2="580" y2="210" stroke="rgba(0,212,255,0.15)" stroke-width="1"/>
                     <!-- 上海 600 - tallest monument -->
                     <g transform="translate(85, 55)" class="monument-group">
-                        <rect x="-18" y="0" width="36" height="155" rx="3" fill="url(#monGrad1)" stroke="rgba(201,168,76,0.15)" stroke-width="1"/>
-                        <rect x="-12" y="5" width="24" height="145" rx="2" fill="rgba(201,168,76,0.05)"/>
+                        <rect x="-18" y="0" width="36" height="155" rx="3" fill="url(#monGrad1)" stroke="rgba(0,212,255,0.15)" stroke-width="1"/>
+                        <rect x="-12" y="5" width="24" height="145" rx="2" fill="rgba(0,212,255,0.05)"/>
                         <text x="0" y="-8" text-anchor="middle" font-size="11" fill="#00D4FF" font-weight="700">600</text>
                         <ellipse cx="0" cy="-14" rx="5" ry="7" fill="#00D4FF" opacity="0.7" filter="url(#flameGlow)"/>
                     </g>
                     <text x="85" y="230" text-anchor="middle" font-size="10" fill="#666666">上海</text>
                     <!-- 北京 500 -->
                     <g transform="translate(160, 70)" class="monument-group">
-                        <rect x="-18" y="0" width="36" height="140" rx="3" fill="url(#monGrad2)" stroke="rgba(201,168,76,0.15)" stroke-width="1"/>
-                        <rect x="-12" y="5" width="24" height="130" rx="2" fill="rgba(201,168,76,0.05)"/>
+                        <rect x="-18" y="0" width="36" height="140" rx="3" fill="url(#monGrad2)" stroke="rgba(0,212,255,0.15)" stroke-width="1"/>
+                        <rect x="-12" y="5" width="24" height="130" rx="2" fill="rgba(0,212,255,0.05)"/>
                         <text x="0" y="-8" text-anchor="middle" font-size="11" fill="#00D4FF" font-weight="700">500</text>
                         <ellipse cx="0" cy="-14" rx="5" ry="7" fill="#00D4FF" opacity="0.6" filter="url(#flameGlow)"/>
                     </g>
                     <text x="160" y="230" text-anchor="middle" font-size="10" fill="#666666">北京</text>
                     <!-- 深圳 450 -->
                     <g transform="translate(235, 82)" class="monument-group">
-                        <rect x="-18" y="0" width="36" height="128" rx="3" fill="url(#monGrad3)" stroke="rgba(201,168,76,0.15)" stroke-width="1"/>
-                        <rect x="-12" y="5" width="24" height="118" rx="2" fill="rgba(201,168,76,0.05)"/>
+                        <rect x="-18" y="0" width="36" height="128" rx="3" fill="url(#monGrad3)" stroke="rgba(0,212,255,0.15)" stroke-width="1"/>
+                        <rect x="-12" y="5" width="24" height="118" rx="2" fill="rgba(0,212,255,0.05)"/>
                         <text x="0" y="-8" text-anchor="middle" font-size="11" fill="#00D4FF" font-weight="700">450</text>
                         <ellipse cx="0" cy="-14" rx="5" ry="7" fill="#00D4FF" opacity="0.5" filter="url(#flameGlow)"/>
                     </g>
                     <text x="235" y="230" text-anchor="middle" font-size="10" fill="#666666">深圳</text>
                     <!-- 广州 400 -->
                     <g transform="translate(310, 92)" class="monument-group">
-                        <rect x="-18" y="0" width="36" height="118" rx="3" fill="url(#monGrad2)" stroke="rgba(201,168,76,0.15)" stroke-width="1"/>
-                        <rect x="-12" y="5" width="24" height="108" rx="2" fill="rgba(201,168,76,0.05)"/>
+                        <rect x="-18" y="0" width="36" height="118" rx="3" fill="url(#monGrad2)" stroke="rgba(0,212,255,0.15)" stroke-width="1"/>
+                        <rect x="-12" y="5" width="24" height="108" rx="2" fill="rgba(0,212,255,0.05)"/>
                         <text x="0" y="-8" text-anchor="middle" font-size="11" fill="#00D4FF" font-weight="700">400</text>
                         <ellipse cx="0" cy="-14" rx="5" ry="7" fill="#00D4FF" opacity="0.45" filter="url(#flameGlow)"/>
                     </g>
                     <text x="310" y="230" text-anchor="middle" font-size="10" fill="#666666">广州</text>
                     <!-- 杭州 350 -->
                     <g transform="translate(385, 102)" class="monument-group">
-                        <rect x="-18" y="0" width="36" height="108" rx="3" fill="url(#monGrad3)" stroke="rgba(201,168,76,0.15)" stroke-width="1"/>
-                        <rect x="-12" y="5" width="24" height="98" rx="2" fill="rgba(201,168,76,0.05)"/>
+                        <rect x="-18" y="0" width="36" height="108" rx="3" fill="url(#monGrad3)" stroke="rgba(0,212,255,0.15)" stroke-width="1"/>
+                        <rect x="-12" y="5" width="24" height="98" rx="2" fill="rgba(0,212,255,0.05)"/>
                         <text x="0" y="-8" text-anchor="middle" font-size="11" fill="#00D4FF" font-weight="700">350</text>
                         <ellipse cx="0" cy="-14" rx="5" ry="7" fill="#00D4FF" opacity="0.4" filter="url(#flameGlow)"/>
                     </g>
                     <text x="385" y="230" text-anchor="middle" font-size="10" fill="#666666">杭州</text>
                     <!-- 成都 300 -->
                     <g transform="translate(460, 112)" class="monument-group">
-                        <rect x="-18" y="0" width="36" height="98" rx="3" fill="url(#monGrad2)" stroke="rgba(201,168,76,0.15)" stroke-width="1"/>
-                        <rect x="-12" y="5" width="24" height="88" rx="2" fill="rgba(201,168,76,0.05)"/>
+                        <rect x="-18" y="0" width="36" height="98" rx="3" fill="url(#monGrad2)" stroke="rgba(0,212,255,0.15)" stroke-width="1"/>
+                        <rect x="-12" y="5" width="24" height="88" rx="2" fill="rgba(0,212,255,0.05)"/>
                         <text x="0" y="-8" text-anchor="middle" font-size="11" fill="#00D4FF" font-weight="700">300</text>
                         <ellipse cx="0" cy="-14" rx="5" ry="7" fill="#00D4FF" opacity="0.35" filter="url(#flameGlow)"/>
                     </g>
                     <text x="460" y="230" text-anchor="middle" font-size="10" fill="#666666">成都</text>
                     <!-- 重庆 250 - smallest -->
                     <g transform="translate(535, 122)" class="monument-group">
-                        <rect x="-18" y="0" width="36" height="88" rx="3" fill="url(#monGrad3)" stroke="rgba(201,168,76,0.15)" stroke-width="1"/>
-                        <rect x="-12" y="5" width="24" height="78" rx="2" fill="rgba(201,168,76,0.05)"/>
+                        <rect x="-18" y="0" width="36" height="88" rx="3" fill="url(#monGrad3)" stroke="rgba(0,212,255,0.15)" stroke-width="1"/>
+                        <rect x="-12" y="5" width="24" height="78" rx="2" fill="rgba(0,212,255,0.05)"/>
                         <text x="0" y="-8" text-anchor="middle" font-size="11" fill="#00D4FF" font-weight="700">250</text>
                         <ellipse cx="0" cy="-14" rx="5" ry="7" fill="#00D4FF" opacity="0.3" filter="url(#flameGlow)"/>
                     </g>
@@ -950,7 +950,7 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:-1;
                 </svg>
             </div>
             <div class="content-text">
-                <h3 style="color:#141414">同一座城市，价格相差25倍</h3>
+                <h3 style="color:#FFFFFF">同一座城市，价格相差25倍</h3>
                 <p>我们整理了七个城市的宠物殡葬服务价格。集体火化（基础）的价格区间：<strong>200-600元</strong>。宠物墓地的价格区间：<strong>5000-50000元</strong>。</p>
                 <p>同一城市不同商家，基础火化的报价相差可达3倍。北京一家高端宠物殡葬店将服务分为"厚养薄葬"<strong>1499元</strong>、"尽善尽美"<strong>3999元</strong>、"不留遗憾"<strong>9999元</strong>三档。9999元套餐包含基础火化、全身干洗、3小时告别室、纪念照拍摄、新西兰灵魂沟通师30分钟疗愈，以及爪印、毛发吊坠、骨灰吊坠、镀金肖像等纪念品。</p>
                 <p>上海某宠物殡葬师透露，其店面基本每单价格都在<strong>2000元以上</strong>，每月都有两三单价格超万元的殡葬单。宠物墓地价格同样悬殊：福建某地有墓碑的单独树葬宠物墓地<strong>万元以上</strong>，联排墓地价格一个超<strong>6000元</strong>。</p>
@@ -960,13 +960,13 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:-1;
 
         <div class="content-grid" style="margin-top:60px">
             <div class="content-text">
-                <h3 style="color:#141414">同一城市，两种告别</h3>
+                <h3 style="color:#FFFFFF">同一城市，两种告别</h3>
                 <p>即便在同一座城市，选择"单独火化"还是"集体火化"，价格差距可达<strong>2.5-3倍</strong>。更关键的是，集体火化意味着你无法取回宠物的骨灰。</p>
                 <p>北京：单炉<strong>781元</strong> vs 集体<strong>291元</strong>（差2.7倍）<br>上海：单炉<strong>766元</strong> vs 集体<strong>271元</strong>（差2.8倍）<br>广州：单炉<strong>953元</strong> vs 集体<strong>289元</strong>（差3.3倍）<br>深圳：单炉约<strong>800元</strong> vs 集体约<strong>300元</strong>（差2.7倍）</p>
                 <p>这不仅是价格差异，更是<strong>"选择权"的差异</strong>——选择集体火化，意味着你放弃了一场单独告别的可能。</p>
             </div>
             <div class="chart-wrapper" style="background:rgba(255,255,255,.03);border-color:rgba(255,255,255,.06)">
-                <div class="chart-title" style="color:#141414">单炉 vs 集体火化价格</div>
+                <div class="chart-title" style="color:#FFFFFF">单炉 vs 集体火化价格</div>
                 <div class="chart-subtitle" style="color:#AAAAAA">典型城市对比 · 元</div>
                 <svg class="svg-chart" viewBox="0 0 500 260" preserveAspectRatio="xMidYMid meet">
                     <defs>
@@ -1054,7 +1054,7 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:-1;
                         <filter id="treeGlow2" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
                     </defs>
                     <!-- Ground line -->
-                    <line x1="50" y1="260" x2="550" y2="260" stroke="rgba(201,168,76,0.15)" stroke-width="1"/>
+                    <line x1="50" y1="260" x2="550" y2="260" stroke="rgba(0,212,255,0.15)" stroke-width="1"/>
                     <!-- 2010: Withered Tree -->
                     <g transform="translate(150, 260)">
                         <!-- Trunk -->
@@ -1073,8 +1073,8 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:-1;
                         <ellipse cx="-20" cy="12" rx="8" ry="4" fill="#666666" opacity="0.5" transform="rotate(-15)"/>
                         <ellipse cx="20" cy="12" rx="8" ry="4" fill="#666666" opacity="0.5" transform="rotate(10)"/>
                         <!-- Green leaves (cremate 10%) -->
-                        <ellipse cx="-22" cy="-78" rx="5" ry="3" fill="#4A7A6E" opacity="0.6" transform="rotate(-30)"/>
-                        <ellipse cx="22" cy="-78" rx="5" ry="3" fill="#4A7A6E" opacity="0.6" transform="rotate(30)"/>
+                        <ellipse cx="-22" cy="-78" rx="5" ry="3" fill="#00D4FF" opacity="0.6" transform="rotate(-30)"/>
+                        <ellipse cx="22" cy="-78" rx="5" ry="3" fill="#00D4FF" opacity="0.6" transform="rotate(30)"/>
                         <!-- Year label -->
                         <text x="0" y="45" text-anchor="middle" font-size="13" fill="#1E1E1E" font-weight="600">2010年</text>
                         <text x="0" y="60" text-anchor="middle" font-size="10" fill="#666666">70%丢弃</text>
@@ -1096,16 +1096,16 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:-1;
                         <path d="M -4,-35 L -30,-70" stroke="#5A4A3A" stroke-width="1.5" opacity="0.5"/>
                         <path d="M 4,-35 L 30,-70" stroke="#5A4A3A" stroke-width="1.5" opacity="0.5"/>
                         <!-- Green leaves canopy (cremate 68%) - dense -->
-                        <circle cx="-30" cy="-95" r="18" fill="#4A7A6E" opacity="0.5" filter="url(#treeGlow2)"/>
-                        <circle cx="30" cy="-95" r="18" fill="#4A7A6E" opacity="0.5" filter="url(#treeGlow2)"/>
-                        <circle cx="0" cy="-110" r="22" fill="#4A7A6E" opacity="0.6" filter="url(#treeGlow2)"/>
-                        <circle cx="-20" cy="-115" r="15" fill="#4A7A6E" opacity="0.4" filter="url(#treeGlow2)"/>
-                        <circle cx="20" cy="-115" r="15" fill="#4A7A6E" opacity="0.4" filter="url(#treeGlow2)"/>
-                        <circle cx="-35" cy="-70" r="14" fill="#4A7A6E" opacity="0.4" filter="url(#treeGlow2)"/>
-                        <circle cx="35" cy="-70" r="14" fill="#4A7A6E" opacity="0.4" filter="url(#treeGlow2)"/>
-                        <circle cx="0" cy="-80" r="20" fill="#4A7A6E" opacity="0.5" filter="url(#treeGlow2)"/>
-                        <circle cx="-15" cy="-85" r="12" fill="#4A7A6E" opacity="0.3" filter="url(#treeGlow2)"/>
-                        <circle cx="15" cy="-85" r="12" fill="#4A7A6E" opacity="0.3" filter="url(#treeGlow2)"/>
+                        <circle cx="-30" cy="-95" r="18" fill="#00D4FF" opacity="0.5" filter="url(#treeGlow2)"/>
+                        <circle cx="30" cy="-95" r="18" fill="#00D4FF" opacity="0.5" filter="url(#treeGlow2)"/>
+                        <circle cx="0" cy="-110" r="22" fill="#00D4FF" opacity="0.6" filter="url(#treeGlow2)"/>
+                        <circle cx="-20" cy="-115" r="15" fill="#00D4FF" opacity="0.4" filter="url(#treeGlow2)"/>
+                        <circle cx="20" cy="-115" r="15" fill="#00D4FF" opacity="0.4" filter="url(#treeGlow2)"/>
+                        <circle cx="-35" cy="-70" r="14" fill="#00D4FF" opacity="0.4" filter="url(#treeGlow2)"/>
+                        <circle cx="35" cy="-70" r="14" fill="#00D4FF" opacity="0.4" filter="url(#treeGlow2)"/>
+                        <circle cx="0" cy="-80" r="20" fill="#00D4FF" opacity="0.5" filter="url(#treeGlow2)"/>
+                        <circle cx="-15" cy="-85" r="12" fill="#00D4FF" opacity="0.3" filter="url(#treeGlow2)"/>
+                        <circle cx="15" cy="-85" r="12" fill="#00D4FF" opacity="0.3" filter="url(#treeGlow2)"/>
                         <!-- Gold flowers (new ways 12%) -->
                         <circle cx="-10" cy="-105" r="4" fill="#00D4FF" opacity="0.8" filter="url(#treeGlow2)"/>
                         <circle cx="10" cy="-100" r="3.5" fill="#00D4FF" opacity="0.8" filter="url(#treeGlow2)"/>
@@ -1120,7 +1120,7 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:-1;
                         <ellipse cx="30" cy="4" rx="4" ry="2" fill="#666666" opacity="0.3" transform="rotate(20)"/>
                         <!-- Year label -->
                         <text x="0" y="45" text-anchor="middle" font-size="13" fill="#1E1E1E" font-weight="600">2025年</text>
-                        <text x="0" y="60" text-anchor="middle" font-size="10" fill="#4A7A6E">68%火化</text>
+                        <text x="0" y="60" text-anchor="middle" font-size="10" fill="#00D4FF">68%火化</text>
                     </g>
                     <!-- Legend -->
                     <g transform="translate(100, 290)">
@@ -1128,7 +1128,7 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:-1;
                         <text x="15" y="4" font-size="11" fill="#666666">落叶/丢弃</text>
                     </g>
                     <g transform="translate(240, 290)">
-                        <circle cx="0" cy="0" r="6" fill="#4A7A6E" opacity="0.6"/>
+                        <circle cx="0" cy="0" r="6" fill="#00D4FF" opacity="0.6"/>
                         <text x="15" y="4" font-size="11" fill="#666666">绿叶/火化</text>
                     </g>
                     <g transform="translate(380, 290)">
@@ -1146,16 +1146,16 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:-1;
                 <div class="chart-subtitle" style="color:#666666">不同年龄群体宠物遗体处理方式 · 人</div>
                 <svg class="svg-chart" viewBox="0 0 500 280" preserveAspectRatio="xMidYMid meet">
                     <!-- Base line -->
-                    <line x1="60" y1="220" x2="440" y2="220" stroke="rgba(201,168,76,0.15)" stroke-width="1"/>
+                    <line x1="60" y1="220" x2="440" y2="220" stroke="rgba(0,212,255,0.15)" stroke-width="1"/>
                     <!-- 年轻人 40人 -->
                     <g transform="translate(120, 220)">
                         <rect x="-35" y="-160" width="70" height="160" rx="4" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="1"/>
                         <rect x="-35" y="-100" width="70" height="100" rx="0" fill="#666666" opacity="0.5"/>
-                        <rect x="-35" y="-160" width="70" height="60" rx="0" fill="#4A7A6E" opacity="0.7"/>
-                        <rect x="-35" y="-160" width="70" height="8" rx="4" fill="#4A7A6E" opacity="0.7"/>
+                        <rect x="-35" y="-160" width="70" height="60" rx="0" fill="#00D4FF" opacity="0.7"/>
+                        <rect x="-35" y="-160" width="70" height="8" rx="4" fill="#00D4FF" opacity="0.7"/>
                         <rect x="-35" y="-8" width="70" height="8" rx="4" fill="#666666" opacity="0.5"/>
-                        <text x="0" y="-115" text-anchor="middle" font-size="10" fill="#141414">25人</text>
-                        <text x="0" y="-145" text-anchor="middle" font-size="10" fill="#141414">15人</text>
+                        <text x="0" y="-115" text-anchor="middle" font-size="10" fill="#FFFFFF">25人</text>
+                        <text x="0" y="-145" text-anchor="middle" font-size="10" fill="#FFFFFF">15人</text>
                         <text x="0" y="15" text-anchor="middle" font-size="12" fill="#1E1E1E" font-weight="600">年轻人</text>
                         <text x="0" y="32" text-anchor="middle" font-size="10" fill="#666666">40人调查</text>
                     </g>
@@ -1163,17 +1163,17 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:-1;
                     <g transform="translate(320, 220)">
                         <rect x="-35" y="-116" width="70" height="116" rx="4" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="1"/>
                         <rect x="-35" y="-104" width="70" height="104" rx="0" fill="#666666" opacity="0.4"/>
-                        <rect x="-35" y="-116" width="70" height="12" rx="0" fill="#4A7A6E" opacity="0.6"/>
-                        <rect x="-35" y="-116" width="70" height="6" rx="3" fill="#4A7A6E" opacity="0.6"/>
+                        <rect x="-35" y="-116" width="70" height="12" rx="0" fill="#00D4FF" opacity="0.6"/>
+                        <rect x="-35" y="-116" width="70" height="6" rx="3" fill="#00D4FF" opacity="0.6"/>
                         <rect x="-35" y="-8" width="70" height="8" rx="4" fill="#666666" opacity="0.4"/>
-                        <text x="0" y="-55" text-anchor="middle" font-size="10" fill="#141414">26人</text>
-                        <text x="0" y="-110" text-anchor="middle" font-size="9" fill="#141414">3人</text>
+                        <text x="0" y="-55" text-anchor="middle" font-size="10" fill="#FFFFFF">26人</text>
+                        <text x="0" y="-110" text-anchor="middle" font-size="9" fill="#FFFFFF">3人</text>
                         <text x="0" y="15" text-anchor="middle" font-size="12" fill="#1E1E1E" font-weight="600">中老年人</text>
                         <text x="0" y="32" text-anchor="middle" font-size="10" fill="#666666">29人调查</text>
                     </g>
                     <line x1="220" y1="50" x2="220" y2="230" stroke="rgba(255,255,255,.06)" stroke-width="1" stroke-dasharray="4,4"/>
                     <rect x="140" y="250" width="12" height="8" rx="2" fill="#666666" opacity="0.6"/><text x="158" y="258" font-size="10" fill="#666666">土葬</text>
-                    <rect x="240" y="250" width="12" height="8" rx="2" fill="#4A7A6E" opacity="0.7"/><text x="258" y="258" font-size="10" fill="#666666">火化</text>
+                    <rect x="240" y="250" width="12" height="8" rx="2" fill="#00D4FF" opacity="0.7"/><text x="258" y="258" font-size="10" fill="#666666">火化</text>
                     <text x="250" y="275" text-anchor="middle" font-size="10" fill="#666666" opacity="0.6" font-style="italic">绿色占比，是选择"有尊严告别"的人</text>
                 </svg>
             </div>
@@ -1232,7 +1232,7 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:-1;
                     <!-- USA 68% - bright lamp -->
                     <ellipse cx="140" cy="50" rx="50" ry="50" fill="url(#brightGlow)" opacity="0.7"/>
                     <circle cx="140" cy="50" r="18" fill="#00D4FF" opacity="0.9" filter="url(#brightFlame)"/>
-                    <circle cx="140" cy="50" r="8" fill="#141414" opacity="0.6"/>
+                    <circle cx="140" cy="50" r="8" fill="#FFFFFF" opacity="0.6"/>
                     <rect x="136" y="70" width="8" height="20" rx="2" fill="#AAAAAA" opacity="0.5"/>
                     <rect x="132" y="90" width="16" height="4" rx="2" fill="#AAAAAA" opacity="0.3"/>
                     <text x="140" y="140" text-anchor="middle" font-size="14" fill="#00D4FF" font-weight="700">68%</text>
@@ -1240,17 +1240,17 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:-1;
                     <text x="140" y="240" text-anchor="middle" font-size="10" fill="#7A7A88">14.5亿美元</text>
                     <!-- Japan 45% - medium lamp -->
                     <ellipse cx="260" cy="80" rx="40" ry="40" fill="url(#mediumGlow)" opacity="0.7"/>
-                    <circle cx="260" cy="80" r="14" fill="#4A7A6E" opacity="0.9" filter="url(#brightFlame)"/>
-                    <circle cx="260" cy="80" r="6" fill="#141414" opacity="0.5"/>
+                    <circle cx="260" cy="80" r="14" fill="#00D4FF" opacity="0.9" filter="url(#brightFlame)"/>
+                    <circle cx="260" cy="80" r="6" fill="#FFFFFF" opacity="0.5"/>
                     <rect x="256" y="95" width="8" height="16" rx="2" fill="#AAAAAA" opacity="0.5"/>
                     <rect x="252" y="111" width="16" height="4" rx="2" fill="#AAAAAA" opacity="0.3"/>
-                    <text x="260" y="160" text-anchor="middle" font-size="14" fill="#4A7A6E" font-weight="700">45%</text>
+                    <text x="260" y="160" text-anchor="middle" font-size="14" fill="#00D4FF" font-weight="700">45%</text>
                     <text x="260" y="225" text-anchor="middle" font-size="12" fill="#B8B8C8">日本</text>
                     <text x="260" y="240" text-anchor="middle" font-size="10" fill="#7A7A88">1.8亿美元</text>
                     <!-- China 5% - dim candle -->
                     <ellipse cx="380" cy="170" rx="25" ry="25" fill="url(#dimGlow)" opacity="0.5"/>
                     <circle cx="380" cy="170" r="6" fill="#FF6B6B" opacity="0.8" filter="url(#brightFlame)"/>
-                    <circle cx="380" cy="170" r="3" fill="#141414" opacity="0.4"/>
+                    <circle cx="380" cy="170" r="3" fill="#FFFFFF" opacity="0.4"/>
                     <rect x="376" y="177" width="8" height="12" rx="2" fill="#AAAAAA" opacity="0.5"/>
                     <rect x="372" y="189" width="16" height="4" rx="2" fill="#AAAAAA" opacity="0.3"/>
                     <text x="380" y="140" text-anchor="middle" font-size="14" fill="#FF6B6B" font-weight="700">5%</text>
@@ -1277,7 +1277,7 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:-1;
                         <ellipse cx="0" cy="0" rx="55" ry="35" fill="#00D4FF" opacity="0.7" transform="rotate(-15)"/>
                         <ellipse cx="0" cy="0" rx="45" ry="25" fill="#00D4FF" opacity="0.4" transform="rotate(-15)"/>
                         <path d="M 0,0 L 0,-50" stroke="rgba(0,212,255,0.3)" stroke-width="1" transform="rotate(-15)"/>
-                        <text x="0" y="5" text-anchor="middle" font-size="16" fill="#141414" font-weight="700" transform="rotate(0)">40.25%</text>
+                        <text x="0" y="5" text-anchor="middle" font-size="16" fill="#FFFFFF" font-weight="700" transform="rotate(0)">40.25%</text>
                         <text x="0" y="25" text-anchor="middle" font-size="12" fill="#1E1E1E" transform="rotate(0)">华东</text>
                     </g>
                     <!-- 华北 15.14% -->
@@ -1285,7 +1285,7 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:-1;
                         <ellipse cx="0" cy="0" rx="30" ry="20" fill="#00D4FF" opacity="0.6"/>
                         <ellipse cx="0" cy="0" rx="22" ry="14" fill="#00D4FF" opacity="0.3"/>
                         <path d="M 0,0 L 0,-28" stroke="rgba(0,212,255,0.3)" stroke-width="1"/>
-                        <text x="0" y="4" text-anchor="middle" font-size="11" fill="#141414" font-weight="700" transform="rotate(-20)">15.14%</text>
+                        <text x="0" y="4" text-anchor="middle" font-size="11" fill="#FFFFFF" font-weight="700" transform="rotate(-20)">15.14%</text>
                         <text x="0" y="18" text-anchor="middle" font-size="9" fill="#B8B8C8" transform="rotate(-20)">华北</text>
                     </g>
                     <!-- 华南 14.15% -->
@@ -1293,7 +1293,7 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:-1;
                         <ellipse cx="0" cy="0" rx="28" ry="18" fill="#00D4FF" opacity="0.55"/>
                         <ellipse cx="0" cy="0" rx="20" ry="12" fill="#00D4FF" opacity="0.3"/>
                         <path d="M 0,0 L 0,-26" stroke="rgba(0,212,255,0.3)" stroke-width="1"/>
-                        <text x="0" y="4" text-anchor="middle" font-size="11" fill="#141414" font-weight="700" transform="rotate(25)">14.15%</text>
+                        <text x="0" y="4" text-anchor="middle" font-size="11" fill="#FFFFFF" font-weight="700" transform="rotate(25)">14.15%</text>
                         <text x="0" y="18" text-anchor="middle" font-size="9" fill="#B8B8C8" transform="rotate(25)">华南</text>
                     </g>
                     <!-- 华中 13.32% -->
@@ -1301,7 +1301,7 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:-1;
                         <ellipse cx="0" cy="0" rx="25" ry="16" fill="#00D4FF" opacity="0.5"/>
                         <ellipse cx="0" cy="0" rx="18" ry="10" fill="#00D4FF" opacity="0.25"/>
                         <path d="M 0,0 L 0,-24" stroke="rgba(0,212,255,0.3)" stroke-width="1"/>
-                        <text x="0" y="4" text-anchor="middle" font-size="11" fill="#141414" font-weight="700" transform="rotate(-10)">13.32%</text>
+                        <text x="0" y="4" text-anchor="middle" font-size="11" fill="#FFFFFF" font-weight="700" transform="rotate(-10)">13.32%</text>
                         <text x="0" y="18" text-anchor="middle" font-size="9" fill="#B8B8C8" transform="rotate(-10)">华中</text>
                     </g>
                     <!-- 西南 9% -->
@@ -1309,7 +1309,7 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:-1;
                         <ellipse cx="0" cy="0" rx="20" ry="14" fill="#00D4FF" opacity="0.45"/>
                         <ellipse cx="0" cy="0" rx="14" ry="8" fill="#00D4FF" opacity="0.2"/>
                         <path d="M 0,0 L 0,-18" stroke="rgba(0,212,255,0.3)" stroke-width="1"/>
-                        <text x="0" y="4" text-anchor="middle" font-size="10" fill="#141414" font-weight="700" transform="rotate(-35)">9%</text>
+                        <text x="0" y="4" text-anchor="middle" font-size="10" fill="#FFFFFF" font-weight="700" transform="rotate(-35)">9%</text>
                         <text x="0" y="16" text-anchor="middle" font-size="8" fill="#B8B8C8" transform="rotate(-35)">西南</text>
                     </g>
                     <!-- 东北 -->
@@ -1342,7 +1342,7 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:-1;
                 <div class="chart-title" style="color:#1E1E1E">六年，8000支蜡烛</div>
                 <div class="chart-subtitle" style="color:#666666">宠物殡葬企业注册数量增长</div>
                 <svg class="svg-chart" viewBox="0 0 500 260" preserveAspectRatio="xMidYMid meet">
-                    <line x1="50" y1="200" x2="450" y2="200" stroke="rgba(138,138,196,0.15)" stroke-width="1"/>
+                    <line x1="50" y1="200" x2="450" y2="200" stroke="rgba(0,212,255,0.15)" stroke-width="1"/>
                     <g transform="translate(100, 200)">
                         <rect x="-15" y="-25" width="30" height="25" rx="2" fill="rgba(0,212,255,0.3)" stroke="rgba(0,212,255,0.2)" stroke-width="1"/>
                         <ellipse cx="0" cy="-28" rx="4" ry="5" fill="#00D4FF" opacity="0.3"/>
@@ -1350,19 +1350,19 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:-1;
                         <text x="0" y="18" text-anchor="middle" font-size="11" fill="#B8B8C8">2019</text>
                     </g>
                     <g transform="translate(200, 200)">
-                        <rect x="-15" y="-78" width="30" height="78" rx="2" fill="rgba(138,138,196,0.45)" stroke="rgba(0,212,255,0.3)" stroke-width="1"/>
+                        <rect x="-15" y="-78" width="30" height="78" rx="2" fill="rgba(0,212,255,0.45)" stroke="rgba(0,212,255,0.3)" stroke-width="1"/>
                         <ellipse cx="0" cy="-82" rx="5" ry="6" fill="#00D4FF" opacity="0.5"/>
                         <text x="0" y="-90" text-anchor="middle" font-size="10" fill="#00D4FF">4459</text>
                         <text x="0" y="18" text-anchor="middle" font-size="11" fill="#B8B8C8">2023</text>
                     </g>
                     <g transform="translate(300, 200)">
-                        <rect x="-15" y="-90" width="30" height="90" rx="2" fill="rgba(201,168,76,0.45)" stroke="rgba(0,212,255,0.3)" stroke-width="1"/>
+                        <rect x="-15" y="-90" width="30" height="90" rx="2" fill="rgba(0,212,255,0.45)" stroke="rgba(0,212,255,0.3)" stroke-width="1"/>
                         <ellipse cx="0" cy="-95" rx="5" ry="7" fill="#00D4FF" opacity="0.6"/>
                         <text x="0" y="-106" text-anchor="middle" font-size="10" fill="#00D4FF">5135</text>
                         <text x="0" y="18" text-anchor="middle" font-size="11" fill="#B8B8C8">2024H1</text>
                     </g>
                     <g transform="translate(400, 200)">
-                        <rect x="-15" y="-140" width="30" height="140" rx="2" fill="rgba(201,168,76,0.6)" stroke="rgba(201,168,76,0.4)" stroke-width="1"/>
+                        <rect x="-15" y="-140" width="30" height="140" rx="2" fill="rgba(0,212,255,0.6)" stroke="rgba(0,212,255,0.4)" stroke-width="1"/>
                         <ellipse cx="0" cy="-146" rx="6" ry="8" fill="#00D4FF" opacity="0.8" filter="url(#brightFlame)"/>
                         <text x="0" y="-160" text-anchor="middle" font-size="11" fill="#00D4FF" font-weight="700">8000+</text>
                         <text x="0" y="18" text-anchor="middle" font-size="11" fill="#00D4FF">2025</text>
@@ -1449,38 +1449,38 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:-1;
                     <!-- Row 1 -->
                     <!-- France -->
                     <circle cx="60" cy="50" r="22" fill="url(#greenGlow)"/>
-                    <circle cx="60" cy="50" r="10" fill="#4A7A6E" opacity="0.9"/>
-                    <text x="60" y="90" text-anchor="middle" font-size="11" fill="#141414" font-weight="600">法国</text>
+                    <circle cx="60" cy="50" r="10" fill="#00D4FF" opacity="0.9"/>
+                    <text x="60" y="90" text-anchor="middle" font-size="11" fill="#FFFFFF" font-weight="600">法国</text>
                     <text x="60" y="105" text-anchor="middle" font-size="9" fill="#666666">强制火化</text>
                     <!-- Singapore -->
                     <circle cx="160" cy="50" r="22" fill="url(#greenGlow)"/>
-                    <circle cx="160" cy="50" r="10" fill="#4A7A6E" opacity="0.9"/>
-                    <text x="160" y="90" text-anchor="middle" font-size="11" fill="#141414" font-weight="600">新加坡</text>
+                    <circle cx="160" cy="50" r="10" fill="#00D4FF" opacity="0.9"/>
+                    <text x="160" y="90" text-anchor="middle" font-size="11" fill="#FFFFFF" font-weight="600">新加坡</text>
                     <text x="160" y="105" text-anchor="middle" font-size="9" fill="#666666">强制火化</text>
                     <!-- UK -->
                     <circle cx="260" cy="50" r="22" fill="url(#blueGlow)"/>
                     <circle cx="260" cy="50" r="10" fill="#00D4FF" opacity="0.9"/>
-                    <text x="260" y="90" text-anchor="middle" font-size="11" fill="#141414" font-weight="600">英国</text>
+                    <text x="260" y="90" text-anchor="middle" font-size="11" fill="#FFFFFF" font-weight="600">英国</text>
                     <text x="260" y="105" text-anchor="middle" font-size="9" fill="#666666">300+家公司</text>
                     <!-- Row 2 -->
                     <!-- Japan -->
                     <circle cx="85" cy="140" r="22" fill="url(#blueGlow)"/>
                     <circle cx="85" cy="140" r="10" fill="#00D4FF" opacity="0.9"/>
-                    <text x="85" y="180" text-anchor="middle" font-size="11" fill="#141414" font-weight="600">日本</text>
+                    <text x="85" y="180" text-anchor="middle" font-size="11" fill="#FFFFFF" font-weight="600">日本</text>
                     <text x="85" y="195" text-anchor="middle" font-size="9" fill="#666666">寺庙诵经服务</text>
                     <!-- Russia -->
                     <circle cx="210" cy="140" r="22" fill="url(#yellowGlow)"/>
                     <circle cx="210" cy="140" r="10" fill="#00D4FF" opacity="0.9"/>
-                    <text x="210" y="180" text-anchor="middle" font-size="11" fill="#141414" font-weight="600">俄罗斯</text>
+                    <text x="210" y="180" text-anchor="middle" font-size="11" fill="#FFFFFF" font-weight="600">俄罗斯</text>
                     <text x="210" y="195" text-anchor="middle" font-size="9" fill="#666666">专门墓地</text>
                     <!-- China -->
                     <circle cx="340" cy="140" r="22" fill="url(#redGlow)"/>
                     <circle cx="340" cy="140" r="10" fill="#FF6B6B" opacity="0.9"/>
-                    <text x="340" y="180" text-anchor="middle" font-size="11" fill="#141414" font-weight="600">中国</text>
+                    <text x="340" y="180" text-anchor="middle" font-size="11" fill="#FFFFFF" font-weight="600">中国</text>
                     <text x="340" y="195" text-anchor="middle" font-size="9" fill="#666666">仅有防疫法</text>
                     <!-- Legend -->
                     <g transform="translate(420, 30)">
-                        <circle cx="0" cy="0" r="5" fill="#4A7A6E"/><text x="12" y="4" font-size="9" fill="#666666">立法强制</text>
+                        <circle cx="0" cy="0" r="5" fill="#00D4FF"/><text x="12" y="4" font-size="9" fill="#666666">立法强制</text>
                         <circle cx="0" cy="18" r="5" fill="#00D4FF"/><text x="12" y="22" font-size="9" fill="#666666">成熟服务</text>
                         <circle cx="0" cy="36" r="5" fill="#00D4FF"/><text x="12" y="40" font-size="9" fill="#666666">专门设施</text>
                         <circle cx="0" cy="54" r="5" fill="#FF6B6B"/><text x="12" y="58" font-size="9" fill="#666666">无法可依</text>
@@ -1791,7 +1791,7 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
           const div = document.createElement('div');
           div.className = 'number-story';
-          div.style.cssText = 'margin-top:12px;padding-top:12px;border-top:1px solid rgba(61,46,36,.08);font-size:12px;color:#FF6B6B;font-style:italic;animation:fadeInUp 0.5s ease';
+          div.style.cssText = 'margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);font-size:12px;color:#FF6B6B;font-style:italic;animation:fadeInUp 0.5s ease';
           div.textContent = story;
           this.appendChild(div);
         }
